@@ -1,0 +1,149 @@
+digraph "Simple Database Schema" {
+  graph [pad="0.5", nodesep="0.5", ranksep="2", splines=ortho];
+  node [shape=record, fontname="Arial", fontsize=10];
+  edge [fontname="Arial", fontsize=8];
+  
+  // Estilo
+  rankdir=LR;
+  
+  // Usuários e Perfis
+  perfis [label="{perfis|id: serial\lnome: varchar\ldescricao: text\lpermissoes: jsonb\l}"];
+  usuarios [label="{usuarios|id: uuid\lnome: varchar\lemail: varchar\lsenha: varchar\lperfil_id: integer\lativo: boolean\l}"];
+  
+  // Cidadãos
+  cidadaos [label="{cidadaos|id: uuid\lnome: varchar\ltipo_documento: varchar\lnumero_documento: varchar\lemail: varchar\ltelefone: varchar\lendereco: text\l}"];
+  
+  // Serviços
+  categorias_servicos [label="{categorias_servicos|id: serial\lnome: varchar\ldescricao: text\licone: varchar\lcor: varchar\lordem: integer\lativo: boolean\l}"];
+  tipos_servicos [label="{tipos_servicos|id: serial\lcategoria_id: integer\lcodigo: varchar\lnome: varchar\ldescricao: text\lprazo_estimado: integer\lvalor_base: decimal\lrequer_vistoria: boolean\lativo: boolean\l}"];
+  
+  // Etapas de Processo
+  etapas_processo [label="{etapas_processo|id: serial\ltipo_servico_id: integer\lcodigo: varchar\lnome: varchar\ldescricao: text\lordem: integer\ltempo_estimado: integer\lrequer_documento: boolean\lrequer_pagamento: boolean\lrequer_aprovacao: boolean\lperfil_responsavel_id: integer\letapa_anterior_id: integer\l}"];
+  
+  // Documentos
+  tipos_documentos [label="{tipos_documentos|id: serial\lcodigo: varchar\lnome: varchar\ldescricao: text\lformato_permitido: varchar\ltamanho_maximo: integer\lobrigatorio: boolean\lativo: boolean\l}"];
+  documentos_servico [label="{documentos_servico|id: serial\ltipo_servico_id: integer\ltipo_documento_id: integer\letapa_processo_id: integer\lobrigatorio: boolean\l}"];
+  
+  // Status
+  status_pedido [label="{status_pedido|id: serial\lcodigo: varchar\lnome: varchar\ldescricao: text\lcor: varchar\licone: varchar\lordem: integer\lvisivel_portal: boolean\l}"];
+  
+  // Pedidos
+  pedidos [label="{pedidos|id: uuid\lcodigo_acompanhamento: varchar\ltipo_servico_id: integer\lcidadao_id: uuid\lusuario_criacao_id: uuid\lusuario_responsavel_id: uuid\letapa_atual_id: integer\lstatus_id: integer\ldata_inicio: timestamp\ldata_previsao: timestamp\ldata_conclusao: timestamp\lobservacoes: text\lvalor_total: decimal\lorigem: varchar\lprioridade: integer\l}"];
+  
+  // Histórico
+  historico_pedidos [label="{historico_pedidos|id: serial\lpedido_id: uuid\letapa_processo_id: integer\lstatus_id: integer\lusuario_id: uuid\ldata_ocorrencia: timestamp\lobservacao: text\ldados_anteriores: jsonb\ldados_novos: jsonb\ltempo_execucao: integer\l}"];
+  
+  // Documentos de Pedido
+  documentos_pedido [label="{documentos_pedido|id: uuid\lpedido_id: uuid\ltipo_documento_id: integer\letapa_processo_id: integer\lusuario_id: uuid\lnome_arquivo: varchar\lcaminho_arquivo: varchar\ltamanho_arquivo: integer\ltipo_mime: varchar\lhash_arquivo: varchar\lobservacao: text\laprovado: boolean\ldata_aprovacao: timestamp\lusuario_aprovacao_id: uuid\l}"];
+  
+  // Pagamentos
+  pagamentos [label="{pagamentos|id: uuid\lpedido_id: uuid\letapa_processo_id: integer\ltipo: varchar\ldescricao: text\lvalor: decimal\ldata_vencimento: date\ldata_pagamento: date\lcodigo_barras: varchar\llink_pagamento: varchar\lstatus: varchar\lcomprovante_id: uuid\lparcelado: boolean\lnumero_parcelas: integer\l}"];
+  parcelas_pagamento [label="{parcelas_pagamento|id: uuid\lpagamento_id: uuid\lnumero_parcela: integer\lvalor: decimal\ldata_vencimento: date\ldata_pagamento: date\lcodigo_barras: varchar\llink_pagamento: varchar\lstatus: varchar\lcomprovante_id: uuid\l}"];
+  
+  // Vistorias
+  vistorias [label="{vistorias|id: uuid\lpedido_id: uuid\letapa_processo_id: integer\lusuario_responsavel_id: uuid\ldata_agendada: timestamp\ldata_realizada: timestamp\lstatus: varchar\lresultado: varchar\lobservacoes: text\llatitude: decimal\llongitude: decimal\l}"];
+  fotos_vistoria [label="{fotos_vistoria|id: uuid\lvistoria_id: uuid\lnome_arquivo: varchar\lcaminho_arquivo: varchar\ltamanho_arquivo: integer\ltipo_mime: varchar\ldescricao: text\llatitude: decimal\llongitude: decimal\ldata_captura: timestamp\l}"];
+  
+  // Lotes
+  lotes [label="{lotes|id: uuid\lcodigo: varchar\lquadra: varchar\lnumero: varchar\larea: decimal\lendereco: text\lbairro: varchar\lcidade: varchar\lestado: varchar\lcep: varchar\llatitude: decimal\llongitude: decimal\lsituacao: varchar\lvalor_base: decimal\lobservacoes: text\l}"];
+  pedidos_lotes [label="{pedidos_lotes|id: serial\lpedido_id: uuid\llote_id: uuid\ltipo_relacao: varchar\l}"];
+  
+  // Plantas
+  plantas_emitidas [label="{plantas_emitidas|id: uuid\lpedido_id: uuid\llote_id: uuid\ltipo: varchar\lnumero_documento: varchar\ldata_emissao: timestamp\ldata_validade: timestamp\lusuario_emissor_id: uuid\ldocumento_id: uuid\lobservacoes: text\l}"];
+  
+  // Eventos
+  eventos [label="{eventos|id: uuid\lpedido_id: uuid\lnome: varchar\ldescricao: text\ldata_inicio: timestamp\ldata_fim: timestamp\llocal: text\lcapacidade: integer\ltipo_evento: varchar\lresponsavel: varchar\lcontato_responsavel: varchar\lstatus: varchar\lobservacoes: text\l}"];
+  
+  // Favoritos
+  favoritos [label="{favoritos|id: serial\lusuario_id: uuid\ltipo_servico_id: integer\lordem: integer\l}"];
+  
+  // Notificações
+  notificacoes [label="{notificacoes|id: uuid\lusuario_id: uuid\lcidadao_id: uuid\lpedido_id: uuid\ltitulo: varchar\lmensagem: text\ltipo: varchar\llida: boolean\ldata_leitura: timestamp\lenviada_email: boolean\lenviada_sms: boolean\l}"];
+  
+  // Configurações
+  configuracoes [label="{configuracoes|chave: varchar\lvalor: text\ldescricao: text\ltipo: varchar\lgrupo: varchar\leditavel: boolean\l}"];
+  
+  // Logs
+  logs_sistema [label="{logs_sistema|id: serial\lusuario_id: uuid\lacao: varchar\ltabela: varchar\lregistro_id: varchar\ldados: jsonb\lip: varchar\luser_agent: text\l}"];
+  
+  // Relacionamentos
+  
+  // Usuários e Perfis
+  perfis -> usuarios [label="1:N"];
+  
+  // Categorias e Tipos de Serviços
+  categorias_servicos -> tipos_servicos [label="1:N"];
+  
+  // Tipos de Serviços e Etapas
+  tipos_servicos -> etapas_processo [label="1:N"];
+  etapas_processo -> etapas_processo [label="anterior:próxima"];
+  perfis -> etapas_processo [label="responsável"];
+  
+  // Documentos por Serviço
+  tipos_servicos -> documentos_servico [label="1:N"];
+  tipos_documentos -> documentos_servico [label="1:N"];
+  etapas_processo -> documentos_servico [label="0:N"];
+  
+  // Pedidos
+  tipos_servicos -> pedidos [label="1:N"];
+  cidadaos -> pedidos [label="1:N"];
+  usuarios -> pedidos [label="criação"];
+  usuarios -> pedidos [label="responsável"];
+  etapas_processo -> pedidos [label="etapa atual"];
+  status_pedido -> pedidos [label="1:N"];
+  
+  // Histórico de Pedidos
+  pedidos -> historico_pedidos [label="1:N"];
+  etapas_processo -> historico_pedidos [label="0:N"];
+  status_pedido -> historico_pedidos [label="1:N"];
+  usuarios -> historico_pedidos [label="1:N"];
+  
+  // Documentos de Pedido
+  pedidos -> documentos_pedido [label="1:N"];
+  tipos_documentos -> documentos_pedido [label="1:N"];
+  etapas_processo -> documentos_pedido [label="0:N"];
+  usuarios -> documentos_pedido [label="1:N"];
+  usuarios -> documentos_pedido [label="aprovação"];
+  
+  // Pagamentos
+  pedidos -> pagamentos [label="1:N"];
+  etapas_processo -> pagamentos [label="0:N"];
+  documentos_pedido -> pagamentos [label="comprovante"];
+  
+  // Parcelas
+  pagamentos -> parcelas_pagamento [label="1:N"];
+  documentos_pedido -> parcelas_pagamento [label="comprovante"];
+  
+  // Vistorias
+  pedidos -> vistorias [label="1:N"];
+  etapas_processo -> vistorias [label="0:N"];
+  usuarios -> vistorias [label="responsável"];
+  
+  // Fotos de Vistoria
+  vistorias -> fotos_vistoria [label="1:N"];
+  
+  // Lotes e Pedidos
+  pedidos -> pedidos_lotes [label="1:N"];
+  lotes -> pedidos_lotes [label="1:N"];
+  
+  // Plantas Emitidas
+  pedidos -> plantas_emitidas [label="1:N"];
+  lotes -> plantas_emitidas [label="0:N"];
+  usuarios -> plantas_emitidas [label="emissor"];
+  documentos_pedido -> plantas_emitidas [label="documento"];
+  
+  // Eventos
+  pedidos -> eventos [label="1:N"];
+  
+  // Favoritos
+  usuarios -> favoritos [label="1:N"];
+  tipos_servicos -> favoritos [label="1:N"];
+  
+  // Notificações
+  usuarios -> notificacoes [label="0:N"];
+  cidadaos -> notificacoes [label="0:N"];
+  pedidos -> notificacoes [label="0:N"];
+  
+  // Logs
+  usuarios -> logs_sistema [label="0:N"];
+}
