@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PedidoRequest {
     @NotNull(message = "Tipo de serviço é obrigatório")
-    private Long tipoServicoId;
+    private Integer tipoServicoId;
     
     @NotNull(message = "Cidadão é obrigatório")
     private UUID cidadaoId;

@@ -24,5 +24,5 @@ public class UsuarioRequest {
     private String senha;
     
     @NotNull(message = "Perfil é obrigatório")
-    private Long perfilId;
+    private Integer perfilId;
 }

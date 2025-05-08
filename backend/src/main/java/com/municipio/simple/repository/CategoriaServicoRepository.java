@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CategoriaServicoRepository extends JpaRepository<CategoriaServico, Long> {
+public interface CategoriaServicoRepository extends JpaRepository<CategoriaServico, Integer> {
     List<CategoriaServico> findByAtivoTrueOrderByOrdem();
 }

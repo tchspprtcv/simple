@@ -1,10 +1,12 @@
 package com.municipio.simple.entity;
 
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -17,14 +19,15 @@ import java.time.LocalDateTime;
 public class Perfil {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, unique = true)
     private String nome;
 
     private String descricao;
 
-    @Column(nullable = false, columnDefinition = "jsonb default '{}'::jsonb")
+    @Type(JsonType.class) // Add this annotation
+    @Column(nullable = false, columnDefinition = "jsonb") // Specify columnDefinition as jsonb
     private String permissoes;
 
     @CreationTimestamp

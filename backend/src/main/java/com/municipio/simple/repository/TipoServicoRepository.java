@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TipoServicoRepository extends JpaRepository<TipoServico, Long> {
+public interface TipoServicoRepository extends JpaRepository<TipoServico, Integer> {
     List<TipoServico> findByAtivoTrueOrderByNome();
     List<TipoServico> findByCategoriaAndAtivoTrue(CategoriaServico categoria);
     Optional<TipoServico> findByCodigo(String codigo);

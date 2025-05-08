@@ -1,0 +1,78 @@
+@startuml Fluxo de Dados do Sistema Simple
+skinparam linetype ortho
+
+actor "Usuário" as user
+actor "Cidadão" as citizen
+actor "Técnico" as tech
+actor "Gestor" as manager
+
+rectangle "Sistema Simple" {
+  rectangle "Autenticação" as auth {
+    (Login) as login
+    (Validação de Token) as validate
+  }
+  
+  rectangle "Gestão de Pedidos" as orders {
+    (Criar Pedido) as createOrder
+    (Consultar Pedido) as queryOrder
+    (Atualizar Status) as updateStatus
+    (Atribuir Responsável) as assignTech
+  }
+  
+  rectangle "Gestão de Cidadãos" as citizens {
+    (Cadastrar Cidadão) as registerCitizen
+    (Consultar Cidadão) as queryCitizen
+  }
+  
+  rectangle "Configuração" as config {
+    (Gerenciar Tipos de Serviço) as manageServiceTypes
+    (Gerenciar Categorias) as manageCategories
+  }
+}
+
+database "Banco de Dados" as db
+
+' Fluxos de Autenticação
+user --> login : Credenciais (email/senha)
+login --> db : Consulta usuário
+login --> user : Token JWT
+
+' Fluxos de Pedidos
+user --> validate : Token JWT
+validate --> user : Autorização
+user --> createOrder : Dados do pedido
+createOrder --> db : Persiste pedido
+createOrder --> user : Código de acompanhamento
+
+citizen --> queryOrder : Código de acompanhamento
+queryOrder --> db : Consulta pedido
+queryOrder --> citizen : Detalhes do pedido
+
+tech --> updateStatus : Novo status
+updateStatus --> db : Atualiza status
+updateStatus --> tech : Confirmação
+
+manager --> assignTech : ID do pedido + ID do técnico
+assignTech --> db : Atualiza responsável
+assignTech --> tech : Notificação
+assignTech --> manager : Confirmação
+
+' Fluxos de Cidadãos
+user --> registerCitizen : Dados do cidadão
+registerCitizen --> db : Persiste cidadão
+registerCitizen --> user : ID do cidadão
+
+user --> queryCitizen : Filtros de busca
+queryCitizen --> db : Consulta cidadãos
+queryCitizen --> user : Lista de cidadãos
+
+' Fluxos de Configuração
+manager --> manageServiceTypes : Dados do tipo de serviço
+manageServiceTypes --> db : Persiste tipo de serviço
+manageServiceTypes --> manager : Confirmação
+
+manager --> manageCategories : Dados da categoria
+manageCategories --> db : Persiste categoria
+manageCategories --> manager : Confirmação
+
+@enduml

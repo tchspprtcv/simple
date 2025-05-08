@@ -20,4 +20,5 @@ public interface PedidoRepository extends JpaRepository<Pedido, UUID> {
     Page<Pedido> findByStatus(StatusPedido status, Pageable pageable);
     Page<Pedido> findByTipoServico(TipoServico tipoServico, Pageable pageable);
     List<Pedido> findTop10ByCidadaoOrderByCriadoEmDesc(Cidadao cidadao);
+    Page<Pedido> findByUsuarioCriacao(com.municipio.simple.entity.Usuario usuarioCriacao, Pageable pageable);
 }

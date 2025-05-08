@@ -32,11 +32,17 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                // CORS agora é tratado pelo CorsFilter em CorsConfig.java
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/auth/**", 
+                                                    "/v3/api-docs/**", 
+                                                    "/swagger-ui/**", 
+                                                    "/swagger-ui.html",
+                                                    "/pedidos/codigo/**",
+                                                    "/configuracoes").permitAll() // Public endpoints
+                        .requestMatchers("/favoritos/**").authenticated() // Requer autenticação para favoritos
+                        .requestMatchers("/**").authenticated() // Secure API endpoints
+                        .anyRequest().denyAll() // Deny any other requests by default
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
@@ -45,15 +51,5 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
-        configuration.setExposedHeaders(List.of("x-auth-token"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+    // Removido: A configuração de CORS foi movida para CorsConfig.java
 }

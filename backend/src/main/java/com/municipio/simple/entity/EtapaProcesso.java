@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class EtapaProcesso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "tipo_servico_id", nullable = false)

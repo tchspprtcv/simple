@@ -50,6 +50,14 @@ public class PedidoService {
                 .map(this::mapToResponse);
     }
 
+    public Page<PedidoResponse> findByUsuarioLogado(Pageable pageable) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario usuarioLogado = usuarioRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+        return pedidoRepository.findByUsuarioCriacao(usuarioLogado, pageable)
+                .map(this::mapToResponse);
+    }
+
     public PedidoResponse create(PedidoRequest request) {
         Cidadao cidadao = cidadaoRepository.findById(request.getCidadaoId())
                 .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado"));

@@ -46,6 +46,12 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.findByCidadao(cidadaoId, pageable));
     }
 
+    @GetMapping("/meus-pedidos")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Page<PedidoResponse>> findByUsuarioLogado(Pageable pageable) {
+        return ResponseEntity.ok(pedidoService.findByUsuarioLogado(pageable));
+    }
+
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ATENDENTE')")
     public ResponseEntity<PedidoResponse> create(@RequestBody @Valid PedidoRequest request) {
