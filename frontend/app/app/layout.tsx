@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import Navbar from "@/components/navbar"
 import { AuthProvider } from "@/lib/auth-context"
+import Providers from "@/components/providers"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,12 +21,13 @@ export default function RootLayout({
   return (
     <html lang="pt">
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
           <AuthProvider>
             <Navbar />
             <main className="container mx-auto px-4 py-8">
@@ -34,6 +36,7 @@ export default function RootLayout({
             <Toaster />
           </AuthProvider>
         </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )

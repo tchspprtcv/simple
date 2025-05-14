@@ -63,7 +63,7 @@ export default function Home() {
                   Conheça como nosso sistema está organizado para melhor atender suas necessidades
                 </p>
                 <Image
-                  src="/er_diagram.png"
+                  src="../app/er_diagram.png"
                   alt="Diagrama ER do Sistema"
                   width={500}
                   height={300}

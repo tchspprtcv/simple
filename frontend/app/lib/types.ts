@@ -67,14 +67,13 @@ export interface Cidadao {
 }
 
 export interface TipoServico {
-  isFavorito: any;
-  categoriaNome: any;
   id: number;
   codigo: string;
   nome: string;
   descricao?: string;
-  // categoria: string; // Removido, usar categoriaId e categoriaNome
-  categoriaId: number; // Adicionado para referenciar CategoriaServico
+  categoriaId: number;
+  categoriaNome: string;
+  isFavorito: boolean;
   prazoEstimado?: number;
   valorBase?: number;
   requerVistoria: boolean;
@@ -209,4 +208,34 @@ export interface TrackingResponse {
   success: boolean;
   data?: RequestStatus;
   error?: string;
+}
+
+export interface StatusPedidoResponse {
+  id: number;
+  nome: string;
+  descricao?: string;
+  criadoEm: string;
+  atualizadoEm: string;
+}
+
+export interface CategoriaServicoResponse {
+  id: number;
+  nome: string;
+  descricao?: string;
+  criadoEm: string;
+  atualizadoEm: string;
+}
+
+export interface PerfilResponse {
+  id: number;
+  nome: string;
+  descricao?: string;
+  criadoEm: string;
+  atualizadoEm: string;
+}
+
+export interface ConfiguracaoResponse {
+  statusPedido: StatusPedidoResponse[];
+  categoriasServico: CategoriaServicoResponse[];
+  perfis: PerfilResponse[];
 }

@@ -22,7 +22,8 @@ import {
   TipoServico,
   CategoriaServico, // Adicionado CategoriaServico para importação
   UsuarioRequest,
-  UsuarioResponse
+  UsuarioResponse,
+  ConfiguracaoResponse
 } from './types';
 
 // Cliente axios configurado
@@ -113,6 +114,18 @@ export const login = async (credentials: AuthRequest): Promise<AuthResponse> => 
       // Salva o token como cookie
       document.cookie = `token=${response.data.token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`; // Expira em 7 dias
     }
+    return response.data;
+  } catch (error) {
+    throw handleApiError(error as AxiosError);
+  }
+};
+
+/**
+ * Atualiza um tipo de serviço existente
+ */
+export const updateTipoServico = async (id: number, serviceData: Partial<TipoServico>): Promise<TipoServico> => {
+  try {
+    const response = await apiClient.put<TipoServico>(`/tipos-servicos/${id}`, serviceData);
     return response.data;
   } catch (error) {
     throw handleApiError(error as AxiosError);
@@ -348,7 +361,7 @@ export const createTipoServico = async (serviceData: Omit<TipoServico, 'id'>): P
     throw handleApiError(error as AxiosError);
   }
 };
-
+  
 // Funções CRUD para CategoriaServico
 /**
  * Lista todas as categorias de serviços
@@ -486,7 +499,7 @@ export const listPedidosDoUsuarioLogado = async (
     throw handleApiError(error as AxiosError);
   }
 };
-
+  
 export const listDashboardItems = async (
   page: number = 0,
   size: number = 10
@@ -501,6 +514,18 @@ export const listDashboardItems = async (
   }
 };
 
+/**
+ * Obtém todas as configurações do sistema
+ */
+export const getConfiguracoes = async (): Promise<ConfiguracaoResponse> => {
+  try {
+    const response = await apiClient.get<ConfiguracaoResponse>('/configuracoes');
+    return response.data;
+  } catch (error) {
+    throw handleApiError(error as AxiosError);
+  }
+};
+  
 // Re-exportar os tipos para facilitar o uso
 export type {
   ApiError,
@@ -515,8 +540,13 @@ export type {
   RequestStatus,
   RequestType,
   TipoServico,
-  CategoriaServico, // Adicionado CategoriaServico para re-exportação
+  CategoriaServico,
   UsuarioRequest,
-  UsuarioResponse
+  UsuarioResponse,
+  ConfiguracaoResponse // Adicionado ConfiguracaoResponse para re-exportação
 };
+
+
+
+ 
 
