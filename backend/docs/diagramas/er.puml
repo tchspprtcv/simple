@@ -1,0 +1,95 @@
+@startuml Diagrama ER do Sistema Simple
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
+entity "Usuario" as usuario {
+  * id : UUID
+  --
+  * email : String
+  * senha : String
+  * nome : String
+  * ativo : boolean
+  * ultimoAcesso : LocalDateTime
+  * criadoEm : LocalDateTime
+}
+
+entity "Perfil" as perfil {
+  * id : Long
+  --
+  * nome : String
+  * codigo : String
+  * descricao : String
+}
+
+entity "Cidadao" as cidadao {
+  * id : UUID
+  --
+  * nome : String
+  * documento : String
+  * email : String
+  * telefone : String
+  * endereco : String
+  * criadoEm : LocalDateTime
+}
+
+entity "Pedido" as pedido {
+  * id : UUID
+  --
+  * codigoAcompanhamento : String
+  * dataInicio : LocalDateTime
+  * dataPrevisao : LocalDateTime
+  * dataConclusao : LocalDateTime
+  * observacoes : String
+  * valorTotal : BigDecimal
+  * origem : String
+  * prioridade : Integer
+  * criadoEm : LocalDateTime
+}
+
+entity "StatusPedido" as statusPedido {
+  * id : Long
+  --
+  * nome : String
+  * codigo : String
+  * descricao : String
+  * cor : String
+}
+
+entity "CategoriaServico" as categoriaServico {
+  * id : Long
+  --
+  * nome : String
+  * descricao : String
+  * ativo : boolean
+}
+
+entity "TipoServico" as tipoServico {
+  * id : Long
+  --
+  * nome : String
+  * descricao : String
+  * prazoEstimado : Integer
+  * valorBase : BigDecimal
+  * ativo : boolean
+}
+
+entity "Favorito" as favorito {
+  * id : UUID
+  --
+  * criadoEm : LocalDateTime
+}
+
+usuario "1" -- "N" perfil : possui >
+usuario "1" -- "N" pedido : cria >
+usuario "1" -- "N" pedido : responsável >
+usuario "1" -- "N" favorito : possui >
+
+cidadao "1" -- "N" pedido : solicita >
+
+pedido "N" -- "1" statusPedido : possui >
+pedido "N" -- "1" tipoServico : é do tipo >
+
+tipoServico "N" -- "1" categoriaServico : pertence >
+tipoServico "1" -- "N" favorito : é favoritado >
+
+@enduml

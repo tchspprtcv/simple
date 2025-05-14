@@ -1,0 +1,89 @@
+@startuml Diagrama de Componentes do Sistema Simple
+skinparam componentStyle rectangle
+skinparam linetype ortho
+
+package "Sistema Simple" {
+  package "Módulo de Autenticação" {
+    [AuthController] as authCtrl
+    [AuthService] as authSrv
+    [JwtTokenProvider] as jwtProvider
+    [JwtAuthenticationFilter] as jwtFilter
+    [SecurityConfig] as secConfig
+    
+    authCtrl --> authSrv
+    authSrv --> jwtProvider
+    jwtFilter --> jwtProvider
+    secConfig --> jwtFilter
+  }
+  
+  package "Módulo de Gestão de Pedidos" {
+    [PedidoController] as pedidoCtrl
+    [PedidoService] as pedidoSrv
+    [PedidoRepository] as pedidoRepo
+    
+    pedidoCtrl --> pedidoSrv
+    pedidoSrv --> pedidoRepo
+  }
+  
+  package "Módulo de Gestão de Cidadãos" {
+    [CidadaoController] as cidadaoCtrl
+    [CidadaoService] as cidadaoSrv
+    [CidadaoRepository] as cidadaoRepo
+    
+    cidadaoCtrl --> cidadaoSrv
+    cidadaoSrv --> cidadaoRepo
+  }
+  
+  package "Módulo de Configuração" {
+    [ConfiguracaoController] as configCtrl
+    [TipoServicoController] as tipoServicoCtrl
+    [CategoriaServicoController] as categoriaCtrl
+    
+    [ConfiguracaoService] as configSrv
+    [TipoServicoService] as tipoServicoSrv
+    [CategoriaServicoService] as categoriaSrv
+    
+    [TipoServicoRepository] as tipoServicoRepo
+    [CategoriaServicoRepository] as categoriaRepo
+    
+    configCtrl --> configSrv
+    tipoServicoCtrl --> tipoServicoSrv
+    categoriaCtrl --> categoriaSrv
+    
+    tipoServicoSrv --> tipoServicoRepo
+    categoriaSrv --> categoriaRepo
+  }
+  
+  package "Módulo de Favoritos" {
+    [FavoritoController] as favoritoCtrl
+    [FavoritoService] as favoritoSrv
+    [FavoritoRepository] as favoritoRepo
+    
+    favoritoCtrl --> favoritoSrv
+    favoritoSrv --> favoritoRepo
+  }
+  
+  package "Infraestrutura" {
+    [ExceptionHandler] as exHandler
+    [CorsConfig] as corsConfig
+    [SwaggerConfig] as swaggerConfig
+  }
+}
+
+' Dependências entre módulos
+pedidoSrv --> cidadaoRepo : usa
+pedidoSrv --> tipoServicoRepo : usa
+pedidoSrv --> authSrv : usa para obter usuário atual
+favoritoSrv --> tipoServicoRepo : usa
+favoritoSrv --> authSrv : usa para obter usuário atual
+
+' Dependências externas
+database "Banco de Dados" as db
+
+pedidoRepo --> db : JPA/Hibernate
+cidadaoRepo --> db : JPA/Hibernate
+tipoServicoRepo --> db : JPA/Hibernate
+categoriaRepo --> db : JPA/Hibernate
+favoritoRepo --> db : JPA/Hibernate
+
+@enduml

@@ -1,0 +1,89 @@
+@startuml Diagrama de Sequência - Processo de Autenticação
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 5
+skinparam maxmessagesize 160
+
+actor "Usuário" as user
+participant "AuthController" as authCtrl
+participant "AuthService" as authSrv
+participant "AuthenticationManager" as authMgr
+participant "UsuarioRepository" as userRepo
+participant "JwtTokenProvider" as jwtProvider
+participant "Banco de Dados" as db
+
+== Processo de Login ==
+
+user -> authCtrl : POST /auth/login (email, senha)
+activate authCtrl
+
+authCtrl -> authSrv : authenticate(AuthRequest)
+activate authSrv
+
+authSrv -> authMgr : authenticate(UsernamePasswordAuthenticationToken)
+activate authMgr
+authMgr -> userRepo : findByEmail(email)
+activate userRepo
+userRepo -> db : SELECT * FROM usuario WHERE email = ?
+activate db
+db --> userRepo : Dados do usuário
+deactivate db
+userRepo --> authMgr : Usuario
+deactivate userRepo
+
+authMgr -> authMgr : Verifica senha com PasswordEncoder
+authMgr --> authSrv : Authentication
+deactivate authMgr
+
+authSrv -> userRepo : findByEmail(email)
+activate userRepo
+userRepo -> db : SELECT * FROM usuario WHERE email = ?
+activate db
+db --> userRepo : Dados do usuário
+deactivate db
+userRepo --> authSrv : Usuario
+deactivate userRepo
+
+authSrv -> userRepo : Atualiza último acesso
+activate userRepo
+userRepo -> db : UPDATE usuario SET ultimo_acesso = NOW() WHERE id = ?
+activate db
+db --> userRepo : OK
+deactivate db
+userRepo --> authSrv : Usuario atualizado
+deactivate userRepo
+
+authSrv -> jwtProvider : generateToken(usuario)
+activate jwtProvider
+jwtProvider --> authSrv : JWT Token
+deactivate jwtProvider
+
+authSrv -> jwtProvider : generateRefreshToken(usuario)
+activate jwtProvider
+jwtProvider --> authSrv : Refresh Token
+deactivate jwtProvider
+
+authSrv --> authCtrl : AuthResponse (token, refreshToken)
+deactivate authSrv
+
+authCtrl --> user : 200 OK (token, refreshToken)
+deactivate authCtrl
+
+== Uso do Token em Requisições Subsequentes ==
+
+user -> jwtProvider : Requisição com Authorization: Bearer {token}
+activate jwtProvider
+
+jwtProvider -> jwtProvider : validateToken(token)
+jwtProvider -> userRepo : findByEmail(email do token)
+activate userRepo
+userRepo -> db : SELECT * FROM usuario WHERE email = ?
+activate db
+db --> userRepo : Dados do usuário
+deactivate db
+userRepo --> jwtProvider : Usuario
+deactivate userRepo
+
+jwtProvider --> user : Acesso autorizado
+deactivate jwtProvider
+
+@enduml
