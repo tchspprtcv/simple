@@ -7,61 +7,82 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
-import { createTipoServico } from "@/lib/api-services" // Importar a nova função
-import { useState } from "react"
+import {
+  createTipoServico,
+  listCategoriasServicos,
+  listTiposServicos,
+  CategoriaServico, // Importar o tipo CategoriaServico
+  TipoServico,      // Importar o tipo TipoServico
+} from "@/lib/api-services"
+import { useEffect, useState } from "react" // Adicionar useEffect
 
 export default function ServiceManagementPage() {
   const { toast } = useToast()
   // Definir um tipo para os serviços no estado local, compatível com TipoServico
   // Para simplificar, vamos usar uma interface que espelhe os campos relevantes de TipoServico
   // e os campos que já estavam sendo usados no mock.
-  interface ServiceDisplayItem {
-    id: number;
-    nome: string; // Alterado de name
-    categoria: string; // Alterado de category
-    description?: string;
-    codigo?: string;
-    // Adicione outros campos de TipoServico que você deseja exibir ou usar no estado
-    requerVistoria?: boolean;
-    ativo?: boolean;
+  interface ServiceDisplayItem extends Partial<Omit<TipoServico, 'categoriaId'>> {
+    categoriaNome?: string; // Para exibir o nome da categoria
   }
 
-  const [services, setServices] = useState<ServiceDisplayItem[]>([
-    { id: 1, nome: "Manutenção de Vias", categoria: "Infraestrutura", description: "Serviço de manutenção e reparo de vias públicas", codigo: "INF001", ativo: true, requerVistoria: true },
-    { id: 2, nome: "Coleta de Lixo", categoria: "Limpeza Urbana", description: "Serviço de coleta de resíduos domésticos", codigo: "LIM002", ativo: true, requerVistoria: false },
-    { id: 3, nome: "Poda de Árvores", categoria: "Meio Ambiente", description: "Serviço de poda e manutenção de árvores", codigo: "AMB003", ativo: true, requerVistoria: false },
-  ])
+  // Estado para armazenar as categorias de serviço
+  const [categorias, setCategorias] = useState<CategoriaServico[]>([])
 
-  const [newService, setNewService] = useState({
-    nome: "", // Alterado de name para nome
+  const [services, setServices] = useState<ServiceDisplayItem[]>([])
+
+  const [newService, setNewService] = useState<Omit<TipoServico, 'id'>>({
+    nome: "",
     codigo: "",
-    categoria: "", // Alterado de category para categoria
-    description: "",
-    requerVistoria: false, // Adicionado
-    requerAnaliseTecnica: false, // Adicionado
-    requerAprovacao: false, // Adicionado
-    disponivelPortal: false, // Adicionado
-    ativo: true, // Adicionado (geralmente um novo serviço começa ativo)
-    // Campos opcionais podem ser adicionados aqui se necessário:
-    // prazoEstimado: 0,
-    // valorBase: 0,
+    categoriaId: 0,
+    requerVistoria: false,
+    requerAnaliseTecnica: false,
+    requerAprovacao: false,
+    disponivelPortal: false,
+    ativo: true,
+    isFavorito: false,
+    categoriaNome: ""
   })
 
-  // Certifique-se de que o tipo do estado corresponde ao que createTipoServico espera
-  // O tipo TipoServico em types.ts usa 'nome' e 'categoria' (minúsculas)
-  // O erro indica que Omit<TipoServico, "id"> espera 'nome' e 'categoria'
+  // Buscar categorias e tipos de serviço ao carregar a página
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [categoriasData, tiposServicosData] = await Promise.all([
+          listCategoriasServicos(),
+          listTiposServicos(),
+        ]);
+        setCategorias(categoriasData);
+
+        // Mapear tipos de serviço para ServiceDisplayItem, incluindo nome da categoria
+        const servicesComCategoriaNome = tiposServicosData.map(ts => {
+          const categoria = categoriasData.find(cat => cat.id === ts.categoriaId);
+          return {
+            ...ts,
+            categoriaNome: categoria ? categoria.nome : "Sem categoria",
+          };
+        });
+        setServices(servicesComCategoriaNome);
+
+      } catch (error) {
+        toast({
+          title: "Erro ao carregar dados",
+          description: "Não foi possível buscar categorias ou tipos de serviço.",
+          variant: "destructive",
+        });
+      }
+    };
+    fetchData();
+  }, [toast]);
 
   const handleAddService = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
       const createdService = await createTipoServico(newService); // Chamar a API
       // Atualizar o estado local para refletir a adição
-      // createdService é do tipo TipoServico. O estado services agora é ServiceDisplayItem[]
-      // Certifique-se de que o objeto adicionado corresponda a ServiceDisplayItem
+      const categoriaDoNovoServico = categorias.find(cat => cat.id === createdService.categoriaId);
       const newServiceEntry: ServiceDisplayItem = {
-        ...createdService, // Espalha todos os campos de TipoServico
-        id: services.length > 0 ? Math.max(...services.map(s => s.id)) + 1 : 1, // Simula ID
-        // description já vem de createdService.descricao se existir
+        ...createdService,
+        categoriaNome: categoriaDoNovoServico ? categoriaDoNovoServico.nome : "Sem categoria",
       };
       setServices((prevServices) => [...prevServices, newServiceEntry]); 
       toast({
@@ -69,10 +90,12 @@ export default function ServiceManagementPage() {
         description: `O serviço "${createdService.nome}" foi cadastrado no sistema.`, // Alterado de createdService.name para createdService.nome
       })
       setNewService({
-        nome: "", // Alterado de name para nome
+        nome: "",
+        isFavorito: false,
+        categoriaNome: "",
         codigo: "",
-        categoria: "", // Alterado de category para categoria
-        description: "",
+        categoriaId: 0, // Resetar para um valor numérico
+        descricao: "",
         requerVistoria: false,
         requerAnaliseTecnica: false,
         requerAprovacao: false,
@@ -120,20 +143,28 @@ export default function ServiceManagementPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="categoria">Categoria</Label>
-                <Input
-                  id="categoria"
-                  value={newService.categoria} // Alterado de newService.category
-                  onChange={(e) => setNewService({ ...newService, categoria: e.target.value })} // Alterado de category para categoria
+                <Label htmlFor="categoriaId">Categoria</Label>
+                <select
+                  id="categoriaId"
+                  value={newService.categoriaId}
+                  onChange={(e) => setNewService({ ...newService, categoriaId: parseInt(e.target.value, 10) })}
+                  className="w-full p-2 border rounded-md"
                   required
-                />
+                >
+                  <option value="0" disabled>Selecione uma categoria</option>
+                  {categorias.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.nome}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="description">Descrição</Label>
+                <Label htmlFor="descricao">Descrição</Label>
                 <Textarea
-                  id="description"
-                  value={newService.description}
-                  onChange={(e) => setNewService({ ...newService, description: e.target.value })}
+                  id="descricao"
+                  value={newService.descricao} // Alterado para newService.descricao
+                  onChange={(e) => setNewService({ ...newService, descricao: e.target.value })}
                   required
                 />
               </div>
@@ -170,11 +201,11 @@ export default function ServiceManagementPage() {
         {services.map((service) => (
           <Card key={service.id}>
             <CardHeader>
-              <CardTitle>{service.nome}</CardTitle> {/* Alterado para service.nome */}
+              <CardTitle>{service.nome}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-gray-500 mb-2">{service.categoria}</p> {/* Alterado para service.categoria */}
-              <p>{service.description}</p>
+              <p className="text-sm text-gray-500 mb-2">{service.categoriaNome}</p>
+              <p>{service.descricao}</p>
               <div className="flex gap-2 mt-4">
                 <Button variant="outline">Editar</Button>
                 <Button variant="destructive">Remover</Button>

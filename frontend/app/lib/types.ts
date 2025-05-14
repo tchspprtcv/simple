@@ -38,6 +38,13 @@ export enum UserRole {
 }
 
 // Interfaces
+export interface CategoriaServico {
+  id: number;
+  nome: string;
+  descricao?: string;
+  ativo: boolean;
+}
+
 export interface User {
   id: string;
   nome: string;
@@ -66,7 +73,8 @@ export interface TipoServico {
   codigo: string;
   nome: string;
   descricao?: string;
-  categoria: string;
+  // categoria: string; // Removido, usar categoriaId e categoriaNome
+  categoriaId: number; // Adicionado para referenciar CategoriaServico
   prazoEstimado?: number;
   valorBase?: number;
   requerVistoria: boolean;
@@ -174,6 +182,13 @@ export interface CidadaoResponse {
   telefone?: string;
   endereco?: string;
   criadoEm: string;
+}
+
+export interface CategoriaServico {
+  id: number;
+  nome: string;
+  descricao?: string;
+  ativo: boolean;
 }
 
 export interface ApiError {
