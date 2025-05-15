@@ -94,7 +94,7 @@ export default function FavoritesPage() {
               </Button>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-gray-500">{service.categoriaNome || service.categoria}</p>
+              <p className="text-sm text-gray-500">{service.categoriaNome}</p>
               <div className="mt-4">
                 <Link href={`/dashboard/new-request?serviceId=${service.id}`}>
                 <Button className="w-full">Iniciar Atendimento</Button>

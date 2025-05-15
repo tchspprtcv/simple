@@ -31,9 +31,9 @@ export async function GET() {
       }),
     ]);
 
-    const totalRequests = statistics.reduce((acc, curr) => acc + curr._count.id, 0);
-    const pendingRequests = statistics.find(s => s.status === 'pending')?._count.id || 0;
-    const completedRequests = statistics.find(s => s.status === 'completed')?._count.id || 0;
+    const totalRequests = statistics.reduce((acc: number, curr: { _count: { id: number } }) => acc + curr._count.id, 0);
+    const pendingRequests = statistics.find((s: { status: string; _count: { id: number } }) => s.status === 'pending')?._count.id || 0;
+    const completedRequests = statistics.find((s: { status: string; _count: { id: number } }) => s.status === 'completed')?._count.id || 0;
 
     return NextResponse.json({
       requests,

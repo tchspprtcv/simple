@@ -39,7 +39,7 @@ export async function GET(request: Request) {
         id: request.id,
         trackingCode: request.trackingCode,
         currentStatus: request.currentStatus,
-        history: request.statusHistory.map((history) => ({
+        history: request.statusHistory.map((history: { date: Date; status: string; description: string }) => ({
           date: history.date.toISOString(),
           status: history.status,
           description: history.description

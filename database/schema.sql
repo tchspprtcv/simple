@@ -381,38 +381,6 @@ CREATE TABLE logs_sistema (
     criado_em TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- Inserção de dados iniciais
-
--- Perfis básicos
-INSERT INTO perfis (nome, descricao, permissoes) VALUES
-('Administrador', 'Acesso total ao sistema', '{"admin": true, "all": true}'),
-('Atendente', 'Atendimento ao público e registro de pedidos', '{"pedidos": {"criar": true, "ler": true, "atualizar": true}, "cidadaos": {"criar": true, "ler": true, "atualizar": true}}'),
-('Técnico', 'Análise técnica de processos', '{"pedidos": {"ler": true, "atualizar": true}, "vistorias": {"criar": true, "ler": true, "atualizar": true}}'),
-('Fiscal', 'Realização de vistorias', '{"vistorias": {"criar": true, "ler": true, "atualizar": true}}'),
-('Gestor', 'Gestão de processos e relatórios', '{"pedidos": {"ler": true, "atualizar": true}, "relatorios": {"ler": true}}');
-
--- Status de pedido padrão
-INSERT INTO status_pedido (codigo, nome, descricao, cor, ordem, visivel_portal) VALUES
-('NOVO', 'Novo', 'Pedido recém-criado', '#3498db', 1, true),
-('EM_ANALISE', 'Em Análise', 'Pedido em análise pelos técnicos', '#f39c12', 2, true),
-('AGUARDANDO_DOC', 'Aguardando Documentos', 'Aguardando documentos adicionais', '#e67e22', 3, true),
-('AGUARDANDO_PAG', 'Aguardando Pagamento', 'Aguardando pagamento de taxas', '#e74c3c', 4, true),
-('AGENDADO', 'Vistoria Agendada', 'Vistoria agendada', '#9b59b6', 5, true),
-('EM_VISTORIA', 'Em Vistoria', 'Vistoria em andamento', '#8e44ad', 6, true),
-('APROVADO', 'Aprovado', 'Pedido aprovado', '#2ecc71', 7, true),
-('REPROVADO', 'Reprovado', 'Pedido reprovado', '#c0392b', 8, true),
-('CONCLUIDO', 'Concluído', 'Processo concluído', '#27ae60', 9, true),
-('CANCELADO', 'Cancelado', 'Processo cancelado', '#7f8c8d', 10, true);
-
--- Categorias de serviços
-INSERT INTO categorias_servicos (nome, descricao, icone, cor, ordem) VALUES
-('Legalização', 'Serviços de legalização de imóveis', 'home', '#3498db', 1),
-('Lotes', 'Serviços relacionados a lotes', 'map', '#2ecc71', 2),
-('Eventos', 'Autorização para eventos', 'calendar', '#e74c3c', 3),
-('Financeiro', 'Serviços financeiros', 'money-bill', '#f39c12', 4),
-('Licenciamento', 'Licenciamento comercial e de construção', 'building', '#9b59b6', 5),
-('Plantas', 'Emissão e atualização de plantas', 'file-alt', '#1abc9c', 6);
-
 -- Índices para melhorar a performance
 
 -- Índices para buscas frequentes

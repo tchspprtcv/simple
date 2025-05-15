@@ -82,75 +82,75 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <div className="flex gap-2">
-          {(
-            <Link href="/dashboard/admin/services">
-              <Button variant="outline">Gerenciar Serviços</Button>
-            </Link>
-          )}
+    <div className="container mx-auto p-8 space-y-8">
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        <div className="flex gap-3">
+          <Link href="/dashboard/admin/services">
+            <Button variant="outline" className="shadow-sm">Gerenciar Serviços</Button>
+          </Link>
           <Link href="/dashboard/new-request">
-            <Button>Novo Pedido</Button>
+            <Button className="shadow-sm">Novo Pedido</Button>
           </Link>
         </div>
       </div>
 
-      <Tabs defaultValue="pedidos">
-        <TabsList className="mb-6">
-          <TabsTrigger value="pedidos">Meus Pedidos</TabsTrigger>
-          <TabsTrigger value="favoritos">Serviços Favoritos</TabsTrigger>
+      <Tabs defaultValue="pedidos" className="space-y-6">
+        <TabsList className="w-full sm:w-auto border-b">
+          <TabsTrigger value="pedidos" className="text-base">Meus Pedidos</TabsTrigger>
+          <TabsTrigger value="favoritos" className="text-base">Serviços Favoritos</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="pedidos">
-          <Card>
-            <CardHeader>
-              <CardTitle>Pedidos Recentes</CardTitle>
+        <TabsContent value="pedidos" className="space-y-4">
+          <Card className="shadow-md">
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-2xl">Pedidos Recentes</CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {[1, 2, 3].map((i) => (
-                    <Skeleton key={i} className="h-12 w-full" />
+                    <Skeleton key={i} className="h-14 w-full" />
                   ))}
                 </div>
               ) : dashboardItems.length > 0 ? (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Código</TableHead>
-                      <TableHead>Serviço</TableHead>
-                      <TableHead>Data</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Ações</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {dashboardItems.map((item) => (
-                      <TableRow key={item.id}>
-                        <TableCell>{item.codigoAcompanhamento}</TableCell>
-                        <TableCell>{item.tipoServico}</TableCell>
-                        <TableCell>{formatDate(item.dataInicio)}</TableCell>
-                        <TableCell>
-                          <Badge className={getStatusColor(item.status)}>
-                            {item.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Link href={`/dashboard/requests/${item.id}`}>
-                            <Button variant="outline" size="sm">Detalhes</Button>
-                          </Link>
-                        </TableCell>
+                <div className="rounded-md border">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="bg-muted/50">
+                        <TableHead className="font-semibold">Código</TableHead>
+                        <TableHead className="font-semibold">Serviço</TableHead>
+                        <TableHead className="font-semibold">Data</TableHead>
+                        <TableHead className="font-semibold">Status</TableHead>
+                        <TableHead className="font-semibold">Ações</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {dashboardItems.map((item) => (
+                        <TableRow key={item.id} className="hover:bg-muted/50">
+                          <TableCell className="font-medium">{item.codigoAcompanhamento}</TableCell>
+                          <TableCell>{item.tipoServico}</TableCell>
+                          <TableCell>{formatDate(item.dataInicio)}</TableCell>
+                          <TableCell>
+                            <Badge className={`${getStatusColor(item.status)} text-white`}>
+                              {item.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Link href={`/dashboard/requests/${item.id}`}>
+                              <Button variant="outline" size="sm" className="hover:bg-muted">Detalhes</Button>
+                            </Link>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               ) : (
-                <div className="text-center py-8">
-                  <p className="text-muted-foreground">Nenhum pedido encontrado</p>
+                <div className="text-center py-10 space-y-3">
+                  <p className="text-muted-foreground text-lg">Nenhum pedido encontrado</p>
                   <Link href="/dashboard/new-request">
-                    <Button className="mt-4">Criar Novo Pedido</Button>
+                    <Button className="shadow-sm">Criar Novo Pedido</Button>
                   </Link>
                 </div>
               )}
@@ -158,44 +158,44 @@ export default function DashboardPage() {
           </Card>
         </TabsContent>
         
-        <TabsContent value="favoritos">
+        <TabsContent value="favoritos" className="space-y-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {isLoading ? (
               [1, 2, 3].map((i) => (
-                <Card key={i}>
+                <Card key={i} className="shadow-md">
                   <CardHeader>
-                    <Skeleton className="h-6 w-3/4 mb-2" />
+                    <Skeleton className="h-7 w-3/4 mb-2" />
                   </CardHeader>
-                  <CardContent>
-                    <Skeleton className="h-4 w-full mb-4" />
+                  <CardContent className="space-y-4">
+                    <Skeleton className="h-4 w-full" />
                     <Skeleton className="h-10 w-full" />
                   </CardContent>
                 </Card>
               ))
             ) : favoriteServices.length > 0 ? (
               favoriteServices.map((service) => (
-                <Card key={service.id} className="hover:shadow-lg transition-shadow">
+                <Card key={service.id} className="shadow-md hover:shadow-lg transition-shadow">
                   <CardHeader>
-                    <CardTitle className="flex items-center">
+                    <CardTitle className="flex items-center text-xl">
                       {service.nome}
-                      <StarIcon className="ml-2 h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <StarIcon className="ml-2 h-5 w-5 fill-yellow-400 text-yellow-400" />
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">
+                  <CardContent className="space-y-4">
+                    <p className="text-muted-foreground">
                       {service.descricao || "Sem descrição disponível"}
                     </p>
                     <Link href={`/dashboard/new-request?serviceId=${service.id}`}>
-                      <Button className="w-full">Solicitar Serviço</Button>
+                      <Button className="w-full shadow-sm">Solicitar Serviço</Button>
                     </Link>
                   </CardContent>
                 </Card>
               ))
             ) : (
-              <div className="col-span-full text-center py-8">
-                <p className="text-muted-foreground">Nenhum serviço favorito encontrado</p>
+              <div className="col-span-full text-center py-10 space-y-3">
+                <p className="text-muted-foreground text-lg">Nenhum serviço favorito encontrado</p>
                 <Link href="/services">
-                  <Button className="mt-4">Explorar Serviços</Button>
+                  <Button className="shadow-sm">Explorar Serviços</Button>
                 </Link>
               </div>
             )}

@@ -1,6 +1,7 @@
 /**
  * Tipos de dados compartilhados para o sistema Simple
  */
+import { ReactNode } from 'react';
 
 // Enums
 export enum RequestType {
@@ -92,6 +93,10 @@ export interface PedidoRequest {
 }
 
 export interface PedidoResponse {
+  trackingCode: string;
+  service: any;
+  currentStatus(currentStatus: any): string | undefined;
+  createdAt: string | number | Date;
   historicoStatus: Array<{
     status: string;
     dataHora: string;

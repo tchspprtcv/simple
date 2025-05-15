@@ -25,9 +25,16 @@ export default function ServiceManagementPage() {
     categoriaNome?: string;
   }
 
+  // Estados
+  const [searchQuery, setSearchQuery] = useState("")
   const [services, setServices] = useState<ServiceDisplayItem[]>([])
   const [editingService, setEditingService] = useState<ServiceDisplayItem | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  // Filtra os serviços baseado na busca
+  const filteredServices = services.filter(service =>
+    service.nome?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    service.codigo?.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   const [newService, setNewService] = useState<Omit<TipoServico, 'id'>>({
     nome: "",
@@ -159,71 +166,72 @@ export default function ServiceManagementPage() {
               <DialogHeader>
                 <DialogTitle>Novo Serviço</DialogTitle>
               </DialogHeader>
-              <form onSubmit={handleAddService} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="nome">Nome do Serviço</Label>
-                  <Input
-                    id="nome"
-                    value={newService.nome} // Alterado de newService.name
-                    onChange={(e) => setNewService({ ...newService, nome: e.target.value })} // Alterado de name para nome
-                    required
-                  />
+              <form onSubmit={handleAddService} className="space-y-6">
+                <div className="grid w-full gap-4">
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="nome">Nome do Serviço</Label>
+                    <Input
+                      id="nome"
+                      value={newService.nome}
+                      onChange={(e) => setNewService({ ...newService, nome: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="codigo">Código do Serviço</Label>
+                    <Input
+                      id="codigo"
+                      value={newService.codigo}
+                      onChange={(e) => setNewService({ ...newService, codigo: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="categoriaId">Categoria</Label>
+                    <select
+                      id="categoriaId"
+                      value={newService.categoriaId}
+                      onChange={(e) => setNewService({ ...newService, categoriaId: parseInt(e.target.value, 10) })}
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      required
+                    >
+                      <option value="0" disabled>Selecione uma categoria</option>
+                      {categoriasServico.map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                          {cat.nome}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="descricao">Descrição</Label>
+                    <Textarea
+                      id="descricao"
+                      value={newService.descricao}
+                      onChange={(e) => setNewService({ ...newService, descricao: e.target.value })}
+                      required
+                    />
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="codigo">Código do Serviço</Label>
-                  <Input
-                    id="codigo"
-                    value={newService.codigo}
-                    onChange={(e) => setNewService({ ...newService, codigo: e.target.value })}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="categoriaId">Categoria</Label>
-                  <select
-                    id="categoriaId"
-                    value={newService.categoriaId}
-                    onChange={(e) => setNewService({ ...newService, categoriaId: parseInt(e.target.value, 10) })}
-                    className="w-full p-2 border rounded-md"
-                    required
-                  >
-                    <option value="0" disabled>Selecione uma categoria</option>
-                    {categoriasServico.map((cat) => (
-                      <option key={cat.id} value={cat.id}>
-                        {cat.nome}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="descricao">Descrição</Label>
-                  <Textarea
-                    id="descricao"
-                    value={newService.descricao} // Alterado para newService.descricao
-                    onChange={(e) => setNewService({ ...newService, descricao: e.target.value })}
-                    required
-                  />
-                </div>
-                {/* Campos Booleanos */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center space-x-2">
-                    <Input type="checkbox" id="requerVistoria" checked={newService.requerVistoria} onChange={(e) => setNewService({ ...newService, requerVistoria: e.target.checked })} />
+                    <Input type="checkbox" id="requerVistoria" className="h-4 w-4" checked={newService.requerVistoria} onChange={(e) => setNewService({ ...newService, requerVistoria: e.target.checked })} />
                     <Label htmlFor="requerVistoria">Requer Vistoria</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Input type="checkbox" id="requerAnaliseTecnica" checked={newService.requerAnaliseTecnica} onChange={(e) => setNewService({ ...newService, requerAnaliseTecnica: e.target.checked })} />
+                    <Input type="checkbox" id="requerAnaliseTecnica" className="h-4 w-4" checked={newService.requerAnaliseTecnica} onChange={(e) => setNewService({ ...newService, requerAnaliseTecnica: e.target.checked })} />
                     <Label htmlFor="requerAnaliseTecnica">Requer Análise Técnica</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Input type="checkbox" id="requerAprovacao" checked={newService.requerAprovacao} onChange={(e) => setNewService({ ...newService, requerAprovacao: e.target.checked })} />
+                    <Input type="checkbox" id="requerAprovacao" className="h-4 w-4" checked={newService.requerAprovacao} onChange={(e) => setNewService({ ...newService, requerAprovacao: e.target.checked })} />
                     <Label htmlFor="requerAprovacao">Requer Aprovação</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Input type="checkbox" id="disponivelPortal" checked={newService.disponivelPortal} onChange={(e) => setNewService({ ...newService, disponivelPortal: e.target.checked })} />
+                    <Input type="checkbox" id="disponivelPortal" className="h-4 w-4" checked={newService.disponivelPortal} onChange={(e) => setNewService({ ...newService, disponivelPortal: e.target.checked })} />
                     <Label htmlFor="disponivelPortal">Disponível no Portal</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Input type="checkbox" id="ativo" checked={newService.ativo} onChange={(e) => setNewService({ ...newService, ativo: e.target.checked })} />
+                    <Input type="checkbox" id="ativo" className="h-4 w-4" checked={newService.ativo} onChange={(e) => setNewService({ ...newService, ativo: e.target.checked })} />
                     <Label htmlFor="ativo">Ativo</Label>
                   </div>
                 </div>
@@ -264,23 +272,58 @@ export default function ServiceManagementPage() {
         </div>
       </div>
 
-      <div className="grid gap-4">
-        {services.map((service) => (
-          <Card key={service.id}>
-            <CardHeader>
-              <CardTitle>{service.nome}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-500 mb-2">{service.categoriaNome}</p>
-              <p>{service.descricao}</p>
-              <div className="flex gap-2 mt-4">
-                <Button variant="outline" onClick={() => handleEditService(service)}>Editar</Button>
-                <Button variant="destructive">Remover</Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      <div className="space-y-4">
+          <div className="flex w-full items-center justify-between space-x-2 pb-4">
+            <Input
+              placeholder="Buscar serviços..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="max-w-sm"
+            />
+          </div>
+
+          <ul className="divide-y divide-gray-100 rounded-md border">
+            {filteredServices.map((service) => (
+              <li key={service.id} className="flex items-center justify-between p-4 hover:bg-gray-50">
+                <div className="min-w-0 flex-auto">
+                  <div className="flex items-center gap-x-3">
+                    <h2 className="min-w-0 text-sm font-semibold leading-6">
+                      {service.nome}
+                    </h2>
+                    <p className="rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600">
+                      {service.codigo}
+                    </p>
+                  </div>
+                  <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-500">
+                    <p className="truncate">{service.categoriaNome}</p>
+                    {service.descricao && (
+                      <>
+                        <svg className="h-0.5 w-0.5 fill-gray-300" viewBox="0 0 2 2">
+                          <circle cx={1} cy={1} r={1} />
+                        </svg>
+                        <p className="truncate">{service.descricao}</p>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleEditService(service)}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                  >
+                    Remover
+                  </Button>
+                </div>
+              </li>
+            ))}
+          </ul>
 
       {/* Edit Service Dialog */}
       {editingService && (
@@ -289,71 +332,72 @@ export default function ServiceManagementPage() {
             <DialogHeader>
               <DialogTitle>Editar Serviço</DialogTitle>
             </DialogHeader>
-            <form onSubmit={handleUpdateService} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="edit-nome">Nome do Serviço</Label>
-                <Input
-                  id="edit-nome"
-                  value={editingService.nome || ''}
-                  onChange={(e) => setEditingService({ ...editingService, nome: e.target.value })}
-                  required
-                />
+            <form onSubmit={handleUpdateService} className="space-y-6">
+              <div className="grid w-full gap-4">
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="edit-nome">Nome do Serviço</Label>
+                  <Input
+                    id="edit-nome"
+                    value={editingService.nome || ''}
+                    onChange={(e) => setEditingService({ ...editingService, nome: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="edit-codigo">Código do Serviço</Label>
+                  <Input
+                    id="edit-codigo"
+                    value={editingService.codigo || ''}
+                    onChange={(e) => setEditingService({ ...editingService, codigo: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="edit-categoriaId">Categoria</Label>
+                  <select
+                    id="edit-categoriaId"
+                    value={editingService.categoriaId || 0}
+                    onChange={(e) => setEditingService({ ...editingService, categoriaId: parseInt(e.target.value, 10) })}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    required
+                  >
+                    <option value="0" disabled>Selecione uma categoria</option>
+                    {categoriasServico.map((cat) => (
+                      <option key={cat.id} value={cat.id}>
+                        {cat.nome}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="edit-descricao">Descrição</Label>
+                  <Textarea
+                    id="edit-descricao"
+                    value={editingService.descricao || ''}
+                    onChange={(e) => setEditingService({ ...editingService, descricao: e.target.value })}
+                    required
+                  />
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="edit-codigo">Código do Serviço</Label>
-                <Input
-                  id="edit-codigo"
-                  value={editingService.codigo || ''}
-                  onChange={(e) => setEditingService({ ...editingService, codigo: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="edit-categoriaId">Categoria</Label>
-                <select
-                  id="edit-categoriaId"
-                  value={editingService.categoriaId || 0}
-                  onChange={(e) => setEditingService({ ...editingService, categoriaId: parseInt(e.target.value, 10) })}
-                  className="w-full p-2 border rounded-md"
-                  required
-                >
-                  <option value="0" disabled>Selecione uma categoria</option>
-                  {categoriasServico.map((cat) => (
-                    <option key={cat.id} value={cat.id}>
-                      {cat.nome}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="edit-descricao">Descrição</Label>
-                <Textarea
-                  id="edit-descricao"
-                  value={editingService.descricao || ''}
-                  onChange={(e) => setEditingService({ ...editingService, descricao: e.target.value })}
-                  required
-                />
-              </div>
-              {/* Campos Booleanos */}
               <div className="grid grid-cols-2 gap-4">
-                 <div className="flex items-center space-x-2">
-                  <Input type="checkbox" id="edit-requerVistoria" checked={editingService.requerVistoria || false} onChange={(e) => setEditingService({ ...editingService, requerVistoria: e.target.checked })} />
+                <div className="flex items-center space-x-2">
+                  <Input type="checkbox" id="edit-requerVistoria" className="h-4 w-4" checked={editingService.requerVistoria || false} onChange={(e) => setEditingService({ ...editingService, requerVistoria: e.target.checked })} />
                   <Label htmlFor="edit-requerVistoria">Requer Vistoria</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Input type="checkbox" id="edit-requerAnaliseTecnica" checked={editingService.requerAnaliseTecnica || false} onChange={(e) => setEditingService({ ...editingService, requerAnaliseTecnica: e.target.checked })} />
+                  <Input type="checkbox" id="edit-requerAnaliseTecnica" className="h-4 w-4" checked={editingService.requerAnaliseTecnica || false} onChange={(e) => setEditingService({ ...editingService, requerAnaliseTecnica: e.target.checked })} />
                   <Label htmlFor="edit-requerAnaliseTecnica">Requer Análise Técnica</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Input type="checkbox" id="edit-requerAprovacao" checked={editingService.requerAprovacao || false} onChange={(e) => setEditingService({ ...editingService, requerAprovacao: e.target.checked })} />
+                  <Input type="checkbox" id="edit-requerAprovacao" className="h-4 w-4" checked={editingService.requerAprovacao || false} onChange={(e) => setEditingService({ ...editingService, requerAprovacao: e.target.checked })} />
                   <Label htmlFor="edit-requerAprovacao">Requer Aprovação</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Input type="checkbox" id="edit-disponivelPortal" checked={editingService.disponivelPortal || false} onChange={(e) => setEditingService({ ...editingService, disponivelPortal: e.target.checked })} />
+                  <Input type="checkbox" id="edit-disponivelPortal" className="h-4 w-4" checked={editingService.disponivelPortal || false} onChange={(e) => setEditingService({ ...editingService, disponivelPortal: e.target.checked })} />
                   <Label htmlFor="edit-disponivelPortal">Disponível no Portal</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Input type="checkbox" id="edit-ativo" checked={editingService.ativo || false} onChange={(e) => setEditingService({ ...editingService, ativo: e.target.checked })} />
+                  <Input type="checkbox" id="edit-ativo" className="h-4 w-4" checked={editingService.ativo || false} onChange={(e) => setEditingService({ ...editingService, ativo: e.target.checked })} />
                   <Label htmlFor="edit-ativo">Ativo</Label>
                 </div>
               </div>
@@ -363,5 +407,6 @@ export default function ServiceManagementPage() {
         </Dialog>
       )}
     </div>
+  </div>
   )
 }

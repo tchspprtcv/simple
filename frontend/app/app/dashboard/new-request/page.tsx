@@ -210,24 +210,24 @@ function NewRequestContent() {
   }
   
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8">Novo Pedido</h1>
+    <div className="container mx-auto p-8 space-y-8">
+      <h1 className="text-3xl font-bold tracking-tight">Novo Pedido</h1>
       
-      <form onSubmit={handleSubmit} className="space-y-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Tipo de Serviço</CardTitle>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <Card className="shadow-sm">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl">Tipo de Serviço</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="serviceType">Selecione o tipo de serviço</Label>
+                <Label htmlFor="serviceType" className="text-base">Selecione o tipo de serviço</Label>
                 <Select 
                   value={selectedServiceId?.toString() || ""}
                   onValueChange={handleServiceChange}
                   disabled={isLoading}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="h-10">
                     <SelectValue placeholder="Selecione um serviço" />
                   </SelectTrigger>
                   <SelectContent>
@@ -241,13 +241,13 @@ function NewRequestContent() {
               </div>
               
               {selectedService && (
-                <Alert>
-                  <InfoIcon className="h-4 w-4" />
-                  <AlertTitle>{selectedService.nome}</AlertTitle>
-                  <AlertDescription>
+                <Alert className="bg-muted/50">
+                  <InfoIcon className="h-5 w-5" />
+                  <AlertTitle className="font-semibold">{selectedService.nome}</AlertTitle>
+                  <AlertDescription className="mt-2 space-y-2">
                     {selectedService.descricao || "Sem descrição disponível"}
                     {selectedService.prazoEstimado && (
-                      <p className="mt-2">Prazo estimado: {selectedService.prazoEstimado} dias</p>
+                      <p>Prazo estimado: {selectedService.prazoEstimado} dias</p>
                     )}
                     {selectedService.valorBase && (
                       <p>Valor base: R$ {selectedService.valorBase.toFixed(2)}</p>
@@ -259,28 +259,28 @@ function NewRequestContent() {
           </CardContent>
         </Card>
         
-        <Card>
-          <CardHeader>
-            <CardTitle>Cidadão</CardTitle>
+        <Card className="shadow-sm">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl">Cidadão</CardTitle>
           </CardHeader>
           <CardContent>
-            <Tabs value={cidadaoTab} onValueChange={setCidadaoTab}>
-              <TabsList className="mb-6">
-                <TabsTrigger value="existente">Cidadão Existente</TabsTrigger>
-                <TabsTrigger value="novo">Novo Cidadão</TabsTrigger>
+            <Tabs value={cidadaoTab} onValueChange={setCidadaoTab} className="space-y-6">
+              <TabsList className="w-full sm:w-auto border-b">
+                <TabsTrigger value="existente" className="text-base">Cidadão Existente</TabsTrigger>
+                <TabsTrigger value="novo" className="text-base">Novo Cidadão</TabsTrigger>
               </TabsList>
               
-              <TabsContent value="existente">
+              <TabsContent value="existente" className="space-y-6">
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <Label htmlFor="tipoDocumento">Tipo de Documento</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="tipoDocumento" className="text-base">Tipo de Documento</Label>
                       <Select 
                         value={tipoDocumento} 
                         onValueChange={setTipoDocumento}
                         disabled={buscandoCidadao}
                       >
-                        <SelectTrigger>
+                        <SelectTrigger className="h-10">
                           <SelectValue placeholder="Tipo de Documento" />
                         </SelectTrigger>
                         <SelectContent>
@@ -292,13 +292,14 @@ function NewRequestContent() {
                       </Select>
                     </div>
                     
-                    <div>
-                      <Label htmlFor="numeroDocumento">Número do Documento</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="numeroDocumento" className="text-base">Número do Documento</Label>
                       <Input
                         id="numeroDocumento"
                         value={numeroDocumento}
                         onChange={(e) => setNumeroDocumento(e.target.value)}
                         disabled={buscandoCidadao}
+                        className="h-10"
                         required
                       />
                     </div>
@@ -308,7 +309,7 @@ function NewRequestContent() {
                         type="button" 
                         onClick={buscarCidadao} 
                         disabled={buscandoCidadao || !tipoDocumento || !numeroDocumento}
-                        className="w-full"
+                        className="w-full h-10 shadow-sm"
                       >
                         {buscandoCidadao ? "Buscando..." : "Buscar Cidadão"}
                       </Button>
@@ -316,10 +317,10 @@ function NewRequestContent() {
                   </div>
                   
                   {cidadaoEncontrado && (
-                    <Alert className="bg-green-50 dark:bg-green-950">
-                      <InfoIcon className="h-4 w-4" />
-                      <AlertTitle>Cidadão Encontrado</AlertTitle>
-                      <AlertDescription>
+                    <Alert className="bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-900">
+                      <InfoIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
+                      <AlertTitle className="font-semibold text-green-800 dark:text-green-200">Cidadão Encontrado</AlertTitle>
+                      <AlertDescription className="text-green-700 dark:text-green-300">
                         Nome: {cidadaoNome}
                       </AlertDescription>
                     </Alert>
@@ -327,38 +328,40 @@ function NewRequestContent() {
                 </div>
               </TabsContent>
               
-              <TabsContent value="novo">
+              <TabsContent value="novo" className="space-y-6">
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="novoCidadaoNome">Nome Completo</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="novoCidadaoNome" className="text-base">Nome Completo</Label>
                       <Input
                         id="novoCidadaoNome"
                         value={novoCidadaoNome}
                         onChange={(e) => setNovoCidadaoNome(e.target.value)}
+                        className="h-10"
                         required
                       />
                     </div>
                     
-                    <div>
-                      <Label htmlFor="novoCidadaoEmail">Email</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="novoCidadaoEmail" className="text-base">Email</Label>
                       <Input
                         id="novoCidadaoEmail"
                         type="email"
                         value={novoCidadaoEmail}
                         onChange={(e) => setNovoCidadaoEmail(e.target.value)}
+                        className="h-10"
                       />
                     </div>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <Label htmlFor="novoCidadaoTipoDocumento">Tipo de Documento</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="novoCidadaoTipoDocumento" className="text-base">Tipo de Documento</Label>
                       <Select 
                         value={novoCidadaoTipoDocumento} 
                         onValueChange={setNovoCidadaoTipoDocumento}
                       >
-                        <SelectTrigger>
+                        <SelectTrigger className="h-10">
                           <SelectValue placeholder="Tipo de Documento" />
                         </SelectTrigger>
                         <SelectContent>
@@ -370,32 +373,35 @@ function NewRequestContent() {
                       </Select>
                     </div>
                     
-                    <div>
-                      <Label htmlFor="novoCidadaoNumeroDocumento">Número do Documento</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="novoCidadaoNumeroDocumento" className="text-base">Número do Documento</Label>
                       <Input
                         id="novoCidadaoNumeroDocumento"
                         value={novoCidadaoNumeroDocumento}
                         onChange={(e) => setNovoCidadaoNumeroDocumento(e.target.value)}
+                        className="h-10"
                         required
                       />
                     </div>
                     
-                    <div>
-                      <Label htmlFor="novoCidadaoTelefone">Telefone</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="novoCidadaoTelefone" className="text-base">Telefone</Label>
                       <Input
                         id="novoCidadaoTelefone"
                         value={novoCidadaoTelefone}
                         onChange={(e) => setNovoCidadaoTelefone(e.target.value)}
+                        className="h-10"
                       />
                     </div>
                   </div>
                   
-                  <div>
-                    <Label htmlFor="novoCidadaoEndereco">Endereço</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="novoCidadaoEndereco" className="text-base">Endereço</Label>
                     <Textarea
                       id="novoCidadaoEndereco"
                       value={novoCidadaoEndereco}
                       onChange={(e) => setNovoCidadaoEndereco(e.target.value)}
+                      className="min-h-[100px]"
                       rows={3}
                     />
                   </div>
@@ -405,27 +411,28 @@ function NewRequestContent() {
           </CardContent>
         </Card>
         
-        <Card>
-          <CardHeader>
-            <CardTitle>Detalhes do Pedido</CardTitle>
+        <Card className="shadow-sm">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl">Detalhes do Pedido</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div>
-                <Label htmlFor="observacoes">Observações</Label>
+              <div className="space-y-2">
+                <Label htmlFor="observacoes" className="text-base">Observações</Label>
                 <Textarea
                   id="observacoes"
                   value={observacoes}
                   onChange={(e) => setObservacoes(e.target.value)}
                   placeholder="Informações adicionais sobre o pedido"
+                  className="min-h-[120px]"
                   rows={4}
                 />
               </div>
               
-              <div>
-                <Label htmlFor="prioridade">Prioridade</Label>
+              <div className="space-y-2">
+                <Label htmlFor="prioridade" className="text-base">Prioridade</Label>
                 <Select value={prioridade} onValueChange={setPrioridade}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-10">
                     <SelectValue placeholder="Selecione a prioridade" />
                   </SelectTrigger>
                   <SelectContent>
@@ -439,18 +446,20 @@ function NewRequestContent() {
           </CardContent>
         </Card>
         
-        <div className="flex justify-end gap-4">
+        <div className="flex justify-end gap-3">
           <Button 
             type="button" 
             variant="outline" 
             onClick={() => router.push('/dashboard')}
             disabled={isSubmitting}
+            className="shadow-sm"
           >
             Cancelar
           </Button>
           <Button 
             type="submit" 
             disabled={isSubmitting || (!cidadaoId && cidadaoTab === "existente") || !selectedServiceId}
+            className="shadow-sm"
           >
             {isSubmitting ? "Enviando..." : "Criar Pedido"}
           </Button>

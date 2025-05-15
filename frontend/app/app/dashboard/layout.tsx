@@ -1,10 +1,14 @@
+"use client"
+
 import { DashboardNav } from "@/components/dashboard-nav"
+import { useAuth } from "@/lib/auth-context"
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const { user } = useAuth()
   return (
     <div className="flex min-h-screen">
       <div className="hidden w-64 flex-col border-r bg-gray-50/50 dark:bg-gray-900/50 md:flex">
@@ -12,7 +16,7 @@ export default function DashboardLayout({
           <span className="font-semibold">Simple</span>
         </div>
         <div className="flex-1 overflow-auto py-2">
-          <DashboardNav />
+          <DashboardNav role={user?.perfil || "CITIZEN"} />
         </div>
       </div>
       <div className="flex-1">

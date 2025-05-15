@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { encrypt } from '@/lib/crypto'
+import { ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies'
 
 const prisma = new PrismaClient()
 
@@ -31,7 +32,8 @@ export async function POST(request: Request) {
       exp: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
     }))
 
-    cookies().set('session', session, {
+    const cookieStore = cookies() as unknown as ResponseCookies
+    cookieStore.set('session', session, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',

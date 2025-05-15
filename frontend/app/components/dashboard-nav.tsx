@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
+
 import {
   Users,
   Settings,
@@ -13,13 +14,13 @@ import {
 } from "lucide-react"
 
 const roleRoutes = {
-  ADMIN: [
+  ADMINISTRADOR: [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/dashboard/admin/users", label: "Gestão de Usuários", icon: Users },
     { href: "/dashboard/admin/services", label: "Gestão de Tipos de Serviços", icon: Wrench },
     { href: "/dashboard/admin/settings", label: "Configurações", icon: Settings },
   ],
-  ATTENDANT: [
+  ATENDENTE: [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/dashboard/attendant/favorites", label: "Favoritos", icon: Star },
     { href: "/dashboard/attendant/services", label: "Gerenciar Serviços", icon: Wrench },
@@ -32,10 +33,14 @@ const roleRoutes = {
   ],
 }
 
-export function DashboardNav({ role = "CITIZEN" }: { role?: string }) {
+
+export function DashboardNav({ role = "CITIZEN" }: { role: string }) {
+  console.log(role)
+  const roleUpperCase = role.toUpperCase()
+  role = roleUpperCase.charAt(0) + roleUpperCase.slice(1)
   const pathname = usePathname()
   const routes = roleRoutes[role as keyof typeof roleRoutes] || roleRoutes.CITIZEN
-
+  
   return (
     <nav className="grid items-start gap-2">
       {routes.map((route) => {
