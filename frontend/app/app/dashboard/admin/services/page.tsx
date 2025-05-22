@@ -21,8 +21,11 @@ export default function ServiceManagementPage() {
   const { categoriasServico } = useConfiguracoes()
 
   interface ServiceDisplayItem extends Partial<Omit<TipoServico, 'categoriaId'>> {
-    categoriaId: number
+    categoriaId: number;
     categoriaNome?: string;
+    formKey?: string;
+    readEndpoint?: string;
+    writeEndpoint?: string;
   }
 
   // Estados
@@ -46,7 +49,10 @@ export default function ServiceManagementPage() {
     disponivelPortal: false,
     ativo: true,
     isFavorito: false,
-    categoriaNome: ""
+    categoriaNome: "",
+    formKey: "",
+    readEndpoint: "",
+    writeEndpoint: "",
   })
 
   // Buscar tipos de serviço ao carregar a página
@@ -96,6 +102,9 @@ export default function ServiceManagementPage() {
         codigo: "",
         categoriaId: 0, // Resetar para um valor numérico
         descricao: "",
+        formKey: "",
+        readEndpoint: "",
+        writeEndpoint: "",
         requerVistoria: false,
         requerAnaliseTecnica: false,
         requerAprovacao: false,
@@ -210,6 +219,30 @@ export default function ServiceManagementPage() {
                       value={newService.descricao}
                       onChange={(e) => setNewService({ ...newService, descricao: e.target.value })}
                       required
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="formKey">FormKey</Label>
+                    <Input
+                      id="formKey"
+                      value={newService.formKey}
+                      onChange={(e) => setNewService({ ...newService, formKey: e.target.value })}
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="readEndpoint">Read Endpoint</Label>
+                    <Input
+                      id="readEndpoint"
+                      value={newService.readEndpoint}
+                      onChange={(e) => setNewService({ ...newService, readEndpoint: e.target.value })}
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="writeEndpoint">Write Endpoint</Label>
+                    <Input
+                      id="writeEndpoint"
+                      value={newService.writeEndpoint}
+                      onChange={(e) => setNewService({ ...newService, writeEndpoint: e.target.value })}
                     />
                   </div>
                 </div>
@@ -376,6 +409,30 @@ export default function ServiceManagementPage() {
                     value={editingService.descricao || ''}
                     onChange={(e) => setEditingService({ ...editingService, descricao: e.target.value })}
                     required
+                  />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="edit-formKey">FormKey</Label>
+                  <Input
+                    id="edit-formKey"
+                    value={editingService.formKey || ''}
+                    onChange={(e) => setEditingService({ ...editingService, formKey: e.target.value })}
+                  />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="edit-readEndpoint">Read Endpoint</Label>
+                  <Input
+                    id="edit-readEndpoint"
+                    value={editingService.readEndpoint || ''}
+                    onChange={(e) => setEditingService({ ...editingService, readEndpoint: e.target.value })}
+                  />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="edit-writeEndpoint">Write Endpoint</Label>
+                  <Input
+                    id="edit-writeEndpoint"
+                    value={editingService.writeEndpoint || ''}
+                    onChange={(e) => setEditingService({ ...editingService, writeEndpoint: e.target.value })}
                   />
                 </div>
               </div>

@@ -61,7 +61,7 @@ Após a inicialização bem-sucedida de todos os containers, você pode acessar:
 
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8080
-- **Banco de dados**: Acessível na porta 5432 (use um cliente PostgreSQL como pgAdmin ou DBeaver)
+- **Banco de dados**: Acessível na porta 5433 do host (o contêiner continua usando a porta 5432 internamente). Use um cliente PostgreSQL como pgAdmin ou DBeaver para conectar-se a `localhost:5433`.
 
 ### 4. Gerenciamento dos Containers
 
@@ -149,7 +149,7 @@ docker-compose logs -f [serviço]
    - Aguarde alguns segundos após iniciar os containers para que o PostgreSQL esteja pronto
 
 2. **Erro de porta já em uso**:
-   - Verifique se as portas 3000, 8080 e 5432 não estão sendo usadas por outros aplicativos
+   - Verifique se as portas 3000 (frontend), 8080 (backend) e 5433 (PostgreSQL no host) não estão sendo usadas por outros aplicativos.
    - Altere o mapeamento de portas no arquivo `docker-compose.yml` se necessário
 
 3. **Problemas de permissão no Windows**:

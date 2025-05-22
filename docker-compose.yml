@@ -10,10 +10,11 @@ services:
       POSTGRES_USER: simple_user
       POSTGRES_PASSWORD: simple_password
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/10_schema.sql
+      - ./database/sample_data.sql:/docker-entrypoint-initdb.d/20_sample_data.sql
     networks:
       - simple-network
     restart: unless-stopped
@@ -30,7 +31,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/simple
       SPRING_DATASOURCE_USERNAME: simple_user
       SPRING_DATASOURCE_PASSWORD: simple_password
-      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
     ports:
       - "8080:8080"
     networks:

@@ -74,6 +74,9 @@ export interface TipoServico {
   descricao?: string;
   categoriaId: number;
   categoriaNome: string;
+  formKey: string;
+  readEndpoint: string,
+  writeEndpoint: string,
   isFavorito: boolean;
   prazoEstimado?: number;
   valorBase?: number;
