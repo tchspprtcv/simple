@@ -47,3 +47,8 @@ spring:
             - Path=/api/favoritos/**
 server:
   port: 8080
+
+# Disable Eureka client
+eureka:
+  client:
+    enabled: false

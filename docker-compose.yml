@@ -1,55 +1,41 @@
 version: '3.8'
 
 services:
-  # Serviço do banco de dados PostgreSQL
-  postgres:
-    image: postgres:14
-    container_name: simple-postgres
+  # Serviço do banco de dados PostgreSQL (Renamed to 'db')
+  db: # Renamed from 'postgres'
+    image: postgres:14 # Using version 14 as in original, can be updated to 15 if preferred
+    container_name: simple-db # Renamed container
     environment:
-      POSTGRES_DB: simple
-      POSTGRES_USER: simple_user
-      POSTGRES_PASSWORD: simple_password
+      POSTGRES_DB: simple_monolith # Default DB for monolith
+      POSTGRES_USER: postgres # Changed user
+      POSTGRES_PASSWORD: postgres # Changed password
     ports:
       - "5433:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      # These scripts will initialize the monolith's database.
+      # Microservices will manage their own schemas via 'ddl-auto: update'.
       - ./database/schema.sql:/docker-entrypoint-initdb.d/10_schema.sql
       - ./database/sample_data.sql:/docker-entrypoint-initdb.d/20_sample_data.sql
     networks:
       - simple-network
     restart: unless-stopped
 
-  # Serviço do backend Spring Boot
+  # Serviço do backend Spring Boot (Monolith)
   backend:
     build:
       context: .
       dockerfile: backend/Dockerfile
     container_name: simple-backend
     depends_on:
-      - postgres
+      - db # Updated dependency
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/simple
-      SPRING_DATASOURCE_USERNAME: simple_user
-      SPRING_DATASOURCE_PASSWORD: simple_password
-      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_monolith # Updated URL and DB name
+      SPRING_DATASOURCE_USERNAME: postgres # Updated username
+      SPRING_DATASOURCE_PASSWORD: postgres # Updated password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none # Monolith uses init scripts
     ports:
-      - "8081:8080" # Port changed to avoid conflict with api-gateway
-    networks:
-      - simple-network
-    restart: unless-stopped
-
-  # Serviço do frontend Next.js
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: simple-frontend
-    depends_on:
-      - backend
-    environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8080
-    ports:
-      - "3000:3000"
+      - "8081:8080" # Host port 8081, container 8080 (as per its app properties)
     networks:
       - simple-network
     restart: unless-stopped
@@ -66,12 +52,131 @@ services:
       - simple-network
     restart: unless-stopped
     # depends_on:
-      # - backend # Or other specific microservices once they are defined
+      # - auth-service
+      # - citizen-service
+      # - order-service
+      # - config-service
+      # - favorites-service
+
+  # Authentication Service
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: simple-auth-service
+    ports:
+      - "8081:8081" # Container port is 8081 as per its application.yml
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_auth
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      JWT_SECRET_KEY: yourDefaultSecretKeyIfNotOverridden # From auth-service application.yml
+    depends_on:
+      - db
+    networks:
+      - simple-network
+    restart: unless-stopped
+
+  # Citizen Service
+  citizen-service:
+    build:
+      context: ./citizen-service
+      dockerfile: Dockerfile
+    container_name: simple-citizen-service
+    ports:
+      - "8082:8082" # Container port is 8082
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_citizen
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      - db
+    networks:
+      - simple-network
+    restart: unless-stopped
+
+  # Order Service
+  order-service:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    container_name: simple-order-service
+    ports:
+      - "8083:8083" # Container port is 8083
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_order
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      AUTH_SERVICE_URL: http://auth-service:8081
+      CITIZEN_SERVICE_URL: http://citizen-service:8082
+      CONFIG_SERVICE_URL: http://config-service:8084
+    depends_on:
+      - db
+      # - auth-service # Commented out for initial startup
+      # - citizen-service
+      # - config-service
+    networks:
+      - simple-network
+    restart: unless-stopped
+
+  # Configuration Service
+  config-service:
+    build:
+      context: ./config-service
+      dockerfile: Dockerfile
+    container_name: simple-config-service
+    ports:
+      - "8084:8084" # Container port is 8084
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_config
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      - db
+    networks:
+      - simple-network
+    restart: unless-stopped
+
+  # Favorites Service
+  favorites-service:
+    build:
+      context: ./favorites-service
+      dockerfile: Dockerfile
+    container_name: simple-favorites-service
+    ports:
+      - "8085:8085" # Container port is 8085
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_favorites
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      CONFIG_SERVICE_URL: http://config-service:8084 # Matches service name
+    depends_on:
+      - db
+      # - config-service # Commented out for initial startup
+    networks:
+      - simple-network
+    restart: unless-stopped
+
+  # Serviço do frontend Next.js (No changes needed here based on instructions for this subtask)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: simple-frontend
+    # depends_on: # Frontend now depends on api-gateway, not directly on backend
+      # - api-gateway 
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080 # Points to api-gateway
+    ports:
+      - "3000:3000"
+    networks:
+      - simple-network
+    restart: unless-stopped
 
 # Volumes para persistência de dados
 volumes:
-  postgres-data:
-    name: simple-postgres-data
+  postgres-data: # Name of the volume used by 'db' service
+    name: simple-postgres-data # Explicit name for the volume
 
 # Rede para comunicação entre os containers
 networks:
