@@ -84,7 +84,7 @@ public class JwtTokenProvider {
     private Claims extractAllClaims(String token) {
         // Consider adding error handling for expired or malformed tokens here
         return Jwts
-                .parserBuilder()
+                .parser()
                 .setSigningKey(getSignInKey())
                 .build()
                 .parseClaimsJws(token)
