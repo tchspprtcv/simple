@@ -1,0 +1,39 @@
+server:
+  port: 8085 # Port for favorites-service
+
+spring:
+  application:
+    name: favorites-service
+  main:
+    allow-bean-definition-overriding: true # If Feign client beans conflict (good to have)
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000
+            readTimeout: 10000
+            # Consider adding retry mechanism here or via a custom Feign configuration
+            # Example:
+            # retryer: feign.Retryer$Default
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/simple_favorites} # DB name: simple_favorites
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # For dev environment
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true # Optional, good for dev
+
+# URLs for dependent services
+services:
+  config:
+    url: ${CONFIG_SERVICE_URL:http://localhost:8084} # Base URL for config-service. Feign client paths are relative to this.
+                                                    # In Docker, this would be http://config-service:8084 or just http://config-service if default port
+# logging:
+#  level:
+#    com.simple.favorites.client: DEBUG # To see Feign client request/response details

@@ -1,0 +1,30 @@
+server:
+  port: 8083 # Port for order-service
+
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/simple_order}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # For dev
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true # Optional
+
+# Placeholder for URLs of other services, for inter-service communication
+# These would be used by RestTemplate/WebClient/Feign
+# In a Docker environment with a shared network, these would be service names.
+# For local dev without Docker service discovery, they'd be localhost:port.
+services:
+  auth:
+    url: ${AUTH_SERVICE_URL:http://localhost:8081} # URL for auth-service
+  citizen:
+    url: ${CITIZEN_SERVICE_URL:http://localhost:8082} # URL for citizen-service
+  config:
+    url: ${CONFIG_SERVICE_URL:http://localhost:8084} # URL for (future) config-service

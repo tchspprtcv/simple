@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        # Authentication Service (placeholder: http://localhost:8081)
+        - id: auth-service
+          uri: http://localhost:8081 
+          predicates:
+            - Path=/api/auth/**
+        - id: users-service # For /api/users/**
+          uri: http://localhost:8081 
+          predicates:
+            - Path=/api/users/**
+
+        # Citizen Service (placeholder: http://localhost:8082)
+        - id: citizen-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/cidadaos/**
+
+        # Order Service (placeholder: http://localhost:8083)
+        - id: order-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/pedidos/**
+
+        # Configuration Service (placeholder: http://localhost:8084)
+        - id: config-service-tipos # Tipos de Servicos
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/tipos-servicos/**
+        - id: config-service-categorias # Categorias de Servicos
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/categorias-servicos/**
+        - id: config-service-configs # /configuracoes (general app configs)
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/configuracoes
+
+        # Favorites Service (placeholder: http://localhost:8085)
+        - id: favorites-service
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/favoritos/**
+server:
+  port: 8080

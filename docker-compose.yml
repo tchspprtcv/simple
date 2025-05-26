@@ -33,7 +33,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: simple_password
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
     ports:
-      - "8080:8080"
+      - "8081:8080" # Port changed to avoid conflict with api-gateway
     networks:
       - simple-network
     restart: unless-stopped
@@ -53,6 +53,20 @@ services:
     networks:
       - simple-network
     restart: unless-stopped
+
+  # API Gateway Service
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: simple-api-gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - simple-network
+    restart: unless-stopped
+    # depends_on:
+      # - backend # Or other specific microservices once they are defined
 
 # Volumes para persistência de dados
 volumes:
