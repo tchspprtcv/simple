@@ -11,8 +11,8 @@ import {
   ApiError,
   AuthRequest,
   AuthResponse,
-  CidadaoRequest,
-  CidadaoResponse,
+  UtenteRequest,
+  UtenteResponse,
   DashboardItem,
   PaginatedResponse,
   PedidoRequest,
@@ -21,8 +21,8 @@ import {
   RequestType,
   TipoServico,
   CategoriaServico, // Adicionado CategoriaServico para importação
-  UsuarioRequest,
-  UsuarioResponse,
+  UserRequest,
+  UserResponse,
   ConfiguracaoResponse
 } from './types';
 
@@ -146,9 +146,9 @@ export const logout = (): void => {
 /**
  * Registra um novo utilizador
  */
-export const registerUser = async (user: UsuarioRequest): Promise<UsuarioResponse> => {
+export const registerUser = async (user: UserRequest): Promise<UserResponse> => {
   try {
-    const response = await apiClient.post<UsuarioResponse>('/auth/register', user);
+    const response = await apiClient.post<UserResponse>('/auth/register', user);
     return response.data;
   } catch (error) {
     throw handleApiError(error as AxiosError);
@@ -158,9 +158,9 @@ export const registerUser = async (user: UsuarioRequest): Promise<UsuarioRespons
 /**
  * Obtém o utilizador atual
  */
-export const getCurrentUser = async (): Promise<UsuarioResponse> => {
+export const getCurrentUser = async (): Promise<UserResponse> => {
   try {
-    const response = await apiClient.get<UsuarioResponse>('/users/me');
+    const response = await apiClient.get<UserResponse>('/users/me');
     return response.data;
   } catch (error) {
     throw handleApiError(error as AxiosError);
@@ -170,9 +170,9 @@ export const getCurrentUser = async (): Promise<UsuarioResponse> => {
 /**
  * Atualiza o perfil do utilizador atual
  */
-export const updateUserProfile = async (userData: Partial<UsuarioRequest>): Promise<UsuarioResponse> => {
+export const updateUserProfile = async (userData: Partial<UserRequest>): Promise<UserResponse> => {
   try {
-    const response = await apiClient.put<UsuarioResponse>('/users/me', userData);
+    const response = await apiClient.put<UserResponse>('/users/me', userData);
     return response.data;
   } catch (error) {
     throw handleApiError(error as AxiosError);
@@ -182,13 +182,13 @@ export const updateUserProfile = async (userData: Partial<UsuarioRequest>): Prom
 /**
  * Lista todos os utentes (paginado)
  */
-export const listCidadaos = async (
+export const listUtentes = async (
   page: number = 0,
   size: number = 10
-): Promise<PaginatedResponse<CidadaoResponse>> => {
+): Promise<PaginatedResponse<UtenteResponse>> => {
   try {
-    const response = await apiClient.get<PaginatedResponse<CidadaoResponse>>(
-      `/cidadaos?page=${page}&size=${size}`
+    const response = await apiClient.get<PaginatedResponse<UtenteResponse>>(
+      `/utentes?page=${page}&size=${size}`
     );
     return response.data;
   } catch (error) {
@@ -199,9 +199,9 @@ export const listCidadaos = async (
 /**
  * Obtém um utente pelo ID
  */
-export const getCidadaoById = async (id: string): Promise<CidadaoResponse> => {
+export const getUtenteById = async (id: string): Promise<UtenteResponse> => {
   try {
-    const response = await apiClient.get<CidadaoResponse>(`/cidadaos/${id}`);
+    const response = await apiClient.get<UtenteResponse>(`/utentes/${id}`);
     return response.data;
   } catch (error) {
     throw handleApiError(error as AxiosError);
@@ -211,13 +211,13 @@ export const getCidadaoById = async (id: string): Promise<CidadaoResponse> => {
 /**
  * Obtém um utente pelo documento
  */
-export const getCidadaoByDocumento = async (
+export const getUtenteByDocumento = async (
   tipoDocumento: string,
   numeroDocumento: string
-): Promise<CidadaoResponse> => {
+): Promise<UtenteResponse> => {
   try {
-    const response = await apiClient.get<CidadaoResponse>(
-      `/cidadaos/documento?tipoDocumento=${tipoDocumento}&numeroDocumento=${numeroDocumento}`
+    const response = await apiClient.get<UtenteResponse>(
+      `/utentes/documento?tipoDocumento=${tipoDocumento}&numeroDocumento=${numeroDocumento}`
     );
     return response.data;
   } catch (error) {
@@ -228,9 +228,9 @@ export const getCidadaoByDocumento = async (
 /**
  * Cria um novo utente
  */
-export const createCidadao = async (cidadao: CidadaoRequest): Promise<CidadaoResponse> => {
+export const createUtente = async (utente: UtenteRequest): Promise<UtenteResponse> => {
   try {
-    const response = await apiClient.post<CidadaoResponse>('/cidadaos', cidadao);
+    const response = await apiClient.post<UtenteResponse>('/utentes', cidadao);
     return response.data;
   } catch (error) {
     throw handleApiError(error as AxiosError);
@@ -240,12 +240,12 @@ export const createCidadao = async (cidadao: CidadaoRequest): Promise<CidadaoRes
 /**
  * Atualiza um utente existente
  */
-export const updateCidadao = async (
+export const updateUtente = async (
   id: string,
-  cidadao: CidadaoRequest
-): Promise<CidadaoResponse> => {
+  utente: UtenteRequest
+): Promise<UtenteResponse> => {
   try {
-    const response = await apiClient.put<CidadaoResponse>(`/cidadaos/${id}`, cidadao);
+    const response = await apiClient.put<UtenteResponse>(`/utentes/${id}`, cidadao);
     return response.data;
   } catch (error) {
     throw handleApiError(error as AxiosError);
@@ -296,14 +296,14 @@ export const getPedidoByCodigo = async (codigo: string): Promise<PedidoResponse>
 /**
  * Lista pedidos por utente (paginado)
  */
-export const listPedidosByCidadao = async (
-  cidadaoId: string,
+export const listPedidosByUtente = async (
+  utenteId: string,
   page: number = 0,
   size: number = 10
 ): Promise<PaginatedResponse<PedidoResponse>> => {
   try {
     const response = await apiClient.get<PaginatedResponse<PedidoResponse>>(
-      `/pedidos/cidadao/${cidadaoId}?page=${page}&size=${size}`
+      `/pedidos/cidadao/${utenteId}?page=${page}&size=${size}`
     );
     return response.data;
   } catch (error) {
@@ -531,8 +531,8 @@ export type {
   ApiError,
   AuthRequest,
   AuthResponse,
-  CidadaoRequest,
-  CidadaoResponse,
+  UtenteRequest,
+  UtenteResponse,
   DashboardItem,
   PaginatedResponse,
   PedidoRequest,
@@ -541,8 +541,8 @@ export type {
   RequestType,
   TipoServico,
   CategoriaServico,
-  UsuarioRequest,
-  UsuarioResponse,
+  UserRequest,
+  UserResponse,
   ConfiguracaoResponse // Adicionado ConfiguracaoResponse para re-exportação
 };
 

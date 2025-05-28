@@ -17,3 +17,15 @@
 */.next/cache/entries/pages/*
 */.next/cache/entries/pages/api/*
 backend/target/classes/application.yml
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+backend/target/*
+auth-service/logs/log.log
+favorites-service/target/*
+frontend/app/.next/*
+backend/target/*

@@ -56,7 +56,7 @@ export interface User {
   criadoEm: string;
 }
 
-export interface Cidadao {
+export interface Utente {
   id: string;
   nome: string;
   tipoDocumento: string;
@@ -171,7 +171,7 @@ export interface UsuarioResponse {
   criadoEm: string;
 }
 
-export interface CidadaoRequest {
+export interface UtenteRequest {
   nome: string;
   tipoDocumento: string;
   numeroDocumento: string;
@@ -180,7 +180,7 @@ export interface CidadaoRequest {
   endereco?: string;
 }
 
-export interface CidadaoResponse {
+export interface UtenteResponse {
   id: string;
   nome: string;
   tipoDocumento: string;
