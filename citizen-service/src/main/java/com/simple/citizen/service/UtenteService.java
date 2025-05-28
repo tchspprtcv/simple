@@ -2,8 +2,8 @@ package com.simple.citizen.service;
 
 import com.simple.citizen.dto.CidadaoRequest;
 import com.simple.citizen.dto.CidadaoResponse;
-import com.simple.citizen.domain.entity.Cidadao;
-import com.simple.citizen.repository.CidadaoRepository;
+import com.simple.citizen.domain.entity.Utente;
+import com.simple.citizen.repository.UtenteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,9 +17,9 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class CidadaoService {
+public class UtenteService {
 
-    private final CidadaoRepository cidadaoRepository;
+    private final UtenteRepository cidadaoRepository;
 
     @Transactional(readOnly = true)
     public Page<CidadaoResponse> findAll(Pageable pageable) {
@@ -44,7 +44,7 @@ public class CidadaoService {
     @Transactional
     public CidadaoResponse create(CidadaoRequest request) {
         // Check if citizen already exists by document
-        Optional<Cidadao> existingCidadaoByDoc = cidadaoRepository
+        Optional<Utente> existingCidadaoByDoc = cidadaoRepository
                 .findByTipoDocumentoAndNumeroDocumento(request.getTipoDocumento(), request.getNumeroDocumento());
         if (existingCidadaoByDoc.isPresent()) {
             throw new IllegalArgumentException("Utente já cadastrado com este tipo e número de documento.");
@@ -52,13 +52,13 @@ public class CidadaoService {
 
         // Check if citizen already exists by email if email is provided
         if (StringUtils.hasText(request.getEmail())) {
-            Optional<Cidadao> existingCidadaoByEmail = cidadaoRepository.findByEmail(request.getEmail());
+            Optional<Utente> existingCidadaoByEmail = cidadaoRepository.findByEmail(request.getEmail());
             if (existingCidadaoByEmail.isPresent()) {
                 throw new IllegalArgumentException("Utente já cadastrado com este email.");
             }
         }
 
-        Cidadao cidadao = new Cidadao();
+        Utente cidadao = new Utente();
         cidadao.setNome(request.getNome());
         cidadao.setTipoDocumento(request.getTipoDocumento());
         cidadao.setNumeroDocumento(request.getNumeroDocumento());
@@ -66,18 +66,18 @@ public class CidadaoService {
         cidadao.setTelefone(request.getTelefone()); // Can be null
         cidadao.setEndereco(request.getEndereco()); // Can be null
 
-        Cidadao savedCidadao = cidadaoRepository.save(cidadao);
+        Utente savedCidadao = cidadaoRepository.save(cidadao);
         return mapToResponse(savedCidadao);
     }
 
     @Transactional
     public CidadaoResponse update(UUID id, CidadaoRequest request) {
-        Cidadao cidadao = cidadaoRepository.findById(id)
+        Utente cidadao = cidadaoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado com ID: " + id));
 
         // Check if the email is being changed and if the new email already exists for another citizen
         if (StringUtils.hasText(request.getEmail()) && !request.getEmail().equals(cidadao.getEmail())) {
-            Optional<Cidadao> existingCidadaoByEmail = cidadaoRepository.findByEmail(request.getEmail());
+            Optional<Utente> existingCidadaoByEmail = cidadaoRepository.findByEmail(request.getEmail());
             if (existingCidadaoByEmail.isPresent()) {
                 throw new IllegalArgumentException("Outro utente já cadastrado com este email.");
             }
@@ -91,7 +91,7 @@ public class CidadaoService {
         cidadao.setTelefone(request.getTelefone());
         cidadao.setEndereco(request.getEndereco());
 
-        Cidadao updatedCidadao = cidadaoRepository.save(cidadao);
+        Utente updatedCidadao = cidadaoRepository.save(cidadao);
         return mapToResponse(updatedCidadao);
     }
 
@@ -102,7 +102,7 @@ public class CidadaoService {
         cidadaoRepository.deleteById(id);
     }
 
-    private CidadaoResponse mapToResponse(Cidadao cidadao) {
+    private CidadaoResponse mapToResponse(Utente cidadao) {
         return CidadaoResponse.builder()
                 .id(cidadao.getId())
                 .nome(cidadao.getNome())

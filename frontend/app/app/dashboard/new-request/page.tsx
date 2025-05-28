@@ -4,8 +4,8 @@ import { Suspense } from "react"
 import { useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { createCidadao, createPedido, getCidadaoByDocumento, listTiposServicos } from "@/lib/api-services"
-import { CidadaoRequest, PedidoRequest, TipoServico } from "@/lib/types"
+import { createUtente, createPedido, getUtenteByDocumento, listTiposServicos } from "@/lib/api-services"
+import { UtenteRequest, PedidoRequest, TipoServico } from "@/lib/types"
 import { useToast } from "@/components/ui/use-toast"
 import { useAuth } from "@/lib/auth-context"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -107,7 +107,7 @@ function NewRequestContent() {
     
     setBuscandoCidadao(true)
     try {
-      const cidadao = await getCidadaoByDocumento(tipoDocumento, numeroDocumento)
+      const cidadao = await getUtenteByDocumento(tipoDocumento, numeroDocumento)
       setCidadaoId(cidadao.id)
       setCidadaoNome(cidadao.nome)
       setCidadaoEncontrado(true)
@@ -165,7 +165,7 @@ function NewRequestContent() {
           throw new Error("Preencha os campos obrigatórios do utente.")
         }
         
-        const novoCidadaoRequest: CidadaoRequest = {
+        const novoCidadaoRequest: UtenteRequest = {
           nome: novoCidadaoNome,
           tipoDocumento: novoCidadaoTipoDocumento,
           numeroDocumento: novoCidadaoNumeroDocumento,
@@ -174,7 +174,7 @@ function NewRequestContent() {
           endereco: novoCidadaoEndereco || undefined,
         }
         
-        const novoCidadao = await createCidadao(novoCidadaoRequest)
+        const novoCidadao = await createUtente(novoCidadaoRequest)
         cidadaoIdToUse = novoCidadao.id
       } else if (!cidadaoId) {
         throw new Error("Utente não encontrado. Busque um utente existente ou cadastre um novo.")

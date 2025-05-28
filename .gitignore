@@ -29,3 +29,4 @@ auth-service/logs/log.log
 favorites-service/target/*
 frontend/app/.next/*
 backend/target/*
+.vscode/settings.json

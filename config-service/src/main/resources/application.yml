@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT} # Port for config-service
+  port: ${SERVER_PORT:8084} # Port for config-service
 
 spring:
   application:

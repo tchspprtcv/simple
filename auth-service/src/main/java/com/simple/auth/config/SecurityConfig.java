@@ -41,8 +41,9 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/auth/login", "/auth/register", "/auth/refresh-token", // Authentication endpoints
-                                "/users/test-public", // Example of a public user endpoint
+                                "/auth/login", "/auth/register", "/auth/refresh-token", // Authentication endpoints with /api prefix
+                                "/auth/login", "/auth/register", "/auth/refresh-token", // Authentication endpoints without /api prefix
+                                "/users/test-public", "/users/test-public", // Example of a public user endpoint
                                 "/v3/api-docs/**", // For OpenAPI/Swagger if added
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
@@ -79,12 +80,30 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*")); // Allow all origins for now
+        // Allow both localhost and Docker network origins
+        configuration.setAllowedOrigins(Arrays.asList(
+            "http://localhost:9000",
+            "http://127.0.0.1:9000",
+            "http://simple-frontend:9000"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        configuration.setAllowedHeaders(List.of("*")); // Allow all headers
-        configuration.setAllowCredentials(false); // If true, allowedOrigins cannot be "*"
+        configuration.setAllowedHeaders(Arrays.asList(
+            "Authorization", 
+            "Content-Type", 
+            "Accept", 
+            "Origin", 
+            "X-Requested-With", 
+            "Access-Control-Request-Method", 
+            "Access-Control-Request-Headers"
+        ));
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Disposition"));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L); // Cache preflight response for 1 hour
+        
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // Apply CORS configuration to all paths including those with /api prefix
         source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/auth/**", configuration);
         return source;
     }
 }

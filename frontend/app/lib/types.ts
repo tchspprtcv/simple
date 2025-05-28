@@ -171,6 +171,23 @@ export interface UsuarioResponse {
   criadoEm: string;
 }
 
+export interface UserRequest {
+  nome: string;
+  email: string;
+  senha: string;
+  perfilId: number;
+}
+
+export interface UserResponse {
+  id: string;
+  nome: string;
+  email: string;
+  perfil: string;
+  ativo: boolean;
+  ultimoAcesso?: string;
+  criadoEm: string;
+}
+
 export interface UtenteRequest {
   nome: string;
   tipoDocumento: string;

@@ -4,7 +4,7 @@
  */
 
 // URL base da API - usa variável de ambiente ou fallback para localhost
-export const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? 'http://localhost:8080/api';
+export const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? 'http://localhost:9080';
 
 // Timeout padrão para requisições (em milissegundos)
 export const DEFAULT_TIMEOUT = 30000;

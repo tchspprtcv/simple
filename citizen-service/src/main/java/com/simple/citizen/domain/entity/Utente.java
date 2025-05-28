@@ -15,7 +15,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cidadao {
+public class Utente {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

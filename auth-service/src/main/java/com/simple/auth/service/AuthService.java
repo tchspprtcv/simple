@@ -5,9 +5,9 @@ import com.simple.auth.dto.AuthResponse;
 import com.simple.auth.dto.UsuarioRequest;
 import com.simple.auth.dto.UsuarioResponse;
 import com.simple.auth.domain.entity.Perfil;
-import com.simple.auth.domain.entity.Usuario;
+import com.simple.auth.domain.entity.Utilizador;
 import com.simple.auth.repository.PerfilRepository;
-import com.simple.auth.repository.UsuarioRepository;
+import com.simple.auth.repository.UtilizadorRepository;
 import com.simple.auth.security.JwtTokenProvider;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final UsuarioRepository usuarioRepository;
+    private final UtilizadorRepository usuarioRepository;
     private final PerfilRepository perfilRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
@@ -63,7 +63,7 @@ public class AuthService {
         Perfil perfil = perfilRepository.findById(request.getPerfilId())
                 .orElseThrow(() -> new EntityNotFoundException("Perfil não encontrado com ID: " + request.getPerfilId()));
 
-        var user = new Usuario();
+        var user = new Utilizador();
         user.setNome(request.getNome());
         user.setEmail(request.getEmail());
         user.setSenha(passwordEncoder.encode(request.getSenha()));
@@ -71,7 +71,7 @@ public class AuthService {
         user.setAtivo(true); // Default to active on registration
         // criadoEm and atualizadoEm will be set by @CreationTimestamp / @UpdateTimestamp
 
-        Usuario savedUser = usuarioRepository.save(user);
+        Utilizador savedUser = usuarioRepository.save(user);
 
         return UsuarioResponse.builder()
                 .id(savedUser.getId())

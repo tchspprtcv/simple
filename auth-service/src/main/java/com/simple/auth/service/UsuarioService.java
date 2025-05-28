@@ -2,8 +2,8 @@ package com.simple.auth.service;
 
 import com.simple.auth.dto.UsuarioRequest; // Renamed from monolith's UsuarioRequest to avoid confusion if a different one is needed later
 import com.simple.auth.dto.UsuarioResponse;
-import com.simple.auth.domain.entity.Usuario;
-import com.simple.auth.repository.UsuarioRepository;
+import com.simple.auth.domain.entity.Utilizador;
+import com.simple.auth.repository.UtilizadorRepository;
 // PerfilRepository might be needed if we allow profile updates through this service
 // import com.simple.auth.repository.PerfilRepository; 
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UsuarioService {
 
-    private final UsuarioRepository usuarioRepository;
+    private final UtilizadorRepository usuarioRepository;
     // private final PerfilRepository perfilRepository; // Uncomment if managing Perfil
 
     @Transactional(readOnly = true)
@@ -24,8 +24,8 @@ public class UsuarioService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         String username;
-        if (principal instanceof Usuario) {
-            username = ((Usuario) principal).getUsername(); // UserDetails.getUsername()
+        if (principal instanceof Utilizador) {
+            username = ((Utilizador) principal).getUsername(); // UserDetails.getUsername()
         } else if (principal instanceof String) { // Fallback if principal is just the username string
             username = (String) principal;
         } else {
@@ -34,7 +34,7 @@ public class UsuarioService {
             throw new IllegalStateException("Principal type not supported for fetching current user: " + principal.getClass().getName());
         }
 
-        Usuario user = usuarioRepository.findByEmail(username) // Assuming email is the username
+        Utilizador user = usuarioRepository.findByEmail(username) // Assuming email is the username
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return mapToUsuarioResponse(user);
@@ -45,15 +45,15 @@ public class UsuarioService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
 
-        if (principal instanceof Usuario) {
-            username = ((Usuario) principal).getUsername();
+        if (principal instanceof Utilizador) {
+            username = ((Utilizador) principal).getUsername();
         } else if (principal instanceof String) {
             username = (String) principal;
         } else {
             throw new IllegalStateException("Principal type not supported for updating current user: " + principal.getClass().getName());
         }
 
-        Usuario user = usuarioRepository.findByEmail(username)
+        Utilizador user = usuarioRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         // Update user fields from the request
@@ -65,11 +65,11 @@ public class UsuarioService {
         // Perfil updates would typically be an admin function and might involve PerfilRepository.
         // For now, only 'nome' is updatable as per the DTO.
 
-        Usuario updatedUser = usuarioRepository.save(user);
+        Utilizador updatedUser = usuarioRepository.save(user);
         return mapToUsuarioResponse(updatedUser);
     }
 
-    private UsuarioResponse mapToUsuarioResponse(Usuario user) {
+    private UsuarioResponse mapToUsuarioResponse(Utilizador user) {
         return UsuarioResponse.builder()
                 .id(user.getId())
                 .nome(user.getNome())

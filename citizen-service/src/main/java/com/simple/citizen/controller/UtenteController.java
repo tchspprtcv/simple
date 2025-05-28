@@ -2,7 +2,7 @@ package com.simple.citizen.controller;
 
 import com.simple.citizen.dto.CidadaoRequest;
 import com.simple.citizen.dto.CidadaoResponse;
-import com.simple.citizen.service.CidadaoService;
+import com.simple.citizen.service.UtenteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,9 +16,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/") // The API Gateway will route /api/cidadaos to this service, so base path here is /
 @RequiredArgsConstructor
-public class CidadaoController {
+public class UtenteController {
 
-    private final CidadaoService cidadaoService;
+    private final UtenteService cidadaoService;
 
     // GET / (mapped from /api/cidadaos by gateway)
     @GetMapping

@@ -1,7 +1,7 @@
 package com.simple.auth.service;
 
-import com.simple.auth.domain.entity.Usuario;
-import com.simple.auth.repository.UsuarioRepository;
+import com.simple.auth.domain.entity.Utilizador;
+import com.simple.auth.repository.UtilizadorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UsuarioRepository usuarioRepository;
+    private final UtilizadorRepository usuarioRepository;
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByEmail(email)
+        Utilizador usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
         
         // The Usuario entity already implements UserDetails, so it can be returned directly.

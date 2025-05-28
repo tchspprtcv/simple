@@ -230,7 +230,7 @@ export const getUtenteByDocumento = async (
  */
 export const createUtente = async (utente: UtenteRequest): Promise<UtenteResponse> => {
   try {
-    const response = await apiClient.post<UtenteResponse>('/utentes', cidadao);
+    const response = await apiClient.post<UtenteResponse>('/utentes', utente);
     return response.data;
   } catch (error) {
     throw handleApiError(error as AxiosError);
@@ -245,7 +245,7 @@ export const updateUtente = async (
   utente: UtenteRequest
 ): Promise<UtenteResponse> => {
   try {
-    const response = await apiClient.put<UtenteResponse>(`/utentes/${id}`, cidadao);
+    const response = await apiClient.put<UtenteResponse>(`/utentes/${id}`, utente);
     return response.data;
   } catch (error) {
     throw handleApiError(error as AxiosError);
