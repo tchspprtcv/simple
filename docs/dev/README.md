@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-O **Simple** é uma aplicação completa para gestão de pedidos de serviços municipais, desenvolvida para facilitar o atendimento ao cidadão e otimizar os processos internos da administração municipal. A aplicação permite o registro, acompanhamento e gestão de diversos tipos de processos municipais, como legalização de imóveis, compra de lotes, pedidos de eventos, licenciamentos e emissão de plantas.
+O **Simple** é uma aplicação completa para gestão de pedidos de serviços municipais, desenvolvida para facilitar o atendimento ao utente e otimizar os processos internos da administração municipal. A aplicação permite o registro, acompanhamento e gestão de diversos tipos de processos municipais, como legalização de imóveis, compra de lotes, pedidos de eventos, licenciamentos e emissão de plantas.
 
 ## Estrutura do Projeto
 
@@ -10,7 +10,7 @@ O projeto está organizado em três componentes principais:
 
 ### 1. Banco de Dados (PostgreSQL)
 
-O banco de dados armazena todas as informações da aplicação, incluindo dados de usuários, cidadãos, pedidos, documentos, pagamentos e histórico de processos.
+O banco de dados armazena todas as informações da aplicação, incluindo dados de utilizadores, utentes, pedidos, documentos, pagamentos e histórico de processos.
 
 **Localização:** `~/simple/database/`
 
@@ -39,7 +39,7 @@ O backend é responsável pela lógica de negócio, processamento de dados e exp
 
 ### 3. Frontend (Next.js)
 
-O frontend fornece a interface de usuário para cidadãos e funcionários municipais.
+O frontend fornece a interface de utilizador para utentes e funcionários municipais.
 
 **Localização:** `~/simple/frontend/`
 

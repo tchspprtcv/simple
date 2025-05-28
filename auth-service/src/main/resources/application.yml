@@ -1,13 +1,13 @@
 server:
-  port: 8081 # Port for the auth-service
+  port: ${SERVER_PORT:8081} # Port for the auth-service
 
 spring:
   application:
     name: auth-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/simple_auth} # Default for local, can be overridden by env var
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/simple}
+    username: ${SPRING_DATASOURCE_USERNAME:simple_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:simple_password}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -21,7 +21,13 @@ spring:
 application:
   security:
     jwt:
-      secret-key: ${JWT_SECRET_KEY:yourDefaultSecretKeyIfNotOverridden} # Use an environment variable for this!
+      secret-key: ${JWT_SECRET_KEY} # Use an environment variable for this!
       expiration: 86400000 # 1 day in ms
       refresh-token:
         expiration: 604800000 # 7 days in ms
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs

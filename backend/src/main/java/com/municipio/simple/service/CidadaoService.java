@@ -27,13 +27,13 @@ public class CidadaoService {
     public CidadaoResponse findById(UUID id) {
         return cidadaoRepository.findById(id)
                 .map(this::mapToResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado"));
     }
 
     public CidadaoResponse findByDocumento(String tipoDocumento, String numeroDocumento) {
         return cidadaoRepository.findByTipoDocumentoAndNumeroDocumento(tipoDocumento, numeroDocumento)
                 .map(this::mapToResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado"));
     }
 
     public CidadaoResponse create(CidadaoRequest request) {
@@ -41,7 +41,7 @@ public class CidadaoService {
                 .findByTipoDocumentoAndNumeroDocumento(request.getTipoDocumento(), request.getNumeroDocumento());
         
         if (existingCidadao.isPresent()) {
-            throw new IllegalArgumentException("Cidadão já cadastrado com este documento");
+            throw new IllegalArgumentException("Utente já cadastrado com este documento");
         }
 
         Cidadao cidadao = new Cidadao();
@@ -59,7 +59,7 @@ public class CidadaoService {
 
     public CidadaoResponse update(UUID id, CidadaoRequest request) {
         Cidadao cidadao = cidadaoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado"));
 
         cidadao.setNome(request.getNome());
         cidadao.setEmail(request.getEmail());

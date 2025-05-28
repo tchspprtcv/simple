@@ -27,8 +27,8 @@ Backend do sistema de gestão de pedidos de serviços municipais.
 ## Principais Funcionalidades
 
 - Autenticação e autorização com JWT
-- Gestão de usuários e perfis
-- Gestão de cidadãos
+- Gestão de utilizadores e perfis
+- Gestão de utentes
 - Gestão de pedidos de serviços municipais
 - Acompanhamento de pedidos
 - Gestão de documentos

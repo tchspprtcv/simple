@@ -6,11 +6,11 @@ digraph "Simple Database Schema" {
   // Estilo
   rankdir=LR;
   
-  // Usuários e Perfis
+  // Utilizadores e Perfis
   perfis [label="{perfis|id: serial\lnome: varchar\ldescricao: text\lpermissoes: jsonb\l}"];
   usuarios [label="{usuarios|id: uuid\lnome: varchar\lemail: varchar\lsenha: varchar\lperfil_id: integer\lativo: boolean\l}"];
   
-  // Cidadãos
+  // Utentes
   cidadaos [label="{cidadaos|id: uuid\lnome: varchar\ltipo_documento: varchar\lnumero_documento: varchar\lemail: varchar\ltelefone: varchar\lendereco: text\l}"];
   
   // Serviços
@@ -68,7 +68,7 @@ digraph "Simple Database Schema" {
   
   // Relacionamentos
   
-  // Usuários e Perfis
+  // Utilizadores e Perfis
   perfis -> usuarios [label="1:N"];
   
   // Categorias e Tipos de Serviços

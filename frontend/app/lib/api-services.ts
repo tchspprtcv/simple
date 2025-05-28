@@ -144,7 +144,7 @@ export const logout = (): void => {
 };
 
 /**
- * Registra um novo usuário
+ * Registra um novo utilizador
  */
 export const registerUser = async (user: UsuarioRequest): Promise<UsuarioResponse> => {
   try {
@@ -156,7 +156,7 @@ export const registerUser = async (user: UsuarioRequest): Promise<UsuarioRespons
 };
 
 /**
- * Obtém o usuário atual
+ * Obtém o utilizador atual
  */
 export const getCurrentUser = async (): Promise<UsuarioResponse> => {
   try {
@@ -168,7 +168,7 @@ export const getCurrentUser = async (): Promise<UsuarioResponse> => {
 };
 
 /**
- * Atualiza o perfil do usuário atual
+ * Atualiza o perfil do utilizador atual
  */
 export const updateUserProfile = async (userData: Partial<UsuarioRequest>): Promise<UsuarioResponse> => {
   try {
@@ -180,7 +180,7 @@ export const updateUserProfile = async (userData: Partial<UsuarioRequest>): Prom
 };
 
 /**
- * Lista todos os cidadãos (paginado)
+ * Lista todos os utentes (paginado)
  */
 export const listCidadaos = async (
   page: number = 0,
@@ -197,7 +197,7 @@ export const listCidadaos = async (
 };
 
 /**
- * Obtém um cidadão pelo ID
+ * Obtém um utente pelo ID
  */
 export const getCidadaoById = async (id: string): Promise<CidadaoResponse> => {
   try {
@@ -209,7 +209,7 @@ export const getCidadaoById = async (id: string): Promise<CidadaoResponse> => {
 };
 
 /**
- * Obtém um cidadão pelo documento
+ * Obtém um utente pelo documento
  */
 export const getCidadaoByDocumento = async (
   tipoDocumento: string,
@@ -226,7 +226,7 @@ export const getCidadaoByDocumento = async (
 };
 
 /**
- * Cria um novo cidadão
+ * Cria um novo utente
  */
 export const createCidadao = async (cidadao: CidadaoRequest): Promise<CidadaoResponse> => {
   try {
@@ -238,7 +238,7 @@ export const createCidadao = async (cidadao: CidadaoRequest): Promise<CidadaoRes
 };
 
 /**
- * Atualiza um cidadão existente
+ * Atualiza um utente existente
  */
 export const updateCidadao = async (
   id: string,
@@ -294,7 +294,7 @@ export const getPedidoByCodigo = async (codigo: string): Promise<PedidoResponse>
 };
 
 /**
- * Lista pedidos por cidadão (paginado)
+ * Lista pedidos por utente (paginado)
  */
 export const listPedidosByCidadao = async (
   cidadaoId: string,
@@ -435,7 +435,7 @@ export const listTiposServicosByCategoria = async (categoriaId: number): Promise
 };
 
 /**
- * Lista os serviços favoritos do usuário
+ * Lista os serviços favoritos do utilizador
  */
 export const listServicosFavoritos = async (): Promise<TipoServico[]> => {
   try {
@@ -469,7 +469,7 @@ export const removeServicoFavorito = async (servicoId: number): Promise<void> =>
 };
 
 /**
- * Adiciona ou remove um serviço dos favoritos do usuário atual
+ * Adiciona ou remove um serviço dos favoritos do utilizador atual
  */
 export const toggleFavorito = async (tipoServicoId: number): Promise<void> => {
   try {

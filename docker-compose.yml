@@ -1,14 +1,17 @@
 version: '3.8'
 
+
 services:
   # Serviço do banco de dados PostgreSQL (Renamed to 'db')
   db: # Renamed from 'postgres'
-    image: postgres:14 # Using version 14 as in original, can be updated to 15 if preferred
+    image: postgres:15 # Using version 14 as in original, can be updated to 15 if preferred
     container_name: simple-db # Renamed container
+    env_file:
+      - ./.env.local
     environment:
-      POSTGRES_DB: simple_monolith # Default DB for monolith
-      POSTGRES_USER: postgres # Changed user
-      POSTGRES_PASSWORD: postgres # Changed password
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
     ports:
       - "9433:5432"
     volumes:
@@ -22,23 +25,23 @@ services:
     restart: unless-stopped
 
   # Serviço do backend Spring Boot (Monolith)
-  backend:
-    build:
-      context: .
-      dockerfile: backend/Dockerfile
-    container_name: simple-backend
-    depends_on:
-      - db # Updated dependency
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_monolith # Updated URL and DB name
-      SPRING_DATASOURCE_USERNAME: postgres # Updated username
-      SPRING_DATASOURCE_PASSWORD: postgres # Updated password
-      SPRING_JPA_HIBERNATE_DDL_AUTO: none # Monolith uses init scripts
-    ports:
-      - "9081:8080" # Changed from 8081 to 9081
-    networks:
-      - simple-network
-    restart: unless-stopped
+  #backend:
+  # build:
+  #    context: .
+  #    dockerfile: backend/Dockerfile
+  #  container_name: simple-backend
+  #  depends_on:
+  #    - db # Updated dependency
+  #  environment:
+  #    SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_monolith # Updated URL and DB name
+  #    SPRING_DATASOURCE_USERNAME: postgres # Updated username
+  #    SPRING_DATASOURCE_PASSWORD: postgres # Updated password
+  #    SPRING_JPA_HIBERNATE_DDL_AUTO: none # Monolith uses init scripts
+  #  ports:
+  #    - "9081:8080" # Changed from 8081 to 9081
+  #  networks:
+  #    - simple-network
+  #  restart: unless-stopped
 
   # API Gateway Service
   api-gateway:
@@ -46,17 +49,21 @@ services:
       context: ./api-gateway
       dockerfile: Dockerfile
     container_name: simple-api-gateway
+    env_file:
+      - ./.env.local
     ports:
       - "9080:8080"
     networks:
       - simple-network
     restart: unless-stopped
-    # depends_on:
-      # - auth-service
-      # - citizen-service
-      # - order-service
-      # - config-service
-      # - favorites-service
+    environment:
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+    depends_on:
+      - auth-service
+      - citizen-service
+      - order-service
+      - config-service
+      - favorites-service
 
   # Authentication Service
   auth-service:
@@ -64,13 +71,15 @@ services:
       context: ./auth-service
       dockerfile: Dockerfile
     container_name: simple-auth-service
+    env_file:
+      - ./.env.local
     ports:
-      - "9081:8081" # Host port 9082, container port 8081
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_auth
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      JWT_SECRET_KEY: yourDefaultSecretKeyIfNotOverridden # From auth-service application.yml
+      - "9081:8081"
+   # environment:
+   #   SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+   #   SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+   #   SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+   #   JWT_SECRET_KEY: ${JWT_SECRET_KEY}
     depends_on:
       - db
     networks:
@@ -83,12 +92,14 @@ services:
       context: ./citizen-service
       dockerfile: Dockerfile
     container_name: simple-citizen-service
+    env_file:
+      - ./.env.local
     ports:
       - "9082:8082" # Container port is 8082
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_citizen
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+    #environment:
+    #  SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+    #  SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+    #  SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
     depends_on:
       - db
     networks:
@@ -101,20 +112,23 @@ services:
       context: ./order-service
       dockerfile: Dockerfile
     container_name: simple-order-service
+    env_file:
+      - ./.env.local
     ports:
       - "9083:8083" # Container port is 8083
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_order
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      AUTH_SERVICE_URL: http://auth-service:9081 # This stays the same as it's the internal container port
-      CITIZEN_SERVICE_URL: http://citizen-service:9082
-      CONFIG_SERVICE_URL: http://config-service:9084
+    #environment:
+    #  SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+    #  SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+    #  SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+    #  AUTH_SERVICE_URL: http://auth-service:9081 # This stays the same as it's the internal container port
+    #  CITIZEN_SERVICE_URL: http://citizen-service:9082
+    #  CONFIG_SERVICE_URL: http://config-service:9084
+    #  JWT_SECRET_KEY: ${JWT_SECRET_KEY}
     depends_on:
       - db
-      # - auth-service # Commented out for initial startup
-      # - citizen-service
-      # - config-service
+      - auth-service
+      - citizen-service
+      - config-service
     networks:
       - simple-network
     restart: unless-stopped
@@ -125,12 +139,14 @@ services:
       context: ./config-service
       dockerfile: Dockerfile
     container_name: simple-config-service
+    env_file:
+      - ./.env.local
     ports:
       - "9084:8084" # Container port is 8084
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_config
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+    #environment:
+    #  SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+    #  SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+    #  SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
     depends_on:
       - db
     networks:
@@ -143,16 +159,19 @@ services:
       context: ./favorites-service
       dockerfile: Dockerfile
     container_name: simple-favorites-service
+    env_file:
+      - ./.env.local
     ports:
       - "9085:8085" # Container port is 8085
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simple_favorites
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      CONFIG_SERVICE_URL: http://config-service:9084 # Matches service name
+    #environment:
+      #SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      #SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      #SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      #CONFIG_SERVICE_URL: http://config-service:9084
+      #JWT_SECRET_KEY: ${JWT_SECRET_KEY} # Matches service name
     depends_on:
       - db
-      # - config-service # Commented out for initial startup
+      - config-service
     networks:
       - simple-network
     restart: unless-stopped
@@ -163,8 +182,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: simple-frontend
-    # depends_on: # Frontend now depends on api-gateway, not directly on backend
-      # - api-gateway 
+    env_file:
+      - ./.env.local
+    depends_on: # Frontend now depends on api-gateway, not directly on backend
+      - api-gateway 
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:9080 # Updated to point to new api-gateway port
     ports:

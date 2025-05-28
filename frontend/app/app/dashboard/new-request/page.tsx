@@ -39,7 +39,7 @@ function NewRequestContent() {
   const [selectedService, setSelectedService] = useState<TipoServico | null>(null)
   const [cidadaoTab, setCidadaoTab] = useState("existente")
   
-  // Dados do cidadão existente
+  // Dados do utente existente
   const [tipoDocumento, setTipoDocumento] = useState("CPF")
   const [numeroDocumento, setNumeroDocumento] = useState("")
   const [cidadaoId, setCidadaoId] = useState<string | null>(null)
@@ -47,7 +47,7 @@ function NewRequestContent() {
   const [cidadaoEncontrado, setCidadaoEncontrado] = useState(false)
   const [buscandoCidadao, setBuscandoCidadao] = useState(false)
   
-  // Dados do novo cidadão
+  // Dados do novo utente
   const [novoCidadaoNome, setNovoCidadaoNome] = useState("")
   const [novoCidadaoTipoDocumento, setNovoCidadaoTipoDocumento] = useState("CPF")
   const [novoCidadaoNumeroDocumento, setNovoCidadaoNumeroDocumento] = useState("")
@@ -113,7 +113,7 @@ function NewRequestContent() {
       setCidadaoEncontrado(true)
       
       toast({
-        title: "Cidadão encontrado",
+        title: "Utente encontrado",
         description: `${cidadao.nome} foi encontrado com sucesso.`,
       })
     } catch (error: any) {
@@ -122,8 +122,8 @@ function NewRequestContent() {
       setCidadaoNome("")
       
       toast({
-        title: "Cidadão não encontrado",
-        description: "Cidadão não encontrado. Tente novamente ou cadastre um novo cidadão.",
+        title: "Utente não encontrado",
+        description: "Utente não encontrado. Tente novamente ou cadastre um novo utente.",
         variant: "destructive",
       })
     } finally {
@@ -159,10 +159,10 @@ function NewRequestContent() {
     
     setIsSubmitting(true)
     try {
-      // Se for um novo cidadão, cadastrar primeiro
+      // Se for um novo utente, cadastrar primeiro
       if (cidadaoTab === "novo") {
         if (!novoCidadaoNome || !novoCidadaoTipoDocumento || !novoCidadaoNumeroDocumento) {
-          throw new Error("Preencha os campos obrigatórios do cidadão.")
+          throw new Error("Preencha os campos obrigatórios do utente.")
         }
         
         const novoCidadaoRequest: CidadaoRequest = {
@@ -177,7 +177,7 @@ function NewRequestContent() {
         const novoCidadao = await createCidadao(novoCidadaoRequest)
         cidadaoIdToUse = novoCidadao.id
       } else if (!cidadaoId) {
-        throw new Error("Cidadão não encontrado. Busque um cidadão existente ou cadastre um novo.")
+        throw new Error("Utente não encontrado. Busque um utente existente ou cadastre um novo.")
       }
       
       // Criar o pedido
@@ -261,13 +261,13 @@ function NewRequestContent() {
         
         <Card className="shadow-sm">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Cidadão</CardTitle>
+            <CardTitle className="text-2xl">Utente</CardTitle>
           </CardHeader>
           <CardContent>
             <Tabs value={cidadaoTab} onValueChange={setCidadaoTab} className="space-y-6">
               <TabsList className="w-full sm:w-auto border-b">
-                <TabsTrigger value="existente" className="text-base">Cidadão Existente</TabsTrigger>
-                <TabsTrigger value="novo" className="text-base">Novo Cidadão</TabsTrigger>
+                <TabsTrigger value="existente" className="text-base">Utente Existente</TabsTrigger>
+                <TabsTrigger value="novo" className="text-base">Novo Utente</TabsTrigger>
               </TabsList>
               
               <TabsContent value="existente" className="space-y-6">
@@ -311,7 +311,7 @@ function NewRequestContent() {
                         disabled={buscandoCidadao || !tipoDocumento || !numeroDocumento}
                         className="w-full h-10 shadow-sm"
                       >
-                        {buscandoCidadao ? "Buscando..." : "Buscar Cidadão"}
+                        {buscandoCidadao ? "Buscando..." : "Buscar Utente"}
                       </Button>
                     </div>
                   </div>
@@ -319,7 +319,7 @@ function NewRequestContent() {
                   {cidadaoEncontrado && (
                     <Alert className="bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-900">
                       <InfoIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
-                      <AlertTitle className="font-semibold text-green-800 dark:text-green-200">Cidadão Encontrado</AlertTitle>
+                      <AlertTitle className="font-semibold text-green-800 dark:text-green-200">Utente Encontrado</AlertTitle>
                       <AlertDescription className="text-green-700 dark:text-green-300">
                         Nome: {cidadaoNome}
                       </AlertDescription>

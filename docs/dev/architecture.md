@@ -48,8 +48,8 @@ graph TD
 O banco de dados PostgreSQL é o componente responsável pelo armazenamento persistente de todos os dados da aplicação. Ele implementa um modelo relacional complexo que suporta todos os aspectos do sistema de gestão de pedidos.
 
 #### Principais Entidades:
-- **Usuários e Perfis**: Armazena informações sobre funcionários municipais e suas permissões
-- **Cidadãos**: Dados dos solicitantes de serviços
+- **Utilizadores e Perfis**: Armazena informações sobre funcionários municipais e suas permissões
+- **Utentes**: Dados dos solicitantes de serviços
 - **Pedidos**: Registros de solicitações de serviços
 - **Tipos de Serviços e Etapas**: Configuração dos fluxos de trabalho
 - **Documentos**: Arquivos anexados aos pedidos
@@ -99,7 +99,7 @@ O frontend é desenvolvido com Next.js, um framework React que oferece renderiza
 - Estilização com Tailwind CSS
 - Formulários com validação
 - Autenticação e controle de acesso
-- Tratamento de erros e feedback ao usuário
+- Tratamento de erros e feedback ao utilizador
 
 ## Fluxo de Dados
 
@@ -135,7 +135,7 @@ sequenceDiagram
 
 A aplicação implementa várias camadas de segurança:
 
-1. **Autenticação**: Sistema baseado em JWT para autenticação de usuários
+1. **Autenticação**: Sistema baseado em JWT para autenticação de utilizadores
 2. **Autorização**: Controle de acesso baseado em perfis e permissões
 3. **Validação de Dados**: Validação em todos os níveis (frontend, backend e banco)
 4. **Proteção contra Ataques Comuns**: XSS, CSRF, SQL Injection

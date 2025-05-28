@@ -2,7 +2,7 @@
 skinparam linetype ortho
 
 actor "Usuário" as user
-actor "Cidadão" as citizen
+actor "Utente" as citizen
 actor "Técnico" as tech
 actor "Gestor" as manager
 
@@ -19,9 +19,9 @@ rectangle "Sistema Simple" {
     (Atribuir Responsável) as assignTech
   }
   
-  rectangle "Gestão de Cidadãos" as citizens {
-    (Cadastrar Cidadão) as registerCitizen
-    (Consultar Cidadão) as queryCitizen
+  rectangle "Gestão de Utentes" as citizens {
+    (Cadastrar Utente) as registerCitizen
+    (Consultar Utente) as queryCitizen
   }
   
   rectangle "Configuração" as config {
@@ -34,7 +34,7 @@ database "Banco de Dados" as db
 
 ' Fluxos de Autenticação
 user --> login : Credenciais (email/senha)
-login --> db : Consulta usuário
+login --> db : Consulta utilizador
 login --> user : Token JWT
 
 ' Fluxos de Pedidos
@@ -57,14 +57,14 @@ assignTech --> db : Atualiza responsável
 assignTech --> tech : Notificação
 assignTech --> manager : Confirmação
 
-' Fluxos de Cidadãos
-user --> registerCitizen : Dados do cidadão
-registerCitizen --> db : Persiste cidadão
-registerCitizen --> user : ID do cidadão
+' Fluxos de Utentes
+user --> registerCitizen : Dados do utente
+registerCitizen --> db : Persiste utente
+registerCitizen --> user : ID do utente
 
 user --> queryCitizen : Filtros de busca
-queryCitizen --> db : Consulta cidadãos
-queryCitizen --> user : Lista de cidadãos
+queryCitizen --> db : Consulta utentes
+queryCitizen --> user : Lista de utentes
 
 ' Fluxos de Configuração
 manager --> manageServiceTypes : Dados do tipo de serviço

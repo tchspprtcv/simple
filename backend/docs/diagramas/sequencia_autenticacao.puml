@@ -25,7 +25,7 @@ authMgr -> userRepo : findByEmail(email)
 activate userRepo
 userRepo -> db : SELECT * FROM usuario WHERE email = ?
 activate db
-db --> userRepo : Dados do usuário
+db --> userRepo : Dados do utilizador
 deactivate db
 userRepo --> authMgr : Usuario
 deactivate userRepo
@@ -38,7 +38,7 @@ authSrv -> userRepo : findByEmail(email)
 activate userRepo
 userRepo -> db : SELECT * FROM usuario WHERE email = ?
 activate db
-db --> userRepo : Dados do usuário
+db --> userRepo : Dados do utilizador
 deactivate db
 userRepo --> authSrv : Usuario
 deactivate userRepo
@@ -78,7 +78,7 @@ jwtProvider -> userRepo : findByEmail(email do token)
 activate userRepo
 userRepo -> db : SELECT * FROM usuario WHERE email = ?
 activate db
-db --> userRepo : Dados do usuário
+db --> userRepo : Dados do utilizador
 deactivate db
 userRepo --> jwtProvider : Usuario
 deactivate userRepo

@@ -7,7 +7,7 @@ const protectedRoutes = [
   '/profile',
 ]
 
-// Rotas públicas para usuários não autenticados
+// Rotas públicas para utilizadores não autenticados
 const authRoutes = [
   '/login',
   '/register',

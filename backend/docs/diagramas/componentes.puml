@@ -25,7 +25,7 @@ package "Sistema Simple" {
     pedidoSrv --> pedidoRepo
   }
   
-  package "Módulo de Gestão de Cidadãos" {
+  package "Módulo de Gestão de Utentes" {
     [CidadaoController] as cidadaoCtrl
     [CidadaoService] as cidadaoSrv
     [CidadaoRepository] as cidadaoRepo
@@ -73,9 +73,9 @@ package "Sistema Simple" {
 ' Dependências entre módulos
 pedidoSrv --> cidadaoRepo : usa
 pedidoSrv --> tipoServicoRepo : usa
-pedidoSrv --> authSrv : usa para obter usuário atual
+pedidoSrv --> authSrv : usa para obter utilizador atual
 favoritoSrv --> tipoServicoRepo : usa
-favoritoSrv --> authSrv : usa para obter usuário atual
+favoritoSrv --> authSrv : usa para obter utilizador atual
 
 ' Dependências externas
 database "Banco de Dados" as db

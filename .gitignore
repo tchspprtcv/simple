@@ -16,3 +16,4 @@
 */.next/cache/entries/*
 */.next/cache/entries/pages/*
 */.next/cache/entries/pages/api/*
+backend/target/classes/application.yml

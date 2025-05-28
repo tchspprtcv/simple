@@ -112,7 +112,7 @@ Exemplo:
 feat(pedidos): adiciona filtro por data de criação
 
 Implementa filtro por data de criação na listagem de pedidos.
-Isso permite aos usuários encontrar pedidos mais facilmente.
+Isso permite aos utilizadores encontrar pedidos mais facilmente.
 
 Closes #123
 ```
@@ -201,7 +201,7 @@ Ao sugerir uma melhoria, inclua:
 - **Título**: Descrição concisa da melhoria
 - **Problema**: O problema que sua melhoria resolve
 - **Solução**: Descrição detalhada da melhoria proposta
-- **Benefícios**: Como essa melhoria beneficiará os usuários
+- **Benefícios**: Como essa melhoria beneficiará os utilizadores
 - **Alternativas**: Outras soluções que você considerou
 - **Contexto adicional**: Qualquer informação adicional sobre a melhoria
 

@@ -123,7 +123,7 @@ INSERT INTO historico_pedidos (pedido_id, etapa_processo_id, status_id, usuario_
 ('765f57da-eb24-4a5e-8ea0-cfa6f7b6ad6e', 9, 3, '14174f2b-78d4-43e0-94c7-1c90345773cf', 'Aguardando documentação adicional', '{"status": "EM_ANALISE"}', '{"status": "AGUARDANDO_DOC"}');
 
 -- Inserção de dados em documentos_pedido (usando UUIDs válidos)
--- CORREÇÃO: Substituído o UUID do cidadão pelo UUID de um usuário válido na tabela usuarios
+-- CORREÇÃO: Substituído o UUID do utente pelo UUID de um utilizador válido na tabela usuarios
 INSERT INTO documentos_pedido (id, pedido_id, tipo_documento_id, etapa_processo_id, usuario_id, nome_arquivo, caminho_arquivo, tamanho_arquivo, tipo_mime, hash_arquivo) VALUES
 ('64e8df7d-83b5-47f3-9632-c8610b9409d2', '929efadd-9503-4137-91a9-abd3761c2946', 1, 1, 'e639c09b-72d0-468b-a296-634187bae05f', 'rg_pedro.pdf', '/arquivos/documentos/2025/05/rg_pedro.pdf', 1024, 'application/pdf', 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0'),
 ('c140bbe9-4d90-41c1-9912-e5fbb7f2593e', '929efadd-9503-4137-91a9-abd3761c2946', 2, 1, 'e639c09b-72d0-468b-a296-634187bae05f', 'cpf_pedro.pdf', '/arquivos/documentos/2025/05/cpf_pedro.pdf', 512, 'application/pdf', 'b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1'),
@@ -148,7 +148,7 @@ INSERT INTO eventos (id, pedido_id, nome, descricao, data_inicio, data_fim, loca
 ('31ecc117-43a8-4aa2-ba95-f61601b4a92e', '765f57da-eb24-4a5e-8ea0-cfa6f7b6ad6e', 'Festa Junina Comunitária', 'Evento tradicional de festa junina para a comunidade', CURRENT_TIMESTAMP + INTERVAL '20 days', CURRENT_TIMESTAMP + INTERVAL '20 days' + INTERVAL '8 hours', 'Praça Central', 500, 'CULTURAL', 'Marcos Ribeiro', '(11) 92345-6789', 'SOLICITADO');
 
 -- Inserção de dados em notificacoes (usando UUIDs válidos)
--- CORREÇÃO: Substituído os UUIDs de usuários por novos UUIDs para as notificações
+-- CORREÇÃO: Substituído os UUIDs de utilizadores por novos UUIDs para as notificações
 INSERT INTO notificacoes (id, usuario_id, cidadao_id, pedido_id, titulo, mensagem, tipo, lida) VALUES
 ('a1b2c3d4-e5f6-47a7-8d0e-323d59ed8629', '61eed75a-32dd-452c-a160-e79f44cb7778', NULL, '929efadd-9503-4137-91a9-abd3761c2946', 'Novo pedido para análise', 'Você tem um novo pedido de legalização de imóvel para analisar', 'INFO', false);
 

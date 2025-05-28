@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-O projeto analisado é um sistema de gestão de pedidos de serviços municipais chamado "Simple", desenvolvido em Java utilizando o framework Spring Boot. O sistema permite o gerenciamento de pedidos de serviços municipais, com funcionalidades para cidadãos, atendentes, gestores e técnicos.
+O projeto analisado é um sistema de gestão de pedidos de serviços municipais chamado "Simple", desenvolvido em Java utilizando o framework Spring Boot. O sistema permite o gerenciamento de pedidos de serviços municipais, com funcionalidades para utentes, atendentes, gestores e técnicos.
 
 ## Tecnologias Utilizadas
 
@@ -109,13 +109,13 @@ Principais dependências:
 
 O sistema possui várias entidades principais:
 
-1. **Usuario**: Representa os usuários do sistema com diferentes perfis
-2. **Cidadao**: Representa os cidadãos que solicitam serviços
+1. **Usuario**: Representa os utilizadores do sistema com diferentes perfis
+2. **Cidadao**: Representa os utentes que solicitam serviços
 3. **Pedido**: Representa as solicitações de serviços
 4. **TipoServico**: Categoriza os diferentes tipos de serviços oferecidos
 5. **StatusPedido**: Representa os diferentes estados de um pedido
 6. **EtapaProcesso**: Representa as etapas do fluxo de processamento de um pedido
-7. **Favorito**: Permite aos usuários marcar serviços como favoritos
+7. **Favorito**: Permite aos utilizadores marcar serviços como favoritos
 
 ## Segurança
 

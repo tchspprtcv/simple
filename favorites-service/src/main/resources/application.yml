@@ -1,5 +1,5 @@
 server:
-  port: 8085 # Port for favorites-service
+  port: ${SERVER_PORT:8085} # Port for favorites-service
 
 spring:
   application:
@@ -17,9 +17,9 @@ spring:
             # Example:
             # retryer: feign.Retryer$Default
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/simple_favorites} # DB name: simple_favorites
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/simple}
+    username: ${SPRING_DATASOURCE_USERNAME:simple_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:simple_password}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -37,3 +37,9 @@ services:
 # logging:
 #  level:
 #    com.simple.favorites.client: DEBUG # To see Feign client request/response details
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs

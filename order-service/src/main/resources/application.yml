@@ -1,13 +1,13 @@
 server:
-  port: 8083 # Port for order-service
+  port: ${SERVER_PORT:8083} # Port for order-service
 
 spring:
   application:
     name: order-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/simple_order}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/simple}
+    username: ${SPRING_DATASOURCE_USERNAME:simple_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:simple_password}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -28,3 +28,9 @@ services:
     url: ${CITIZEN_SERVICE_URL:http://localhost:8082} # URL for citizen-service
   config:
     url: ${CONFIG_SERVICE_URL:http://localhost:8084} # URL for (future) config-service
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs

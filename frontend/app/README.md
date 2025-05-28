@@ -22,12 +22,12 @@ Frontend do sistema de gestão de pedidos de serviços municipais.
 ## Principais Funcionalidades
 
 - Autenticação e autorização com JWT
-- Dashboard para atendedores e cidadãos
+- Dashboard para atendedores e utentes
 - Pesquisa de serviços
 - Favoritos e serviços mais utilizados
 - Acompanhamento de pedidos
 - Registro de novos pedidos
-- Gestão de cidadãos
+- Gestão de utentes
 
 ## Fluxos de Processos Suportados
 

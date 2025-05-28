@@ -84,7 +84,7 @@ Embora o sistema seja monolítico, ele é organizado em componentes funcionais b
 
 Responsável pelo controle de acesso ao sistema, incluindo:
 - Autenticação baseada em JWT
-- Gerenciamento de usuários e perfis
+- Gerenciamento de utilizadores e perfis
 - Controle de permissões baseado em roles
 
 Principais classes:
@@ -107,24 +107,24 @@ Principais classes:
 - `Pedido`: Entidade que representa um pedido
 - `StatusPedido`: Entidade que representa os possíveis status de um pedido
 
-### 2.3 Módulo de Gestão de Cidadãos
+### 2.3 Módulo de Gestão de Utentes
 
-Responsável pelo cadastro e gerenciamento de cidadãos:
-- Cadastro de cidadãos
-- Consulta de cidadãos
-- Associação de cidadãos a pedidos
+Responsável pelo cadastro e gerenciamento de utentes:
+- Cadastro de utentes
+- Consulta de utentes
+- Associação de utentes a pedidos
 
 Principais classes:
-- `CidadaoController`: Endpoints para gestão de cidadãos
-- `CidadaoService`: Lógica de negócio para cidadãos
-- `Cidadao`: Entidade que representa um cidadão
+- `CidadaoController`: Endpoints para gestão de utentes
+- `CidadaoService`: Lógica de negócio para utentes
+- `Cidadao`: Entidade que representa um utente
 
 ### 2.4 Módulo de Configuração do Sistema
 
 Responsável pelas configurações gerais do sistema:
 - Configuração de tipos de serviços
 - Configuração de categorias de serviços
-- Configuração de perfis de usuários
+- Configuração de perfis de utilizadores
 
 Principais classes:
 - `ConfiguracaoController`: Endpoints para configurações
@@ -136,11 +136,11 @@ Principais classes:
 
 ### 3.1 Fluxo de Autenticação
 
-1. O usuário envia credenciais (email e senha) para o endpoint `/auth/login`
+1. O utilizador envia credenciais (email e senha) para o endpoint `/auth/login`
 2. O `AuthController` recebe a requisição e delega para o `AuthService`
-3. O `AuthService` autentica o usuário usando o `AuthenticationManager`
+3. O `AuthService` autentica o utilizador usando o `AuthenticationManager`
 4. Se as credenciais forem válidas, o `JwtTokenProvider` gera um token JWT
-5. O token é retornado ao usuário para uso em requisições subsequentes
+5. O token é retornado ao utilizador para uso em requisições subsequentes
 
 ```java
 public AuthResponse authenticate(AuthRequest request) {
@@ -169,15 +169,15 @@ public AuthResponse authenticate(AuthRequest request) {
 
 ### 3.2 Fluxo de Criação de Pedido
 
-1. O usuário autenticado envia uma requisição para o endpoint `/pedidos` com os dados do pedido
+1. O utilizador autenticado envia uma requisição para o endpoint `/pedidos` com os dados do pedido
 2. O `PedidoController` recebe a requisição e delega para o `PedidoService`
 3. O `PedidoService` valida os dados, cria um novo pedido e salva no banco de dados
-4. O pedido é retornado ao usuário com um código de acompanhamento gerado automaticamente
+4. O pedido é retornado ao utilizador com um código de acompanhamento gerado automaticamente
 
 ```java
 public PedidoResponse create(PedidoRequest request) {
     Cidadao cidadao = cidadaoRepository.findById(request.getCidadaoId())
-            .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado"));
+            .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado"));
     
     TipoServico tipoServico = tipoServicoRepository.findById(request.getTipoServicoId())
             .orElseThrow(() -> new EntityNotFoundException("Tipo de serviço não encontrado"));
@@ -213,10 +213,10 @@ public PedidoResponse create(PedidoRequest request) {
 
 ### 3.3 Fluxo de Atualização de Status de Pedido
 
-1. O usuário autenticado envia uma requisição para o endpoint `/pedidos/{id}/status/{statusId}`
+1. O utilizador autenticado envia uma requisição para o endpoint `/pedidos/{id}/status/{statusId}`
 2. O `PedidoController` recebe a requisição e delega para o `PedidoService`
 3. O `PedidoService` atualiza o status do pedido e, se o status for "CONCLUIDO", atualiza a data de conclusão
-4. O pedido atualizado é retornado ao usuário
+4. O pedido atualizado é retornado ao utilizador
 
 ```java
 public PedidoResponse updateStatus(UUID id, Long statusId) {
@@ -342,25 +342,25 @@ public PasswordEncoder passwordEncoder() {
 
 ### 6.1 API de Autenticação
 
-- **POST /auth/login**: Autentica um usuário e retorna um token JWT
-- **POST /auth/register**: Registra um novo usuário no sistema
+- **POST /auth/login**: Autentica um utilizador e retorna um token JWT
+- **POST /auth/register**: Registra um novo utilizador no sistema
 
 ### 6.2 API de Pedidos
 
 - **GET /pedidos**: Retorna todos os pedidos (paginados)
 - **GET /pedidos/{id}**: Retorna um pedido específico pelo ID
 - **GET /pedidos/codigo/{codigo}**: Retorna um pedido pelo código de acompanhamento (endpoint público)
-- **GET /pedidos/cidadao/{cidadaoId}**: Retorna os pedidos de um cidadão específico
-- **GET /pedidos/meus-pedidos**: Retorna os pedidos criados pelo usuário logado
+- **GET /pedidos/cidadao/{cidadaoId}**: Retorna os pedidos de um utente específico
+- **GET /pedidos/meus-pedidos**: Retorna os pedidos criados pelo utilizador logado
 - **POST /pedidos**: Cria um novo pedido
 - **PATCH /pedidos/{id}/status/{statusId}**: Atualiza o status de um pedido
 
-### 6.3 API de Cidadãos
+### 6.3 API de Utentes
 
-- **GET /cidadaos**: Retorna todos os cidadãos (paginados)
-- **GET /cidadaos/{id}**: Retorna um cidadão específico pelo ID
-- **POST /cidadaos**: Cria um novo cidadão
-- **PUT /cidadaos/{id}**: Atualiza um cidadão existente
+- **GET /cidadaos**: Retorna todos os utentes (paginados)
+- **GET /cidadaos/{id}**: Retorna um utente específico pelo ID
+- **POST /cidadaos**: Cria um novo utente
+- **PUT /cidadaos/{id}**: Atualiza um utente existente
 
 ### 6.4 API de Tipos de Serviço
 
@@ -374,7 +374,7 @@ public PasswordEncoder passwordEncoder() {
 
 ### 6.5 API de Favoritos
 
-- **GET /favoritos**: Retorna os favoritos do usuário logado
+- **GET /favoritos**: Retorna os favoritos do utilizador logado
 - **POST /favoritos**: Adiciona um tipo de serviço aos favoritos
 - **DELETE /favoritos/{id}**: Remove um favorito
 

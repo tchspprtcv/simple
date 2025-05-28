@@ -18,7 +18,7 @@ public class PedidoRequest {
     @NotNull(message = "Tipo de serviço é obrigatório")
     private UUID tipoServicoId; // Changed from Integer to UUID
     
-    @NotNull(message = "Cidadão é obrigatório")
+    @NotNull(message = "Utente é obrigatório")
     private UUID cidadaoId;
     
     // usuarioCriacaoId will be set based on the authenticated user from JWT/SecurityContext

@@ -22,14 +22,14 @@ Este diagrama mostra as entidades principais do sistema e seus relacionamentos.
 ![Diagrama ER](./Diagrama%20ER%20do%20Sistema%20Simple.png)
 
 As principais entidades do sistema são:
-- **Usuario**: Representa os usuários do sistema (administradores, atendentes, técnicos, etc.).
-- **Perfil**: Representa os perfis de acesso dos usuários.
-- **Cidadao**: Representa os cidadãos que solicitam serviços.
+- **Usuario**: Representa os utilizadores do sistema (administradores, atendentes, técnicos, etc.).
+- **Perfil**: Representa os perfis de acesso dos utilizadores.
+- **Cidadao**: Representa os utentes que solicitam serviços.
 - **Pedido**: Representa os pedidos de serviços municipais.
 - **StatusPedido**: Representa os possíveis status de um pedido.
 - **TipoServico**: Representa os tipos de serviços oferecidos.
 - **CategoriaServico**: Representa as categorias de serviços.
-- **Favorito**: Representa os tipos de serviços favoritados pelos usuários.
+- **Favorito**: Representa os tipos de serviços favoritados pelos utilizadores.
 
 ## 3. Diagrama de Fluxo de Dados
 
@@ -40,7 +40,7 @@ Este diagrama mostra como os dados fluem através do sistema para os principais 
 Os principais fluxos de dados representados são:
 - **Autenticação**: Processo de login e validação de token.
 - **Gestão de Pedidos**: Criação, consulta e atualização de pedidos.
-- **Gestão de Cidadãos**: Cadastro e consulta de cidadãos.
+- **Gestão de Utentes**: Cadastro e consulta de utentes.
 - **Configuração**: Gerenciamento de tipos de serviço e categorias.
 
 ## 4. Diagrama de Componentes
@@ -52,7 +52,7 @@ Este diagrama mostra os principais componentes do sistema e suas dependências.
 O sistema está organizado nos seguintes módulos:
 - **Módulo de Autenticação**: Responsável pelo controle de acesso ao sistema.
 - **Módulo de Gestão de Pedidos**: Responsável pelo gerenciamento dos pedidos de serviços.
-- **Módulo de Gestão de Cidadãos**: Responsável pelo cadastro e gerenciamento de cidadãos.
+- **Módulo de Gestão de Utentes**: Responsável pelo cadastro e gerenciamento de utentes.
 - **Módulo de Configuração**: Responsável pelas configurações gerais do sistema.
 - **Módulo de Favoritos**: Responsável pelo gerenciamento de favoritos.
 - **Infraestrutura**: Componentes de suporte como tratamento de exceções, configuração de CORS e Swagger.
@@ -64,5 +64,5 @@ Este diagrama mostra a sequência de interações entre os componentes durante o
 ![Diagrama de Sequência - Autenticação](./Diagrama%20de%20Sequência%20-%20Processo%20de%20Autenticação.png)
 
 O diagrama ilustra:
-- O processo de login, desde a requisição do usuário até a geração do token JWT.
+- O processo de login, desde a requisição do utilizador até a geração do token JWT.
 - O uso do token em requisições subsequentes para autorização.

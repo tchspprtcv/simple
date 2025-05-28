@@ -58,7 +58,7 @@ public class FavoritoService {
     @Transactional
     public void removeFavorito(UUID usuarioId, Integer tipoServicoId) {
         if (!favoritoRepository.existsByUsuarioIdAndTipoServicoId(usuarioId, tipoServicoId)) {
-            throw new EntityNotFoundException("Favorito não encontrado para este usuário e tipo de serviço.");
+            throw new EntityNotFoundException("Favorito não encontrado para este utilizador e tipo de serviço.");
         }
         favoritoRepository.deleteByUsuarioIdAndTipoServicoId(usuarioId, tipoServicoId);
     }

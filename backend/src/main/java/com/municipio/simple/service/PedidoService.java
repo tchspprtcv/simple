@@ -44,7 +44,7 @@ public class PedidoService {
 
     public Page<PedidoResponse> findByCidadao(UUID cidadaoId, Pageable pageable) {
         Cidadao cidadao = cidadaoRepository.findById(cidadaoId)
-                .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado"));
         
         return pedidoRepository.findByCidadao(cidadao, pageable)
                 .map(this::mapToResponse);
@@ -60,7 +60,7 @@ public class PedidoService {
 
     public PedidoResponse create(PedidoRequest request) {
         Cidadao cidadao = cidadaoRepository.findById(request.getCidadaoId())
-                .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado"));
         
         TipoServico tipoServico = tipoServicoRepository.findById(request.getTipoServicoId())
                 .orElseThrow(() -> new EntityNotFoundException("Tipo de serviço não encontrado"));

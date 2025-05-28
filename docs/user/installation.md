@@ -135,7 +135,7 @@ Após a inicialização bem-sucedida de todos os containers, você pode acessar 
 
 ### Credenciais Iniciais
 
-O sistema é pré-configurado com um usuário administrador:
+O sistema é pré-configurado com um utilizador administrador:
 
 - **Usuário**: admin@simple.municipio.gov
 - **Senha**: admin123
@@ -277,7 +277,7 @@ Se o sistema for acessado por outros computadores na rede:
 Após a instalação bem-sucedida, consulte os seguintes guias:
 
 - [Guia do Atendente](./attendant_guide.md): Para funcionários de atendimento
-- [Guia do Cidadão](./citizen_guide.md): Para cidadãos que utilizam o sistema
+- [Guia do Utente](./citizen_guide.md): Para utentes que utilizam o sistema
 - [Processos](./processes.md): Descrição detalhada dos fluxos de processos
 
 ---

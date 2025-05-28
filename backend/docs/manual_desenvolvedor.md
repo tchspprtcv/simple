@@ -2,12 +2,12 @@
 
 ## 1. Introdução ao Projeto
 
-O **Simple** é um sistema de gestão de pedidos de serviços municipais desenvolvido em Java com Spring Boot 3.2.0. O sistema foi projetado para facilitar a comunicação entre cidadãos e órgãos municipais, permitindo o registro, acompanhamento e resolução de solicitações de serviços públicos.
+O **Simple** é um sistema de gestão de pedidos de serviços municipais desenvolvido em Java com Spring Boot 3.2.0. O sistema foi projetado para facilitar a comunicação entre utentes e órgãos municipais, permitindo o registro, acompanhamento e resolução de solicitações de serviços públicos.
 
 ### 1.1 Objetivos do Sistema
 
 - Simplificar o processo de solicitação de serviços municipais
-- Melhorar a transparência no atendimento às demandas dos cidadãos
+- Melhorar a transparência no atendimento às demandas dos utentes
 - Otimizar a gestão interna dos pedidos pelos servidores municipais
 - Fornecer métricas e relatórios sobre o atendimento às solicitações
 
@@ -15,9 +15,9 @@ O **Simple** é um sistema de gestão de pedidos de serviços municipais desenvo
 
 O Simple utiliza uma arquitetura em camadas (adaptação do padrão MVC para APIs REST), com os seguintes módulos principais:
 
-- **Autenticação**: Gerencia usuários, perfis e controle de acesso
+- **Autenticação**: Gerencia utilizadores, perfis e controle de acesso
 - **Gestão de Pedidos**: Controla o ciclo de vida das solicitações de serviços
-- **Gestão de Cidadãos**: Administra dados dos cidadãos que utilizam o sistema
+- **Gestão de Utentes**: Administra dados dos utentes que utilizam o sistema
 - **Configuração do Sistema**: Permite personalizar parâmetros operacionais
 
 O sistema implementa diversos padrões de projeto, incluindo Repository, DTO, Builder e Injeção de Dependência, para garantir uma base de código modular, testável e de fácil manutenção.
@@ -369,7 +369,7 @@ feat(pedido): implementa endpoint de cancelamento de pedidos
 
 - Adiciona validação de status atual
 - Registra motivo do cancelamento
-- Notifica o cidadão por email
+- Notifica o utente por email
 
 Closes #123
 ```
@@ -956,14 +956,14 @@ docker-compose up -d
 **Problema**: Erro "Bad credentials" ao tentar fazer login
 
 **Soluções**:
-1. Verifique se o usuário existe no banco de dados
+1. Verifique se o utilizador existe no banco de dados
 2. Verifique se a senha está correta
-3. Verifique se o usuário está ativo
+3. Verifique se o utilizador está ativo
 4. Verifique se o token JWT está configurado corretamente
 
 ### 11.2 FAQs
 
-#### Como adicionar um novo perfil de usuário?
+#### Como adicionar um novo perfil de utilizador?
 
 1. Adicione o novo perfil no enum `Perfil`
 2. Atualize a lógica de autorização no `SecurityConfig`

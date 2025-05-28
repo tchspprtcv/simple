@@ -20,8 +20,8 @@ Antes de começar, certifique-se de ter instalado:
 ### Instalação Local do PostgreSQL
 
 1. Baixe e instale o PostgreSQL a partir do [site oficial](https://www.postgresql.org/download/)
-2. Durante a instalação, defina uma senha para o usuário `postgres`
-3. Após a instalação, crie um novo banco de dados e usuário:
+2. Durante a instalação, defina uma senha para o utilizador `postgres`
+3. Após a instalação, crie um novo banco de dados e utilizador:
 
 ```sql
 CREATE DATABASE simple;

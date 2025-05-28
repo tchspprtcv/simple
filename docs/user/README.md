@@ -2,7 +2,7 @@
 
 ## Bem-vindo ao Simple!
 
-O **Simple** é um sistema completo para gestão de pedidos de serviços municipais, desenvolvido para facilitar a interação entre cidadãos e a administração municipal. Este manual fornece informações detalhadas sobre como utilizar o sistema, tanto para cidadãos quanto para funcionários municipais.
+O **Simple** é um sistema completo para gestão de pedidos de serviços municipais, desenvolvido para facilitar a interação entre utentes e a administração municipal. Este manual fornece informações detalhadas sobre como utilizar o sistema, tanto para utentes quanto para funcionários municipais.
 
 ## Sobre o Sistema
 
@@ -19,13 +19,13 @@ O Simple permite a gestão eficiente de diversos tipos de processos municipais, 
 - Aprovação de projetos
 - Licença de construção
 
-O sistema foi projetado para ser intuitivo e fácil de usar, permitindo que tanto cidadãos quanto funcionários municipais possam realizar suas tarefas de forma eficiente.
+O sistema foi projetado para ser intuitivo e fácil de usar, permitindo que tanto utentes quanto funcionários municipais possam realizar suas tarefas de forma eficiente.
 
 ## Para Quem é Este Manual?
 
-Este manual é destinado a todos os usuários do sistema Simple, incluindo:
+Este manual é destinado a todos os utilizadores do sistema Simple, incluindo:
 
-- **Cidadãos**: Pessoas que solicitam serviços municipais
+- **Utentes**: Pessoas que solicitam serviços municipais
 - **Atendentes**: Funcionários responsáveis pelo atendimento ao público
 - **Técnicos**: Profissionais que analisam e processam os pedidos
 - **Fiscais**: Responsáveis por vistorias e inspeções
@@ -37,13 +37,13 @@ Este manual está organizado nas seguintes seções:
 
 1. [**Instalação**](./installation.md): Instruções para instalação e configuração do sistema
 2. [**Guia do Atendente**](./attendant_guide.md): Instruções para funcionários de atendimento
-3. [**Guia do Cidadão**](./citizen_guide.md): Instruções para cidadãos que utilizam o sistema
+3. [**Guia do Utente**](./citizen_guide.md): Instruções para utentes que utilizam o sistema
 4. [**Processos**](./processes.md): Descrição detalhada dos fluxos de processos disponíveis
 5. [**Perguntas Frequentes**](./faq.md): Respostas para dúvidas comuns
 
 ## Recursos Principais
 
-### Para Cidadãos
+### Para Utentes
 
 - Acompanhamento de pedidos através de código único
 - Consulta de status de processos
@@ -70,7 +70,7 @@ Este manual está organizado nas seguintes seções:
 
 - Relatórios e estatísticas
 - Configuração de tipos de serviços
-- Gerenciamento de usuários
+- Gerenciamento de utilizadores
 - Monitoramento de prazos e pendências
 
 ## Suporte e Contato

@@ -31,14 +31,14 @@ public class CidadaoService {
     public CidadaoResponse findById(UUID id) {
         return cidadaoRepository.findById(id)
                 .map(this::mapToResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado com ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado com ID: " + id));
     }
 
     @Transactional(readOnly = true)
     public CidadaoResponse findByDocumento(String tipoDocumento, String numeroDocumento) {
         return cidadaoRepository.findByTipoDocumentoAndNumeroDocumento(tipoDocumento, numeroDocumento)
                 .map(this::mapToResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado com documento: " + tipoDocumento + "/" + numeroDocumento));
+                .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado com documento: " + tipoDocumento + "/" + numeroDocumento));
     }
 
     @Transactional
@@ -47,14 +47,14 @@ public class CidadaoService {
         Optional<Cidadao> existingCidadaoByDoc = cidadaoRepository
                 .findByTipoDocumentoAndNumeroDocumento(request.getTipoDocumento(), request.getNumeroDocumento());
         if (existingCidadaoByDoc.isPresent()) {
-            throw new IllegalArgumentException("Cidadão já cadastrado com este tipo e número de documento.");
+            throw new IllegalArgumentException("Utente já cadastrado com este tipo e número de documento.");
         }
 
         // Check if citizen already exists by email if email is provided
         if (StringUtils.hasText(request.getEmail())) {
             Optional<Cidadao> existingCidadaoByEmail = cidadaoRepository.findByEmail(request.getEmail());
             if (existingCidadaoByEmail.isPresent()) {
-                throw new IllegalArgumentException("Cidadão já cadastrado com este email.");
+                throw new IllegalArgumentException("Utente já cadastrado com este email.");
             }
         }
 
@@ -73,13 +73,13 @@ public class CidadaoService {
     @Transactional
     public CidadaoResponse update(UUID id, CidadaoRequest request) {
         Cidadao cidadao = cidadaoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado com ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado com ID: " + id));
 
         // Check if the email is being changed and if the new email already exists for another citizen
         if (StringUtils.hasText(request.getEmail()) && !request.getEmail().equals(cidadao.getEmail())) {
             Optional<Cidadao> existingCidadaoByEmail = cidadaoRepository.findByEmail(request.getEmail());
             if (existingCidadaoByEmail.isPresent()) {
-                throw new IllegalArgumentException("Outro cidadão já cadastrado com este email.");
+                throw new IllegalArgumentException("Outro utente já cadastrado com este email.");
             }
         }
         
@@ -97,7 +97,7 @@ public class CidadaoService {
 
     public void delete(UUID id) {
         if (!cidadaoRepository.existsById(id)) {
-            throw new EntityNotFoundException("Cidadão não encontrado com ID: " + id);
+            throw new EntityNotFoundException("Utente não encontrado com ID: " + id);
         }
         cidadaoRepository.deleteById(id);
     }

@@ -18,7 +18,7 @@ Este documento reúne as perguntas mais frequentes sobre o sistema Simple e seus
 ## Perguntas Gerais sobre o Sistema
 
 ### O que é o sistema Simple?
-O Simple é um sistema de gestão de pedidos de serviços municipais que permite aos cidadãos solicitar diversos serviços oferecidos pela prefeitura, acompanhar o andamento de seus pedidos e interagir com a administração municipal de forma digital e eficiente.
+O Simple é um sistema de gestão de pedidos de serviços municipais que permite aos utentes solicitar diversos serviços oferecidos pela prefeitura, acompanhar o andamento de seus pedidos e interagir com a administração municipal de forma digital e eficiente.
 
 ### Quais serviços estão disponíveis no sistema?
 O sistema oferece diversos serviços, incluindo legalização de imóveis, compra de lotes, pedidos de eventos, pagamento em prestação, mudança de nome, atualização de planta, emissão de planta, licenciamento comercial, aprovação de projetos e licença de construção. Para uma lista completa, consulte a seção [Processos](./processes.md).
@@ -47,7 +47,7 @@ Sim. Após fazer login, acesse seu perfil clicando no seu nome no canto superior
 Para atualizar seu e-mail, acesse seu perfil, clique em "Editar Perfil" e altere o e-mail cadastrado. Será enviado um link de confirmação para o novo e-mail para validar a alteração.
 
 ### Posso ter mais de uma conta no sistema?
-Não é recomendado criar múltiplas contas. Cada cidadão deve ter apenas uma conta associada ao seu CPF/documento de identidade. Para empresas, deve ser criada uma conta associada ao CNPJ.
+Não é recomendado criar múltiplas contas. Cada utente deve ter apenas uma conta associada ao seu CPF/documento de identidade. Para empresas, deve ser criada uma conta associada ao CNPJ.
 
 ## Solicitação de Serviços
 

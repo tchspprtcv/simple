@@ -60,7 +60,8 @@ image.png
 Após a inicialização bem-sucedida de todos os containers, você pode acessar:
 
 - **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8080
+- **Backend API (Monolith)**: http://localhost:9081 (This is the direct access to the monolith backend)
+- **API Gateway**: http://localhost:9080 (This is the entry point for microservices, used by the frontend)
 - **Banco de dados**: Acessível na porta 5433 do host (o contêiner continua usando a porta 5432 internamente). Use um cliente PostgreSQL como pgAdmin ou DBeaver para conectar-se a `localhost:5433`.
 
 ### 4. Gerenciamento dos Containers
@@ -102,12 +103,12 @@ Você pode modificar as variáveis de ambiente no arquivo `docker-compose.yml`:
 
 - **Banco de dados**:
   - `POSTGRES_DB`: Nome do banco de dados
-  - `POSTGRES_USER`: Nome de usuário
-  - `POSTGRES_PASSWORD`: Senha do usuário
+  - `POSTGRES_USER`: Nome de utilizador
+  - `POSTGRES_PASSWORD`: Senha do utilizador
 
 - **Backend**:
   - `SPRING_DATASOURCE_URL`: URL de conexão com o banco de dados
-  - `SPRING_DATASOURCE_USERNAME`: Nome de usuário do banco
+  - `SPRING_DATASOURCE_USERNAME`: Nome de utilizador do banco
   - `SPRING_DATASOURCE_PASSWORD`: Senha do banco
 
 - **Frontend**:
