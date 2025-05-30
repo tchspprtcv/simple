@@ -1,11 +1,14 @@
 package com.simple.favorites.service;
 
+import com.simple.favorites.client.AuthServiceClient;
 import com.simple.favorites.client.ConfigServiceClient;
+import com.simple.favorites.client.dto.UsuarioDTO;
 import com.simple.favorites.domain.entity.Favorito;
 import com.simple.favorites.dto.FavoritoRequest;
 import com.simple.favorites.dto.FavoritoResponse;
 import com.simple.favorites.dto.TipoServicoDTO;
 import com.simple.favorites.repository.FavoritoRepository;
+import feign.FeignException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +26,7 @@ public class FavoritoService {
 
     private final FavoritoRepository favoritoRepository;
     private final ConfigServiceClient configServiceClient;
+    private final AuthServiceClient authServiceClient;
 
     @Transactional(readOnly = true)
     public List<FavoritoResponse> findByUsuarioId(UUID usuarioId) {
@@ -45,6 +49,10 @@ public class FavoritoService {
         if (tipoServicoDetails == null) {
             throw new EntityNotFoundException("Tipo de Serviço não encontrado com ID: " + request.getTipoServicoId());
         }
+        
+        // Fetch user details to ensure user exists and to potentially use user's name, though not strictly required for add.
+        // For now, let's keep it simple and not fetch user details during add, only during read.
+        // If validation of user ID is needed here, it would be a call to authServiceClient.
 
         Favorito favorito = new Favorito();
         favorito.setUsuarioId(usuarioId);
@@ -78,13 +86,39 @@ public class FavoritoService {
         TipoServicoDTO tipoServicoDetails = fetchTipoServicoDetails(favorito.getTipoServicoId());
         // If tipoServicoDetails is null (service unavailable or not found), response will have null details.
         // This can be handled based on requirements (e.g., error, partial response).
-        return mapToResponse(favorito, tipoServicoDetails);
+
+        UsuarioDTO usuarioDetails = fetchUsuarioDetails(favorito.getUsuarioId());
+        // If usuarioDetails is null, response will have null for usuarioNome.
+
+        return mapToResponse(favorito, tipoServicoDetails, usuarioDetails);
+    }
+    
+    private UsuarioDTO fetchUsuarioDetails(UUID usuarioId) {
+        try {
+            return authServiceClient.getUsuarioById(usuarioId);
+        } catch (FeignException e) {
+            log.error("Erro ao buscar detalhes do Usuario ID {}: {} - Status: {}", usuarioId, e.getMessage(), e.status());
+            return null;
+        } catch (Exception e) { // Catching other potential exceptions
+            log.error("Erro inesperado ao buscar detalhes do Usuario ID {}: {}", usuarioId, e.getMessage());
+            return null;
+        }
     }
 
-    private FavoritoResponse mapToResponse(Favorito favorito, TipoServicoDTO tipoServicoDetails) {
+    private FavoritoResponse mapToResponse(Favorito favorito, TipoServicoDTO tipoServicoDetails, UsuarioDTO usuarioDetails) {
+        String usuarioNome = null;
+        if (usuarioDetails != null) {
+            usuarioNome = usuarioDetails.getNome();
+        } else {
+            // Default or placeholder if user details could not be fetched
+            log.warn("Detalhes do usuário não encontrados para ID: {}. Usando nome de usuário padrão/nulo.", favorito.getUsuarioId());
+            // usuarioNome = "[Usuário não encontrado]"; // Or keep as null
+        }
+
         return FavoritoResponse.builder()
                 .id(favorito.getId())
                 .usuarioId(favorito.getUsuarioId())
+                .usuarioNome(usuarioNome)
                 .tipoServicoId(favorito.getTipoServicoId())
                 .criadoEm(favorito.getCriadoEm())
                 .tipoServicoDetails(tipoServicoDetails)
