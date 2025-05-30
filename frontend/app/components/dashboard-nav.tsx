@@ -18,6 +18,7 @@ const roleRoutes = {
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/dashboard/admin/users", label: "Gestão de Utilizadores", icon: Users },
     { href: "/dashboard/admin/services", label: "Gestão de Tipos de Serviços", icon: Wrench },
+  { href: "/dashboard/admin/profiles", label: "Gestão de Perfis", icon: Users }, // New link
     { href: "/dashboard/admin/settings", label: "Configurações", icon: Settings },
   ],
   ATENDENTE: [
