@@ -417,9 +417,9 @@ erDiagram
 
 ## Descrição das Principais Relações
 
-1. **Usuários e Perfis**:
-   - Cada usuário possui um perfil (ADMIN, MANAGER, ATTENDANT, TECHNICIAN, CITIZEN)
-   - Usuários podem pertencer a departamentos específicos
+1. **Utilizadores e Perfis**:
+   - Cada utilizador possui um perfil (ADMIN, MANAGER, ATTENDANT, TECHNICIAN, CITIZEN)
+   - Utilizadores podem pertencer a departamentos específicos
 
 2. **Processos e Etapas**:
    - Cada tipo de processo (Legalização, Compra de Lote, etc.) possui várias etapas sequenciais
@@ -447,8 +447,8 @@ erDiagram
 
 8. **Interações**:
    - Comentários permitem comunicação sobre os pedidos
-   - Notificações informam usuários sobre atualizações
-   - Favoritos e serviços mais utilizados melhoram a experiência do usuário
+   - Notificações informam utilizadores sobre atualizações
+   - Favoritos e serviços mais utilizados melhoram a experiência do utilizador
 
 ## Observações sobre o Modelo
 

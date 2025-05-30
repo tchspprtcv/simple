@@ -8,7 +8,7 @@ SET client_encoding = 'UTF8';
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
--- Tabela de perfis de usuário
+-- Tabela de perfis de utilizador
 CREATE TABLE perfis (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(50) NOT NULL UNIQUE,
@@ -18,7 +18,7 @@ CREATE TABLE perfis (
     atualizado_em TIMESTAMP WITH TIME ZONE
 );
 
--- Tabela de usuários do sistema (funcionários)
+-- Tabela de utilizadores do sistema (funcionários)
 CREATE TABLE usuarios (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nome VARCHAR(100) NOT NULL,
@@ -330,7 +330,7 @@ CREATE TABLE eventos (
     CONSTRAINT check_datas CHECK (data_fim > data_inicio)
 );
 
--- Tabela de favoritos dos usuários
+-- Tabela de favoritos dos utilizadores
 CREATE TABLE favoritos (
     id SERIAL PRIMARY KEY,
     usuario_id UUID NOT NULL REFERENCES usuarios(id),
@@ -489,9 +489,9 @@ WHEN (OLD.status_id IS DISTINCT FROM NEW.status_id OR OLD.etapa_atual_id IS DIST
 EXECUTE FUNCTION log_pedido_changes();
 
 -- Comentários nas tabelas para documentação
-COMMENT ON TABLE usuarios IS 'Usuários do sistema (funcionários)';
+COMMENT ON TABLE usuarios IS 'Utilizadores do sistema (funcionários)';
 COMMENT ON TABLE cidadaos IS 'Cidadãos que solicitam serviços';
-COMMENT ON TABLE perfis IS 'Perfis de acesso dos usuários';
+COMMENT ON TABLE perfis IS 'Perfis de acesso dos utilizadores';
 COMMENT ON TABLE tipos_servicos IS 'Tipos de serviços oferecidos';
 COMMENT ON TABLE etapas_processo IS 'Etapas do fluxo de trabalho para cada tipo de serviço';
 COMMENT ON TABLE pedidos IS 'Pedidos de serviços realizados pelos cidadãos';
@@ -502,4 +502,4 @@ COMMENT ON TABLE vistorias IS 'Vistorias realizadas para os pedidos';
 COMMENT ON TABLE lotes IS 'Cadastro de lotes';
 COMMENT ON TABLE plantas_emitidas IS 'Plantas e documentos emitidos';
 COMMENT ON TABLE eventos IS 'Eventos autorizados';
-COMMENT ON TABLE favoritos IS 'Serviços favoritos dos usuários';
+COMMENT ON TABLE favoritos IS 'Serviços favoritos dos utilizadores';

@@ -2,14 +2,14 @@
 
 ## 1. Visão Geral do Sistema
 
-O **Simple** é um sistema de gestão de pedidos de serviços municipais desenvolvido em Java com Spring Boot 3.2.0. O sistema permite o gerenciamento completo do ciclo de vida de solicitações de serviços municipais, desde o cadastro inicial até a conclusão, com funcionalidades específicas para diferentes perfis de usuários:
+O **Simple** é um sistema de gestão de pedidos de serviços municipais desenvolvido em Java com Spring Boot 3.2.0. O sistema permite o gerenciamento completo do ciclo de vida de solicitações de serviços municipais, desde o cadastro inicial até a conclusão, com funcionalidades específicas para diferentes perfis de utilizadores:
 
 - **Cidadãos**: Podem solicitar serviços e acompanhar o status de suas solicitações
 - **Atendentes**: Responsáveis pelo cadastro e triagem inicial dos pedidos
 - **Gestores**: Monitoram o fluxo de pedidos e geram relatórios
 - **Técnicos**: Executam os serviços solicitados
 - **Fiscais**: Verificam a qualidade dos serviços executados
-- **Administradores**: Gerenciam configurações e usuários do sistema
+- **Administradores**: Gerenciam configurações e utilizadores do sistema
 
 O sistema foi projetado para ser robusto, seguro e escalável, seguindo as melhores práticas de desenvolvimento com Spring Boot e padrões de arquitetura modernos.
 
@@ -32,7 +32,7 @@ Conforme ilustrado no [Diagrama de Componentes](./diagramas/Diagrama%20de%20Comp
 1. **Módulo de Autenticação e Autorização**:
    - Responsável pelo controle de acesso ao sistema
    - Implementa autenticação baseada em JWT
-   - Gerencia usuários e perfis
+   - Gerencia utilizadores e perfis
    - Controla permissões baseadas em roles
 
 2. **Módulo de Gestão de Pedidos**:
@@ -44,7 +44,7 @@ Conforme ilustrado no [Diagrama de Componentes](./diagramas/Diagrama%20de%20Comp
 3. **Módulo de Gestão de Cidadãos**:
    - Gerencia o cadastro de cidadãos
    - Associa cidadãos a pedidos
-   - Mantém histórico de pedidos por cidadão
+   - Mantém histórico de pedidos por utente
 
 4. **Módulo de Configuração do Sistema**:
    - Gerencia tipos de serviços e categorias
@@ -52,7 +52,7 @@ Conforme ilustrado no [Diagrama de Componentes](./diagramas/Diagrama%20de%20Comp
    - Gerencia perfis de acesso
 
 5. **Módulo de Favoritos**:
-   - Permite aos usuários marcar serviços como favoritos
+   - Permite aos utilizadores marcar serviços como favoritos
    - Facilita o acesso rápido a serviços frequentemente utilizados
 
 6. **Infraestrutura**:
@@ -65,18 +65,18 @@ Conforme ilustrado no [Diagrama de Componentes](./diagramas/Diagrama%20de%20Comp
 O [Diagrama de Fluxo de Dados](./diagramas/Fluxo%20de%20Dados%20do%20Sistema%20Simple.png) ilustra como os dados fluem através do sistema para os principais casos de uso:
 
 1. **Fluxo de Autenticação**:
-   - O usuário envia credenciais (email e senha)
+   - O utilizador envia credenciais (email e senha)
    - O sistema valida as credenciais e gera um token JWT
    - O token é utilizado em requisições subsequentes para autorização
 
 2. **Fluxo de Criação de Pedido**:
-   - O usuário autenticado envia dados do pedido
+   - O utilizador autenticado envia dados do pedido
    - O sistema valida os dados e cria um novo pedido
    - Um código de acompanhamento é gerado automaticamente
    - O pedido é armazenado no banco de dados
 
 3. **Fluxo de Atualização de Status**:
-   - O usuário autorizado solicita a atualização do status de um pedido
+   - O utilizador autorizado solicita a atualização do status de um pedido
    - O sistema valida a permissão e atualiza o status
    - Se o status for "CONCLUIDO", a data de conclusão é atualizada
 
@@ -84,15 +84,15 @@ O [Diagrama de Fluxo de Dados](./diagramas/Fluxo%20de%20Dados%20do%20Sistema%20S
 
 O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra as principais entidades do sistema e seus relacionamentos:
 
-1. **Usuario**: Representa os usuários do sistema com diferentes perfis
-2. **Perfil**: Representa os perfis de acesso dos usuários
+1. **Usuario**: Representa os utilizadores do sistema com diferentes perfis
+2. **Perfil**: Representa os perfis de acesso dos utilizadores
 3. **Cidadao**: Representa os cidadãos que solicitam serviços
 4. **Pedido**: Representa as solicitações de serviços
 5. **StatusPedido**: Representa os diferentes estados de um pedido
 6. **EtapaProcesso**: Representa as etapas do fluxo de processamento de um pedido
 7. **TipoServico**: Categoriza os diferentes tipos de serviços oferecidos
 8. **CategoriaServico**: Agrupa tipos de serviços relacionados
-9. **Favorito**: Permite aos usuários marcar serviços como favoritos
+9. **Favorito**: Permite aos utilizadores marcar serviços como favoritos
 
 ## 3. Tecnologias Utilizadas
 
@@ -127,19 +127,19 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 
 ### 4.1 Módulo de Autenticação e Autorização
 
-- **RF-01**: O sistema deve permitir o registro de novos usuários com informações básicas (nome, email, senha)
-- **RF-02**: O sistema deve autenticar usuários através de email e senha
-- **RF-03**: O sistema deve gerar tokens JWT para usuários autenticados
+- **RF-01**: O sistema deve permitir o registro de novos utilizadores com informações básicas (nome, email, senha)
+- **RF-02**: O sistema deve autenticar utilizadores através de email e senha
+- **RF-03**: O sistema deve gerar tokens JWT para utilizadores autenticados
 - **RF-04**: O sistema deve validar tokens JWT em requisições protegidas
-- **RF-05**: O sistema deve controlar o acesso a recursos baseado em perfis de usuário
-- **RF-06**: O sistema deve permitir a atualização de informações de usuário
-- **RF-07**: O sistema deve registrar o último acesso do usuário
+- **RF-05**: O sistema deve controlar o acesso a recursos baseado em perfis de utilizador
+- **RF-06**: O sistema deve permitir a atualização de informações de utilizador
+- **RF-07**: O sistema deve registrar o último acesso do utilizador
 
 ### 4.2 Módulo de Gestão de Pedidos
 
 - **RF-08**: O sistema deve permitir a criação de novos pedidos de serviço
 - **RF-09**: O sistema deve gerar automaticamente um código de acompanhamento para cada pedido
-- **RF-10**: O sistema deve permitir a consulta de pedidos por diferentes critérios (ID, código, cidadão, usuário)
+- **RF-10**: O sistema deve permitir a consulta de pedidos por diferentes critérios (ID, código, utente, utilizador)
 - **RF-11**: O sistema deve permitir a atualização do status de um pedido
 - **RF-12**: O sistema deve calcular automaticamente a data prevista de conclusão baseada no tipo de serviço
 - **RF-13**: O sistema deve registrar a data de conclusão quando o pedido for finalizado
@@ -152,7 +152,7 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 - **RF-17**: O sistema deve permitir a consulta de cidadãos por diferentes critérios
 - **RF-18**: O sistema deve permitir a atualização de informações de cidadãos
 - **RF-19**: O sistema deve associar cidadãos a pedidos
-- **RF-20**: O sistema deve permitir a consulta de pedidos por cidadão
+- **RF-20**: O sistema deve permitir a consulta de pedidos por utente
 
 ### 4.4 Módulo de Configuração do Sistema
 
@@ -165,8 +165,8 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 
 ### 4.5 Módulo de Favoritos
 
-- **RF-27**: O sistema deve permitir que usuários marquem tipos de serviços como favoritos
-- **RF-28**: O sistema deve permitir a consulta de favoritos por usuário
+- **RF-27**: O sistema deve permitir que utilizadores marquem tipos de serviços como favoritos
+- **RF-28**: O sistema deve permitir a consulta de favoritos por utilizador
 - **RF-29**: O sistema deve permitir a remoção de favoritos
 
 ## 5. Requisitos Não Funcionais
@@ -183,7 +183,7 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 ### 5.2 Desempenho
 
 - **RNF-07**: O sistema deve responder a requisições em tempo aceitável (< 1 segundo para operações simples)
-- **RNF-08**: O sistema deve suportar múltiplos usuários simultâneos
+- **RNF-08**: O sistema deve suportar múltiplos utilizadores simultâneos
 - **RNF-09**: O sistema deve implementar paginação para consultas que retornam grandes volumes de dados
 
 ### 5.3 Disponibilidade
@@ -214,7 +214,7 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 
 #### 6.1.1 POST /auth/login
 
-**Descrição**: Autentica um usuário e retorna um token JWT.
+**Descrição**: Autentica um utilizador e retorna um token JWT.
 
 **Requisição**:
 ```json
@@ -245,7 +245,7 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 
 #### 6.1.2 POST /auth/register
 
-**Descrição**: Registra um novo usuário no sistema.
+**Descrição**: Registra um novo utilizador no sistema.
 
 **Requisição**:
 ```json
@@ -506,7 +506,7 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 
 #### 6.3.2 POST /cidadaos
 
-**Descrição**: Cria um novo cidadão.
+**Descrição**: Cria um novo utente.
 
 **Requisição**:
 ```json
@@ -595,7 +595,7 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 
 #### 6.5.1 GET /favoritos
 
-**Descrição**: Retorna os favoritos do usuário logado.
+**Descrição**: Retorna os favoritos do utilizador logado.
 
 **Resposta (200 OK)**:
 ```json
@@ -652,12 +652,12 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 
 | Campo | Tipo | Descrição |
 |-------|------|-----------|
-| id | UUID | Identificador único do usuário |
-| nome | String | Nome completo do usuário |
-| email | String | Email do usuário (único) |
-| senha | String | Senha do usuário (criptografada) |
-| perfil | Perfil | Perfil de acesso do usuário |
-| ativo | Boolean | Indica se o usuário está ativo |
+| id | UUID | Identificador único do utilizador |
+| nome | String | Nome completo do utilizador |
+| email | String | Email do utilizador (único) |
+| senha | String | Senha do utilizador (criptografada) |
+| perfil | Perfil | Perfil de acesso do utilizador |
+| ativo | Boolean | Indica se o utilizador está ativo |
 | ultimoAcesso | LocalDateTime | Data e hora do último acesso |
 | criadoEm | LocalDateTime | Data e hora de criação |
 | atualizadoEm | LocalDateTime | Data e hora da última atualização |
@@ -677,12 +677,12 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 
 | Campo | Tipo | Descrição |
 |-------|------|-----------|
-| id | UUID | Identificador único do cidadão |
-| nome | String | Nome completo do cidadão |
-| cpf | String | CNI do cidadão (único) |
-| email | String | Email do cidadão |
-| telefone | String | Telefone do cidadão |
-| endereco | String | Endereço do cidadão |
+| id | UUID | Identificador único do utente |
+| nome | String | Nome completo do utente |
+| cpf | String | CNI do utente (único) |
+| email | String | Email do utente |
+| telefone | String | Telefone do utente |
+| endereco | String | Endereço do utente |
 | bairro | String | Bairro |
 | cidade | String | Cidade |
 | estado | String | Estado (UF) |
@@ -780,15 +780,15 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 O sistema utiliza autenticação baseada em JWT (JSON Web Token):
 
 1. **Processo de Login**:
-   - O usuário envia credenciais (email e senha)
+   - O utilizador envia credenciais (email e senha)
    - O sistema valida as credenciais usando Spring Security
-   - Se válidas, gera um token JWT com informações do usuário e permissões
+   - Se válidas, gera um token JWT com informações do utilizador e permissões
    - O token é retornado ao cliente para uso em requisições subsequentes
 
 2. **Validação de Token**:
    - Cada requisição a endpoints protegidos deve incluir o token JWT no header Authorization
    - O filtro `JwtAuthenticationFilter` intercepta a requisição e valida o token
-   - Se válido, configura o contexto de segurança do Spring com as informações do usuário
+   - Se válido, configura o contexto de segurança do Spring com as informações do utilizador
    - Se inválido, a requisição é rejeitada com status 401 (Unauthorized)
 
 3. **Refresh Token**:
@@ -837,7 +837,7 @@ O sistema implementa controle de acesso baseado em roles (RBAC):
 ### 8.4 Auditoria
 
 1. **Registro de Acessos**:
-   - Registro da data e hora do último acesso de cada usuário
+   - Registro da data e hora do último acesso de cada utilizador
    - Atualizado automaticamente durante o processo de login
 
 2. **Registro de Alterações**:

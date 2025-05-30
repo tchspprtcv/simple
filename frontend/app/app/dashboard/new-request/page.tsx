@@ -39,7 +39,7 @@ function NewRequestContent() {
   const [selectedService, setSelectedService] = useState<TipoServico | null>(null)
   const [cidadaoTab, setCidadaoTab] = useState("existente")
   
-  // Dados do cidadão existente
+  // Dados do utente existente
   const [tipoDocumento, setTipoDocumento] = useState("CNI")
   const [numeroDocumento, setNumeroDocumento] = useState("")
   const [cidadaoId, setCidadaoId] = useState<string | null>(null)
@@ -47,7 +47,7 @@ function NewRequestContent() {
   const [cidadaoEncontrado, setCidadaoEncontrado] = useState(false)
   const [buscandoCidadao, setBuscandoCidadao] = useState(false)
   
-  // Dados do novo cidadão
+  // Dados do novo utente
   const [novoCidadaoNome, setNovoCidadaoNome] = useState("")
   const [novoCidadaoTipoDocumento, setNovoCidadaoTipoDocumento] = useState("CNI")
   const [novoCidadaoNumeroDocumento, setNovoCidadaoNumeroDocumento] = useState("")
@@ -123,7 +123,7 @@ function NewRequestContent() {
       
       toast({
         title: "Utente não encontrado",
-        description: "Utente não encontrado. Tente novamente ou cadastre um novo cidadão.",
+        description: "Utente não encontrado. Tente novamente ou cadastre um novo utente.",
         variant: "destructive",
       })
     } finally {
@@ -159,10 +159,10 @@ function NewRequestContent() {
     
     setIsSubmitting(true)
     try {
-      // Se for um novo cidadão, cadastrar primeiro
+      // Se for um novo utente, cadastrar primeiro
       if (cidadaoTab === "novo") {
         if (!novoCidadaoNome || !novoCidadaoTipoDocumento || !novoCidadaoNumeroDocumento) {
-          throw new Error("Preencha os campos obrigatórios do cidadão.")
+          throw new Error("Preencha os campos obrigatórios do utente.")
         }
         
         const novoCidadaoRequest: CidadaoRequest = {
@@ -177,7 +177,7 @@ function NewRequestContent() {
         const novoCidadao = await createCidadao(novoCidadaoRequest)
         cidadaoIdToUse = novoCidadao.id
       } else if (!cidadaoId) {
-        throw new Error("Utente não encontrado. Busque um cidadão existente ou cadastre um novo.")
+        throw new Error("Utente não encontrado. Busque um utente existente ou cadastre um novo.")
       }
       
       // Criar o pedido

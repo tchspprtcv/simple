@@ -1,11 +1,11 @@
 # Guia do Utente
 
-Bem-vindo ao guia do cidadão para o sistema Simple! Este documento foi elaborado para ajudá-lo a utilizar o sistema de gestão de pedidos de serviços municipais de forma eficiente e sem complicações.
+Bem-vindo ao guia do utente para o sistema Simple! Este documento foi elaborado para ajudá-lo a utilizar o sistema de gestão de pedidos de serviços municipais de forma eficiente e sem complicações.
 
 ## Sumário
 
 1. [Introdução ao Sistema](#introdução-ao-sistema)
-2. [Acesso ao Portal do Utente](#acesso-ao-portal-do-cidadão)
+2. [Acesso ao Portal do Utente](#acesso-ao-portal-do-utente)
 3. [Acompanhamento de Pedidos](#acompanhamento-de-pedidos)
 4. [Tipos de Serviços Disponíveis](#tipos-de-serviços-disponíveis)
 5. [Solicitação de Novos Serviços](#solicitação-de-novos-serviços)
@@ -32,7 +32,7 @@ O sistema foi projetado para ser intuitivo e fácil de usar, reduzindo a necessi
 
 ### Primeiro Acesso
 
-1. Acesse o portal do cidadão através do endereço fornecido pela prefeitura
+1. Acesse o portal do utente através do endereço fornecido pela prefeitura
 2. Clique no botão **Cadastrar-se**
 3. Preencha o formulário com seus dados pessoais:
    - Nome completo
@@ -48,7 +48,7 @@ O sistema foi projetado para ser intuitivo e fácil de usar, reduzindo a necessi
 
 ### Login no Sistema
 
-1. Acesse o portal do cidadão
+1. Acesse o portal do utente
 2. Digite seu e-mail e senha
 3. Clique em **Entrar**
 
@@ -373,8 +373,8 @@ A equipe técnica avaliará se a alteração é possível no estágio atual do p
 
 ### E se eu perder meu código de acompanhamento?
 
-Se você estiver cadastrado no sistema e tiver feito login antes de criar o pedido, todos os seus pedidos estarão disponíveis na seção **Meus Pedidos**. Caso contrário, entre em contato com o suporte ao cidadão informando seus dados pessoais para recuperar o código.
+Se você estiver cadastrado no sistema e tiver feito login antes de criar o pedido, todos os seus pedidos estarão disponíveis na seção **Meus Pedidos**. Caso contrário, entre em contato com o suporte ao utente informando seus dados pessoais para recuperar o código.
 
 ---
 
-Esperamos que este guia ajude você a utilizar o sistema Simple de forma eficiente. Se tiver dúvidas adicionais, entre em contato com o suporte ao cidadão através dos canais disponíveis no portal.
+Esperamos que este guia ajude você a utilizar o sistema Simple de forma eficiente. Se tiver dúvidas adicionais, entre em contato com o suporte ao utente através dos canais disponíveis no portal.

@@ -23,7 +23,7 @@ O sistema foi projetado para ser intuitivo e fácil de usar, permitindo que tant
 
 ## Para Quem é Este Manual?
 
-Este manual é destinado a todos os usuários do sistema Simple, incluindo:
+Este manual é destinado a todos os utilizadores do sistema Simple, incluindo:
 
 - **Cidadãos**: Pessoas que solicitam serviços municipais
 - **Atendentes**: Funcionários responsáveis pelo atendimento ao público
@@ -70,7 +70,7 @@ Este manual está organizado nas seguintes seções:
 
 - Relatórios e estatísticas
 - Configuração de tipos de serviços
-- Gerenciamento de usuários
+- Gerenciamento de utilizadores
 - Monitoramento de prazos e pendências
 
 ## Suporte e Contato

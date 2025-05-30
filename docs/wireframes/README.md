@@ -13,10 +13,10 @@ A página inicial serve como ponto de entrada principal para a aplicação, ofer
 - Rodapé com informações de contato e links úteis
 
 ### 2. Login/Registro (02_login_registro.png)
-Esta tela permite que usuários acessem a plataforma:
-- Formulário de login com campos para email/usuário e senha
+Esta tela permite que utilizadores acessem a plataforma:
+- Formulário de login com campos para email/utilizador e senha
 - Opção para recuperação de senha
-- Alternativa para novos usuários se registrarem
+- Alternativa para novos utilizadores se registrarem
 - Acesso diferenciado para funcionários municipais (atendedores) e cidadãos (utentes)
 - Design minimalista que transmite segurança e confiabilidade
 
@@ -55,7 +55,7 @@ Apresenta informações detalhadas sobre um serviço específico:
 - Informações de contato do departamento responsável
 
 ### 7. Acompanhamento de Pedidos (07_acompanhamento_pedidos.png)
-Permite que qualquer cidadão acompanhe o status de um pedido:
+Permite que qualquer utente acompanhe o status de um pedido:
 - Campo para inserção do código de acompanhamento
 - Exibição do status atual do processo
 - Timeline detalhada com histórico de todas as etapas

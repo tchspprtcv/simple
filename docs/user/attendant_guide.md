@@ -1,6 +1,6 @@
 # Guia do Atendente
 
-Este guia foi desenvolvido para auxiliar os atendentes municipais na utilização do sistema Simple. Aqui você encontrará instruções detalhadas sobre como realizar as principais tarefas de atendimento ao cidadão.
+Este guia foi desenvolvido para auxiliar os atendentes municipais na utilização do sistema Simple. Aqui você encontrará instruções detalhadas sobre como realizar as principais tarefas de atendimento ao utente.
 
 ## Sumário
 
@@ -69,8 +69,8 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 
 1. No menu lateral, clique em **Cidadãos**
 2. Clique no botão **Novo Utente**
-3. Preencha o formulário com os dados do cidadão:
-   - **Nome Completo**: Nome completo do cidadão
+3. Preencha o formulário com os dados do utente:
+   - **Nome Completo**: Nome completo do utente
    - **Tipo de Documento**: Selecione o tipo (BI, CNI, etc.)
    - **Número do Documento**: Número do documento selecionado
    - **E-mail**: E-mail para contato (opcional)
@@ -89,7 +89,7 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 
 ### Edição de Cadastro
 
-1. Busque o cidadão conforme instruções acima
+1. Busque o utente conforme instruções acima
 2. Na página de detalhes, clique no botão **Editar**
 3. Atualize as informações necessárias
 4. Clique em **Salvar**
@@ -104,9 +104,9 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 
 ### Seleção do Utente
 
-1. Busque o cidadão pelo nome ou número de documento
-2. Se o cidadão não estiver cadastrado, clique em **Cadastrar Novo Utente**
-3. Preencha os dados do cidadão conforme necessário
+1. Busque o utente pelo nome ou número de documento
+2. Se o utente não estiver cadastrado, clique em **Cadastrar Novo Utente**
+3. Preencha os dados do utente conforme necessário
 4. Clique em **Continuar**
 
 ### Preenchimento do Formulário
@@ -132,7 +132,7 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 2. Se necessário, clique em **Voltar** para corrigir alguma informação
 3. Clique em **Finalizar Pedido**
 4. O sistema exibirá o código de acompanhamento
-5. Informe o código ao cidadão e/ou imprima o comprovante
+5. Informe o código ao utente e/ou imprima o comprovante
 
 ## Pesquisa e Consulta de Pedidos
 
@@ -158,7 +158,7 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 1. Na lista de resultados, clique no pedido desejado
 2. A página de detalhes exibirá:
    - Informações gerais do pedido
-   - Dados do cidadão
+   - Dados do utente
    - Histórico de status
    - Documentos anexados
    - Pagamentos associados
@@ -247,7 +247,7 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 1. Na geração da cobrança, marque a opção **Permitir Parcelamento**
 2. Informe o número máximo de parcelas
 3. O sistema calculará automaticamente o valor de cada parcela
-4. Após gerar a cobrança, o cidadão poderá escolher o número de parcelas desejado
+4. Após gerar a cobrança, o utente poderá escolher o número de parcelas desejado
 
 ## Agendamento de Vistorias
 
@@ -302,7 +302,7 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 
 - Mantenha os dados dos cidadãos sempre atualizados
 - Verifique se todos os documentos estão legíveis antes de anexá-los
-- Informe claramente ao cidadão sobre prazos e documentos necessários
+- Informe claramente ao utente sobre prazos e documentos necessários
 - Utilize a função de favoritos para agilizar o atendimento
 
 ### Organização
@@ -313,10 +313,10 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 
 ### Segurança
 
-- Nunca compartilhe sua senha com outros usuários
+- Nunca compartilhe sua senha com outros utilizadores
 - Sempre faça logout ao se ausentar do computador
 - Verifique cuidadosamente os documentos antes de aprová-los
-- Confirme os dados do cidadão antes de iniciar um novo pedido
+- Confirme os dados do utente antes de iniciar um novo pedido
 
 ---
 

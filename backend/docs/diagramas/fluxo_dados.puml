@@ -34,7 +34,7 @@ database "Banco de Dados" as db
 
 ' Fluxos de Autenticação
 user --> login : Credenciais (email/senha)
-login --> db : Consulta usuário
+login --> db : Consulta utilizador
 login --> user : Token JWT
 
 ' Fluxos de Pedidos
@@ -58,9 +58,9 @@ assignTech --> tech : Notificação
 assignTech --> manager : Confirmação
 
 ' Fluxos de Cidadãos
-user --> registerCitizen : Dados do cidadão
-registerCitizen --> db : Persiste cidadão
-registerCitizen --> user : ID do cidadão
+user --> registerCitizen : Dados do utente
+registerCitizen --> db : Persiste utente
+registerCitizen --> user : ID do utente
 
 user --> queryCitizen : Filtros de busca
 queryCitizen --> db : Consulta cidadãos

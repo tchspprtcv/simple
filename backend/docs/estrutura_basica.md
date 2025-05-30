@@ -109,13 +109,13 @@ Principais dependências:
 
 O sistema possui várias entidades principais:
 
-1. **Usuario**: Representa os usuários do sistema com diferentes perfis
+1. **Usuario**: Representa os utilizadores do sistema com diferentes perfis
 2. **Cidadao**: Representa os cidadãos que solicitam serviços
 3. **Pedido**: Representa as solicitações de serviços
 4. **TipoServico**: Categoriza os diferentes tipos de serviços oferecidos
 5. **StatusPedido**: Representa os diferentes estados de um pedido
 6. **EtapaProcesso**: Representa as etapas do fluxo de processamento de um pedido
-7. **Favorito**: Permite aos usuários marcar serviços como favoritos
+7. **Favorito**: Permite aos utilizadores marcar serviços como favoritos
 
 ## Segurança
 

@@ -20,7 +20,7 @@ export default function UserManagementPage() {
       // Update user role logic here
       toast({
         title: "Função atualizada com sucesso!",
-        description: "A função do usuário foi alterada.",
+        description: "A função do utilizador foi alterada.",
       })
     } catch (error) {
       toast({
@@ -33,10 +33,10 @@ export default function UserManagementPage() {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Gestão de Usuários</h1>
+      <h1 className="text-3xl font-bold mb-6">Gestão de Utilizadores</h1>
       <div className="mb-6">
         <Input
-          placeholder="Buscar usuários..."
+          placeholder="Buscar utilizadores..."
           className="max-w-md"
         />
       </div>

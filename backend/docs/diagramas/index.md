@@ -22,14 +22,14 @@ Este diagrama mostra as entidades principais do sistema e seus relacionamentos.
 ![Diagrama ER](./Diagrama%20ER%20do%20Sistema%20Simple.png)
 
 As principais entidades do sistema são:
-- **Usuario**: Representa os usuários do sistema (administradores, atendentes, técnicos, etc.).
-- **Perfil**: Representa os perfis de acesso dos usuários.
+- **Usuario**: Representa os utilizadores do sistema (administradores, atendentes, técnicos, etc.).
+- **Perfil**: Representa os perfis de acesso dos utilizadores.
 - **Cidadao**: Representa os cidadãos que solicitam serviços.
 - **Pedido**: Representa os pedidos de serviços municipais.
 - **StatusPedido**: Representa os possíveis status de um pedido.
 - **TipoServico**: Representa os tipos de serviços oferecidos.
 - **CategoriaServico**: Representa as categorias de serviços.
-- **Favorito**: Representa os tipos de serviços favoritados pelos usuários.
+- **Favorito**: Representa os tipos de serviços favoritados pelos utilizadores.
 
 ## 3. Diagrama de Fluxo de Dados
 
@@ -64,5 +64,5 @@ Este diagrama mostra a sequência de interações entre os componentes durante o
 ![Diagrama de Sequência - Autenticação](./Diagrama%20de%20Sequência%20-%20Processo%20de%20Autenticação.png)
 
 O diagrama ilustra:
-- O processo de login, desde a requisição do usuário até a geração do token JWT.
+- O processo de login, desde a requisição do utilizador até a geração do token JWT.
 - O uso do token em requisições subsequentes para autorização.

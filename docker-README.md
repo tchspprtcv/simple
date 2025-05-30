@@ -102,12 +102,12 @@ Você pode modificar as variáveis de ambiente no arquivo `docker-compose.yml`:
 
 - **Banco de dados**:
   - `POSTGRES_DB`: Nome do banco de dados
-  - `POSTGRES_USER`: Nome de usuário
-  - `POSTGRES_PASSWORD`: Senha do usuário
+  - `POSTGRES_USER`: Nome de utilizador
+  - `POSTGRES_PASSWORD`: Senha do utilizador
 
 - **Backend**:
   - `SPRING_DATASOURCE_URL`: URL de conexão com o banco de dados
-  - `SPRING_DATASOURCE_USERNAME`: Nome de usuário do banco
+  - `SPRING_DATASOURCE_USERNAME`: Nome de utilizador do banco
   - `SPRING_DATASOURCE_PASSWORD`: Senha do banco
 
 - **Frontend**:

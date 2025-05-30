@@ -27,7 +27,7 @@ sequenceDiagram
     
     RequestService->>CitizenService: getCitizen(citizenId)
     CitizenService->>Database: SELECT FROM cidadaos
-    Database-->>CitizenService: Dados do cidadão
+    Database-->>CitizenService: Dados do utente
     CitizenService-->>RequestService: Objeto Utente
     
     RequestService->>ServiceTypeService: getServiceType(typeId)
@@ -54,7 +54,7 @@ sequenceDiagram
 
 ## 2. Consulta de Status de Pedido pelo Utente
 
-Este diagrama ilustra como um cidadão pode consultar o status de seu pedido usando o código de acompanhamento.
+Este diagrama ilustra como um utente pode consultar o status de seu pedido usando o código de acompanhamento.
 
 ```mermaid
 sequenceDiagram

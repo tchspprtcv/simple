@@ -553,4 +553,4 @@ graph TD
 
 ---
 
-Estes são os principais fluxos de processos disponíveis no sistema Simple. Cada processo foi projetado para garantir eficiência, transparência e conformidade com a legislação municipal. Para mais informações sobre um processo específico, consulte o departamento responsável ou entre em contato com o suporte ao cidadão.
+Estes são os principais fluxos de processos disponíveis no sistema Simple. Cada processo foi projetado para garantir eficiência, transparência e conformidade com a legislação municipal. Para mais informações sobre um processo específico, consulte o departamento responsável ou entre em contato com o suporte ao utente.

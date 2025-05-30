@@ -3,8 +3,8 @@
 ## Sumário
 1. [Introdução ao Sistema](#1-introdução-ao-sistema)
 2. [Como Acessar o Sistema](#2-como-acessar-o-sistema)
-3. [Navegação Básica e Interface do Utilizador](#3-navegação-básica-e-interface-do-usuário)
-4. [Funcionalidades por Perfil de Utilizador](#4-funcionalidades-por-perfil-de-usuário)
+3. [Navegação Básica e Interface do Utilizador](#3-navegação-básica-e-interface-do-utilizador)
+4. [Funcionalidades por Perfil de Utilizador](#4-funcionalidades-por-perfil-de-utilizador)
    - [Administrador](#41-administrador)
    - [Atendente](#42-atendente)
    - [Gestor](#43-gestor)
@@ -40,7 +40,7 @@ O **Simple** é um sistema de gestão de pedidos de serviços municipais desenvo
 3. Gestor analisa e atribui o pedido a um técnico
 4. Técnico executa o serviço e atualiza o status
 5. Fiscal verifica a qualidade do serviço realizado
-6. Pedido é finalizado e o cidadão é notificado
+6. Pedido é finalizado e o utente é notificado
 
 ![Fluxo de trabalho do sistema](images/fluxo_trabalho.png)
 
@@ -57,7 +57,7 @@ O **Simple** é um sistema de gestão de pedidos de serviços municipais desenvo
 ### Processo de Login
 
 1. Abra seu navegador e acesse o endereço do sistema (fornecido pelo administrador)
-2. Na tela de login, insira seu nome de usuário e senha
+2. Na tela de login, insira seu nome de utilizador e senha
 3. Selecione o perfil de acesso (caso tenha múltiplos perfis)
 4. Clique no botão "Entrar"
 
@@ -89,7 +89,7 @@ Caso esqueça sua senha:
 
 Após o login, você terá acesso à interface principal do sistema, composta por:
 
-- **Barra superior**: Contém o logo do sistema, nome do usuário logado, perfil ativo e botão de logout
+- **Barra superior**: Contém o logo do sistema, nome do utilizador logado, perfil ativo e botão de logout
 - **Menu lateral**: Acesso às principais funcionalidades do sistema
 - **Área de trabalho**: Exibe o conteúdo da funcionalidade selecionada
 - **Barra de status**: Informações sobre o sistema e notificações
@@ -125,7 +125,7 @@ O menu lateral apresenta as opções disponíveis de acordo com o seu perfil de 
 
 ## 4. Funcionalidades por Perfil de Utilizador
 
-O sistema Simple possui diferentes perfis de usuários, cada um com acesso a funcionalidades específicas de acordo com suas responsabilidades.
+O sistema Simple possui diferentes perfis de utilizadores, cada um com acesso a funcionalidades específicas de acordo com suas responsabilidades.
 
 ### 4.1 Administrador
 
@@ -133,8 +133,8 @@ O Administrador é responsável pela configuração e manutenção do sistema.
 
 #### Principais Funcionalidades:
 
-- **Gerenciamento de Usuários**:
-  - Cadastrar, editar e desativar usuários
+- **Gerenciamento de Utilizadores**:
+  - Cadastrar, editar e desativar utilizadores
   - Atribuir perfis de acesso
   - Resetar senhas
 
@@ -152,7 +152,7 @@ O Administrador é responsável pela configuração e manutenção do sistema.
 
 ### 4.2 Atendente
 
-O Atendente é responsável pelo primeiro contato com o cidadão e registro de pedidos.
+O Atendente é responsável pelo primeiro contato com o utente e registro de pedidos.
 
 #### Principais Funcionalidades:
 
@@ -251,8 +251,8 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 
 1. No menu lateral, clique em "Pedidos" e depois em "Novo Pedido"
 2. Preencha os dados do solicitante:
-   - Se o cidadão já estiver cadastrado, pesquise pelo nome, CNI ou e-mail
-   - Se for um novo cidadão, clique em "Cadastrar Novo Utente" e preencha os dados
+   - Se o utente já estiver cadastrado, pesquise pelo nome, CNI ou e-mail
+   - Se for um novo utente, clique em "Cadastrar Novo Utente" e preencha os dados
 3. Selecione o tipo de serviço solicitado na lista disponível
 4. Preencha os detalhes do pedido:
    - Descrição da solicitação
@@ -305,12 +305,12 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 4. Defina as preferências de contato (e-mail, SMS, telefone)
 5. Clique em "Salvar" para concluir o cadastro
 
-![Cadastro de cidadão](images/cadastro_cidadao.png)
+![Cadastro de utente](images/cadastro_cidadao.png)
 
 #### Consultar e Editar Cadastro de Utente
 
 1. No menu lateral, clique em "Cidadãos" e depois em "Consultar"
-2. Utilize os filtros para localizar o cidadão:
+2. Utilize os filtros para localizar o utente:
    - Nome
    - CNI/CNPJ
    - E-mail
@@ -322,10 +322,10 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 
 #### Visualizar Histórico de Pedidos do Utente
 
-1. Localize o cidadão através da consulta
-2. Clique no nome do cidadão para abrir os detalhes
+1. Localize o utente através da consulta
+2. Clique no nome do utente para abrir os detalhes
 3. Na tela de detalhes, acesse a aba "Histórico de Pedidos"
-4. Visualize todos os pedidos associados ao cidadão, com status e datas
+4. Visualize todos os pedidos associados ao utente, com status e datas
 5. Clique no número de qualquer pedido para ver seus detalhes completos
 
 ### 5.3 Atribuir Pedidos a Técnicos
@@ -407,26 +407,26 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 
 ### 5.5 Configurar o Sistema
 
-#### Gerenciar Usuários (Perfil Administrador)
+#### Gerenciar Utilizadores (Perfil Administrador)
 
-1. No menu lateral, clique em "Configurações" e depois em "Usuários"
-2. Para adicionar um novo usuário:
+1. No menu lateral, clique em "Configurações" e depois em "Utilizadores"
+2. Para adicionar um novo utilizador:
    - Clique no botão "Novo Utilizador"
    - Preencha os dados pessoais e de contato
    - Defina o login e senha inicial
    - Selecione o(s) perfil(is) de acesso
    - Clique em "Salvar"
-3. Para editar um usuário existente:
-   - Localize o usuário na lista
+3. Para editar um utilizador existente:
+   - Localize o utilizador na lista
    - Clique no ícone de edição (lápis)
    - Atualize as informações necessárias
    - Clique em "Salvar"
-4. Para desativar um usuário:
-   - Localize o usuário na lista
+4. Para desativar um utilizador:
+   - Localize o utilizador na lista
    - Clique no ícone de desativação
    - Confirme a ação na janela de confirmação
 
-![Gerenciamento de usuários](images/gerenciar_usuarios.png)
+![Gerenciamento de utilizadores](images/gerenciar_usuarios.png)
 
 #### Configurar Tipos de Serviço
 
@@ -476,9 +476,9 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 
 ### Comunicação Efetiva
 
-- **Mantenha o cidadão informado**: Utilize as notificações automáticas para informar sobre mudanças de status
+- **Mantenha o utente informado**: Utilize as notificações automáticas para informar sobre mudanças de status
 - **Use linguagem clara**: Evite termos técnicos nas comunicações com os cidadãos
-- **Registre todos os contatos**: Anote no sistema todas as interações com o cidadão
+- **Registre todos os contatos**: Anote no sistema todas as interações com o utente
 - **Estabeleça expectativas realistas**: Informe prazos factíveis para a resolução dos pedidos
 
 ### Uso de Relatórios e Análises
@@ -506,7 +506,7 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 #### Não consigo fazer login
 
 **Possíveis causas e soluções:**
-- **Credenciais incorretas**: Verifique se está digitando corretamente usuário e senha
+- **Credenciais incorretas**: Verifique se está digitando corretamente utilizador e senha
 - **Caps Lock ativado**: Verifique se a tecla Caps Lock está desativada
 - **Conta bloqueada**: Após várias tentativas incorretas, a conta pode ser bloqueada. Contate o administrador
 - **Senha expirada**: Se sua senha expirou, use a opção "Esqueci minha senha"
@@ -525,7 +525,7 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 #### Gerais
 
 **Como alterar minha senha?**
-1. Clique no seu nome de usuário no canto superior direito
+1. Clique no seu nome de utilizador no canto superior direito
 2. Selecione "Meu Perfil"
 3. Clique na aba "Segurança"
 4. Clique em "Alterar Senha"
@@ -533,7 +533,7 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 6. Clique em "Salvar"
 
 **Como configurar notificações?**
-1. Clique no seu nome de usuário no canto superior direito
+1. Clique no seu nome de utilizador no canto superior direito
 2. Selecione "Meu Perfil"
 3. Clique na aba "Notificações"
 4. Selecione quais notificações deseja receber e por qual canal (e-mail, sistema)
@@ -589,7 +589,7 @@ Em caso de dúvidas ou problemas não resolvidos por este manual, entre em conta
 - **Horário de atendimento**: Segunda a sexta, das 8h às 18h
 
 Ao contatar o suporte, tenha em mãos:
-- Seu nome de usuário
+- Seu nome de utilizador
 - Descrição detalhada do problema
 - Capturas de tela do erro (se possível)
 - Ações que estava realizando quando o problema ocorreu

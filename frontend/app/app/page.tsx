@@ -73,7 +73,7 @@ export default function Home() {
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold">Principais Funcionalidades</h3>
                 <ul className="space-y-2">
-                  <li>✓ Gestão de usuários e perfis</li>
+                  <li>✓ Gestão de utilizadores e perfis</li>
                   <li>✓ Gestão de pedidos de serviços</li>
                   <li>✓ Acompanhamento de pedidos</li>
                   <li>✓ Gestão de documentos</li>
