@@ -1,8 +1,8 @@
 @startuml Fluxo de Dados do Sistema Simple
 skinparam linetype ortho
 
-actor "Usuário" as user
-actor "Cidadão" as citizen
+actor "Utilizador" as user
+actor "Utente" as citizen
 actor "Técnico" as tech
 actor "Gestor" as manager
 
@@ -20,8 +20,8 @@ rectangle "Sistema Simple" {
   }
   
   rectangle "Gestão de Cidadãos" as citizens {
-    (Cadastrar Cidadão) as registerCitizen
-    (Consultar Cidadão) as queryCitizen
+    (Cadastrar Utente) as registerCitizen
+    (Consultar Utente) as queryCitizen
   }
   
   rectangle "Configuração" as config {

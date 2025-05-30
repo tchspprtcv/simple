@@ -1,4 +1,4 @@
-# Manual do Usuário - Sistema Simple
+# Manual do Utilizador - Sistema Simple
 
 ## Bem-vindo ao Simple!
 
@@ -37,7 +37,7 @@ Este manual está organizado nas seguintes seções:
 
 1. [**Instalação**](./installation.md): Instruções para instalação e configuração do sistema
 2. [**Guia do Atendente**](./attendant_guide.md): Instruções para funcionários de atendimento
-3. [**Guia do Cidadão**](./citizen_guide.md): Instruções para cidadãos que utilizam o sistema
+3. [**Guia do Utente**](./citizen_guide.md): Instruções para cidadãos que utilizam o sistema
 4. [**Processos**](./processes.md): Descrição detalhada dos fluxos de processos disponíveis
 5. [**Perguntas Frequentes**](./faq.md): Respostas para dúvidas comuns
 

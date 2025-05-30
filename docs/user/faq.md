@@ -47,7 +47,7 @@ Sim. Após fazer login, acesse seu perfil clicando no seu nome no canto superior
 Para atualizar seu e-mail, acesse seu perfil, clique em "Editar Perfil" e altere o e-mail cadastrado. Será enviado um link de confirmação para o novo e-mail para validar a alteração.
 
 ### Posso ter mais de uma conta no sistema?
-Não é recomendado criar múltiplas contas. Cada cidadão deve ter apenas uma conta associada ao seu CPF/documento de identidade. Para empresas, deve ser criada uma conta associada ao CNPJ.
+Não é recomendado criar múltiplas contas. Cada cidadão deve ter apenas uma conta associada ao seu CNI/documento de identidade. Para empresas, deve ser criada uma conta associada ao CNPJ.
 
 ## Solicitação de Serviços
 

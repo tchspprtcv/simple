@@ -43,7 +43,7 @@ export default function Home() {
 
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader>
-              <CardTitle>Área do Cidadão</CardTitle>
+              <CardTitle>Área do Utente</CardTitle>
               <CardDescription>Acesse sua conta para mais funcionalidades</CardDescription>
             </CardHeader>
             <CardContent>

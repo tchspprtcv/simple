@@ -61,7 +61,7 @@ graph TD
 ```
 
 ### Documentos Necessários
-- Documento de identidade e CPF do proprietário
+- Documento de identidade e CNI do proprietário
 - Comprovante de propriedade (escritura, contrato de compra e venda)
 - Planta do imóvel assinada por profissional habilitado
 - ART/RRT do responsável técnico
@@ -111,7 +111,7 @@ graph TD
 ```
 
 ### Documentos Necessários
-- Documento de identidade e CPF do comprador
+- Documento de identidade e CNI do comprador
 - Comprovante de renda
 - Comprovante de residência
 - Certidão de nascimento/casamento
@@ -163,7 +163,7 @@ graph TD
 ```
 
 ### Documentos Necessários
-- Documento de identidade e CPF do responsável
+- Documento de identidade e CNI do responsável
 - Descrição detalhada do evento (data, horário, público estimado)
 - Croqui do local com disposição de estruturas
 - Contrato de locação ou autorização de uso do espaço
@@ -218,7 +218,7 @@ graph TD
 ```
 
 ### Documentos Necessários
-- Documento de identidade e CPF do devedor
+- Documento de identidade e CNI do devedor
 - Comprovante de residência
 - Documentos comprobatórios da dívida (carnês, notificações)
 - Procuração (se representante legal)
@@ -262,7 +262,7 @@ graph TD
 ```
 
 ### Documentos Necessários
-- Documento de identidade e CPF (atual)
+- Documento de identidade e CNI (atual)
 - Certidão de casamento, divórcio ou averbação
 - Decisão judicial (quando aplicável)
 - Comprovante de residência
@@ -311,7 +311,7 @@ graph TD
 ```
 
 ### Documentos Necessários
-- Documento de identidade e CPF do proprietário
+- Documento de identidade e CNI do proprietário
 - Comprovante de propriedade atualizado
 - Planta anterior
 - Nova planta assinada por profissional habilitado
@@ -357,7 +357,7 @@ graph TD
 ```
 
 ### Documentos Necessários
-- Documento de identidade e CPF do solicitante
+- Documento de identidade e CNI do solicitante
 - Comprovante de propriedade ou autorização do proprietário
 - Comprovante de endereço
 - Certidão negativa de débitos municipais
@@ -418,7 +418,7 @@ graph TD
 ### Documentos Necessários
 - CNPJ da empresa
 - Contrato social ou MEI
-- Documento de identidade e CPF dos sócios
+- Documento de identidade e CNI dos sócios
 - Comprovante de endereço do estabelecimento
 - Contrato de locação ou escritura do imóvel
 - Certificado do Corpo de Bombeiros
@@ -475,7 +475,7 @@ graph TD
 ```
 
 ### Documentos Necessários
-- Documento de identidade e CPF do proprietário
+- Documento de identidade e CNI do proprietário
 - Comprovante de propriedade (escritura, contrato)
 - Projeto arquitetônico completo (plantas, cortes, fachadas)
 - Memorial descritivo

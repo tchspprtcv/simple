@@ -44,7 +44,7 @@ public class PedidoService {
 
     public Page<PedidoResponse> findByCidadao(UUID cidadaoId, Pageable pageable) {
         Cidadao cidadao = cidadaoRepository.findById(cidadaoId)
-                .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado"));
         
         return pedidoRepository.findByCidadao(cidadao, pageable)
                 .map(this::mapToResponse);
@@ -53,14 +53,14 @@ public class PedidoService {
     public Page<PedidoResponse> findByUsuarioLogado(Pageable pageable) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario usuarioLogado = usuarioRepository.findByEmail(authentication.getName())
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Utilizador não encontrado"));
         return pedidoRepository.findByUsuarioCriacao(usuarioLogado, pageable)
                 .map(this::mapToResponse);
     }
 
     public PedidoResponse create(PedidoRequest request) {
         Cidadao cidadao = cidadaoRepository.findById(request.getCidadaoId())
-                .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado"));
         
         TipoServico tipoServico = tipoServicoRepository.findById(request.getTipoServicoId())
                 .orElseThrow(() -> new EntityNotFoundException("Tipo de serviço não encontrado"));
@@ -70,7 +70,7 @@ public class PedidoService {
         
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario usuarioLogado = usuarioRepository.findByEmail(authentication.getName())
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Utilizador não encontrado"));
         
         Pedido pedido = new Pedido();
         pedido.setCidadao(cidadao);

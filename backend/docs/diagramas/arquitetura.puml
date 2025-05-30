@@ -3,7 +3,7 @@ skinparam linetype ortho
 skinparam componentStyle rectangle
 
 package "Frontend (Cliente)" {
-  [Interface do Usuário] as UI
+  [Interface do Utilizador] as UI
 }
 
 package "Sistema Simple (Backend)" {

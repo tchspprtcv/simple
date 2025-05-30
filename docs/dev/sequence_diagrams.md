@@ -28,7 +28,7 @@ sequenceDiagram
     RequestService->>CitizenService: getCitizen(citizenId)
     CitizenService->>Database: SELECT FROM cidadaos
     Database-->>CitizenService: Dados do cidadão
-    CitizenService-->>RequestService: Objeto Cidadão
+    CitizenService-->>RequestService: Objeto Utente
     
     RequestService->>ServiceTypeService: getServiceType(typeId)
     ServiceTypeService->>Database: SELECT FROM tipos_servicos
@@ -52,20 +52,20 @@ sequenceDiagram
     Frontend-->>Atendente: Exibe confirmação e código de acompanhamento
 ```
 
-## 2. Consulta de Status de Pedido pelo Cidadão
+## 2. Consulta de Status de Pedido pelo Utente
 
 Este diagrama ilustra como um cidadão pode consultar o status de seu pedido usando o código de acompanhamento.
 
 ```mermaid
 sequenceDiagram
-    actor Cidadão
+    actor Utente
     participant Frontend
     participant TrackingController
     participant RequestService
     participant HistoryService
     participant Database
     
-    Cidadão->>Frontend: Insere código de acompanhamento
+    Utente->>Frontend: Insere código de acompanhamento
     Frontend->>TrackingController: GET /api/tracking/{codigo}
     
     TrackingController->>RequestService: getRequestByTrackingCode(codigo)
@@ -75,7 +75,7 @@ sequenceDiagram
     alt Pedido não encontrado
         RequestService-->>TrackingController: Pedido não encontrado
         TrackingController-->>Frontend: 404 Not Found
-        Frontend-->>Cidadão: Exibe mensagem de erro
+        Frontend-->>Utente: Exibe mensagem de erro
     else Pedido encontrado
         RequestService-->>TrackingController: Dados do pedido
         
@@ -85,7 +85,7 @@ sequenceDiagram
         HistoryService-->>TrackingController: Lista de eventos do histórico
         
         TrackingController-->>Frontend: 200 OK com dados do pedido e histórico
-        Frontend-->>Cidadão: Exibe informações do pedido e status atual
+        Frontend-->>Utente: Exibe informações do pedido e status atual
     end
 ```
 
@@ -95,7 +95,7 @@ Este diagrama mostra o processo de upload, análise e aprovação de documentos 
 
 ```mermaid
 sequenceDiagram
-    actor Usuário
+    actor Utilizador
     participant Frontend
     participant DocumentController
     participant DocumentService
@@ -103,7 +103,7 @@ sequenceDiagram
     participant StorageService
     participant Database
     
-    Usuário->>Frontend: Seleciona documento e faz upload
+    Utilizador->>Frontend: Seleciona documento e faz upload
     Frontend->>DocumentController: POST /api/documents/upload
     
     DocumentController->>StorageService: storeFile(file)
@@ -119,7 +119,7 @@ sequenceDiagram
     Database-->>DocumentService: ID do documento criado
     DocumentService-->>DocumentController: Documento registrado
     DocumentController-->>Frontend: 201 Created com dados do documento
-    Frontend-->>Usuário: Confirmação de upload
+    Frontend-->>Utilizador: Confirmação de upload
     
     actor Técnico
     Técnico->>Frontend: Acessa lista de documentos pendentes
@@ -159,7 +159,7 @@ sequenceDiagram
     participant PaymentService
     participant RequestService
     participant Database
-    actor Cidadão
+    actor Utente
     
     Atendente->>Frontend: Gera cobrança para pedido
     Frontend->>PaymentController: POST /api/payments
@@ -184,9 +184,9 @@ sequenceDiagram
     PaymentController-->>Frontend: 201 Created com dados do pagamento
     Frontend-->>Atendente: Exibe informações de pagamento
     
-    Atendente-->>Cidadão: Informa código de barras/link
+    Atendente-->>Utente: Informa código de barras/link
     
-    Cidadão->>Cidadão: Realiza pagamento externamente
+    Utente->>Utente: Realiza pagamento externamente
     
     Atendente->>Frontend: Registra pagamento
     Frontend->>PaymentController: PUT /api/payments/{id}/confirm

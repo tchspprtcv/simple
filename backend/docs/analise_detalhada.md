@@ -177,7 +177,7 @@ public AuthResponse authenticate(AuthRequest request) {
 ```java
 public PedidoResponse create(PedidoRequest request) {
     Cidadao cidadao = cidadaoRepository.findById(request.getCidadaoId())
-            .orElseThrow(() -> new EntityNotFoundException("Cidadão não encontrado"));
+            .orElseThrow(() -> new EntityNotFoundException("Utente não encontrado"));
     
     TipoServico tipoServico = tipoServicoRepository.findById(request.getTipoServicoId())
             .orElseThrow(() -> new EntityNotFoundException("Tipo de serviço não encontrado"));
@@ -187,7 +187,7 @@ public PedidoResponse create(PedidoRequest request) {
     
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     Usuario usuarioLogado = usuarioRepository.findByEmail(authentication.getName())
-            .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+            .orElseThrow(() -> new EntityNotFoundException("Utilizador não encontrado"));
     
     Pedido pedido = new Pedido();
     pedido.setCidadao(cidadao);

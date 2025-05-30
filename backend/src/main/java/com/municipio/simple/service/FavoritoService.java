@@ -28,7 +28,7 @@ public class FavoritoService {
     private Usuario getAuthenticatedUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com email: " + email));
+                .orElseThrow(() -> new EntityNotFoundException("Utilizador não encontrado com email: " + email));
     }
 
     @Transactional(readOnly = true)
@@ -68,7 +68,7 @@ public class FavoritoService {
     public void removerFavorito(Integer tipoServicoId) {
         Usuario usuario = getAuthenticatedUser();
         Favorito favorito = favoritoRepository.findByUsuarioAndTipoServicoId(usuario, tipoServicoId)
-                .orElseThrow(() -> new EntityNotFoundException("Favorito não encontrado para este usuário e tipo de serviço."));
+                .orElseThrow(() -> new EntityNotFoundException("Favorito não encontrado para este utilizador e tipo de serviço."));
         favoritoRepository.delete(favorito);
     }
 

@@ -123,7 +123,7 @@ export default function RequestDetailsPage() {
           </CardHeader>
           <CardContent className="text-sm space-y-1">
             <p><strong>Serviço:</strong> {pedido.tipoServico}</p>
-            <p><strong>Cidadão:</strong> {pedido.cidadao}</p>
+            <p><strong>Utente:</strong> {pedido.cidadao}</p>
             <p><strong>Data de Início:</strong> {formatDate(pedido.dataInicio)}</p>
             <p><strong>Previsão:</strong> {formatDate(pedido.dataPrevisao)}</p>
             <p><strong>Conclusão:</strong> {formatDate(pedido.dataConclusao)}</p>
@@ -151,7 +151,7 @@ export default function RequestDetailsPage() {
                   <TableHead>Data/Hora</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Observação</TableHead>
-                  <TableHead>Usuário</TableHead>
+                  <TableHead>Utilizador</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

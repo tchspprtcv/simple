@@ -113,7 +113,7 @@ export default function TrackPage() {
                   <TableCell>{pedido.tipoServico}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Cidadão</TableCell>
+                  <TableCell className="font-medium">Utente</TableCell>
                   <TableCell>{pedido.cidadao}</TableCell>
                 </TableRow>
                 <TableRow>

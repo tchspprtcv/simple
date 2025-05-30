@@ -1,10 +1,10 @@
-# Manual do Usuário - Sistema Simple
+# Manual do Utilizador - Sistema Simple
 
 ## Sumário
 1. [Introdução ao Sistema](#1-introdução-ao-sistema)
 2. [Como Acessar o Sistema](#2-como-acessar-o-sistema)
-3. [Navegação Básica e Interface do Usuário](#3-navegação-básica-e-interface-do-usuário)
-4. [Funcionalidades por Perfil de Usuário](#4-funcionalidades-por-perfil-de-usuário)
+3. [Navegação Básica e Interface do Utilizador](#3-navegação-básica-e-interface-do-usuário)
+4. [Funcionalidades por Perfil de Utilizador](#4-funcionalidades-por-perfil-de-usuário)
    - [Administrador](#41-administrador)
    - [Atendente](#42-atendente)
    - [Gestor](#43-gestor)
@@ -35,7 +35,7 @@ O **Simple** é um sistema de gestão de pedidos de serviços municipais desenvo
 
 ### Visão Geral do Fluxo de Trabalho
 
-1. Cidadão solicita um serviço
+1. Utente solicita um serviço
 2. Atendente registra o pedido no sistema
 3. Gestor analisa e atribui o pedido a um técnico
 4. Técnico executa o serviço e atualiza o status
@@ -83,7 +83,7 @@ Caso esqueça sua senha:
 
 ---
 
-## 3. Navegação Básica e Interface do Usuário
+## 3. Navegação Básica e Interface do Utilizador
 
 ### Estrutura da Interface
 
@@ -123,7 +123,7 @@ O menu lateral apresenta as opções disponíveis de acordo com o seu perfil de 
 
 ---
 
-## 4. Funcionalidades por Perfil de Usuário
+## 4. Funcionalidades por Perfil de Utilizador
 
 O sistema Simple possui diferentes perfis de usuários, cada um com acesso a funcionalidades específicas de acordo com suas responsabilidades.
 
@@ -156,7 +156,7 @@ O Atendente é responsável pelo primeiro contato com o cidadão e registro de p
 
 #### Principais Funcionalidades:
 
-- **Atendimento ao Cidadão**:
+- **Atendimento ao Utente**:
   - Cadastrar e atualizar dados de cidadãos
   - Registrar pedidos de serviços
   - Consultar status de pedidos existentes
@@ -251,8 +251,8 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 
 1. No menu lateral, clique em "Pedidos" e depois em "Novo Pedido"
 2. Preencha os dados do solicitante:
-   - Se o cidadão já estiver cadastrado, pesquise pelo nome, CPF ou e-mail
-   - Se for um novo cidadão, clique em "Cadastrar Novo Cidadão" e preencha os dados
+   - Se o cidadão já estiver cadastrado, pesquise pelo nome, CNI ou e-mail
+   - Se for um novo cidadão, clique em "Cadastrar Novo Utente" e preencha os dados
 3. Selecione o tipo de serviço solicitado na lista disponível
 4. Preencha os detalhes do pedido:
    - Descrição da solicitação
@@ -290,12 +290,12 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 
 ### 5.2 Gerenciar Cidadãos
 
-#### Cadastrar Novo Cidadão
+#### Cadastrar Novo Utente
 
 1. No menu lateral, clique em "Cidadãos" e depois em "Novo Cadastro"
 2. Preencha os dados pessoais:
    - Nome completo
-   - CPF/CNPJ
+   - CNI/CNPJ
    - Data de nascimento
    - Gênero
 3. Informe os dados de contato:
@@ -307,12 +307,12 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 
 ![Cadastro de cidadão](images/cadastro_cidadao.png)
 
-#### Consultar e Editar Cadastro de Cidadão
+#### Consultar e Editar Cadastro de Utente
 
 1. No menu lateral, clique em "Cidadãos" e depois em "Consultar"
 2. Utilize os filtros para localizar o cidadão:
    - Nome
-   - CPF/CNPJ
+   - CNI/CNPJ
    - E-mail
    - Telefone
 3. Clique em "Pesquisar" para exibir os resultados
@@ -320,7 +320,7 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 5. Atualize as informações necessárias
 6. Clique em "Salvar" para confirmar as alterações
 
-#### Visualizar Histórico de Pedidos do Cidadão
+#### Visualizar Histórico de Pedidos do Utente
 
 1. Localize o cidadão através da consulta
 2. Clique no nome do cidadão para abrir os detalhes
@@ -411,7 +411,7 @@ O Fiscal é responsável pela verificação da qualidade dos serviços executado
 
 1. No menu lateral, clique em "Configurações" e depois em "Usuários"
 2. Para adicionar um novo usuário:
-   - Clique no botão "Novo Usuário"
+   - Clique no botão "Novo Utilizador"
    - Preencha os dados pessoais e de contato
    - Defina o login e senha inicial
    - Selecione o(s) perfil(is) de acesso

@@ -68,10 +68,10 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 ### Novo Cadastro
 
 1. No menu lateral, clique em **Cidadãos**
-2. Clique no botão **Novo Cidadão**
+2. Clique no botão **Novo Utente**
 3. Preencha o formulário com os dados do cidadão:
    - **Nome Completo**: Nome completo do cidadão
-   - **Tipo de Documento**: Selecione o tipo (RG, CPF, etc.)
+   - **Tipo de Documento**: Selecione o tipo (BI, CNI, etc.)
    - **Número do Documento**: Número do documento selecionado
    - **E-mail**: E-mail para contato (opcional)
    - **Telefone**: Telefone para contato
@@ -102,10 +102,10 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 2. Selecione a categoria de serviço desejada
 3. Escolha o tipo específico de serviço
 
-### Seleção do Cidadão
+### Seleção do Utente
 
 1. Busque o cidadão pelo nome ou número de documento
-2. Se o cidadão não estiver cadastrado, clique em **Cadastrar Novo Cidadão**
+2. Se o cidadão não estiver cadastrado, clique em **Cadastrar Novo Utente**
 3. Preencha os dados do cidadão conforme necessário
 4. Clique em **Continuar**
 
@@ -149,7 +149,7 @@ Após o login, você terá acesso ao painel do atendente, que contém:
    - **Período**: Data de início e fim
    - **Tipo de Serviço**: Selecione um ou mais tipos
    - **Status**: Selecione um ou mais status
-   - **Cidadão**: Nome ou documento do solicitante
+   - **Utente**: Nome ou documento do solicitante
 3. Clique em **Buscar**
 4. Os resultados serão exibidos em uma lista
 
@@ -205,7 +205,7 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 2. Visualize a lista cronológica de alterações no pedido
 3. Cada entrada mostra:
    - Data e hora da alteração
-   - Usuário responsável
+   - Utilizador responsável
    - Status anterior e novo
    - Observações
 

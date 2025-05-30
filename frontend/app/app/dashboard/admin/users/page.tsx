@@ -61,7 +61,7 @@ export default function UserManagementPage() {
                     <SelectItem value="MANAGER">Gerente</SelectItem>
                     <SelectItem value="ATTENDANT">Atendente</SelectItem>
                     <SelectItem value="TECHNICIAN">Técnico</SelectItem>
-                    <SelectItem value="CITIZEN">Cidadão</SelectItem>
+                    <SelectItem value="CITIZEN">Utente</SelectItem>
                   </SelectContent>
                 </Select>
                 <Button variant="destructive">Remover</Button>

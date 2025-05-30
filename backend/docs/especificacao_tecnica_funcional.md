@@ -679,7 +679,7 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 |-------|------|-----------|
 | id | UUID | Identificador único do cidadão |
 | nome | String | Nome completo do cidadão |
-| cpf | String | CPF do cidadão (único) |
+| cpf | String | CNI do cidadão (único) |
 | email | String | Email do cidadão |
 | telefone | String | Telefone do cidadão |
 | endereco | String | Endereço do cidadão |
@@ -697,9 +697,9 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 | id | UUID | Identificador único do pedido |
 | codigoAcompanhamento | String | Código para acompanhamento público |
 | tipoServico | TipoServico | Tipo de serviço solicitado |
-| cidadao | Cidadao | Cidadão solicitante |
-| usuarioCriacao | Usuario | Usuário que criou o pedido |
-| usuarioResponsavel | Usuario | Usuário responsável pelo pedido |
+| cidadao | Cidadao | Utente solicitante |
+| usuarioCriacao | Usuario | Utilizador que criou o pedido |
+| usuarioResponsavel | Usuario | Utilizador responsável pelo pedido |
 | etapaAtual | EtapaProcesso | Etapa atual do processo |
 | status | StatusPedido | Status atual do pedido |
 | dataInicio | LocalDateTime | Data e hora de início |
@@ -757,7 +757,7 @@ O [Diagrama ER](./diagramas/Diagrama%20ER%20do%20Sistema%20Simple.png) ilustra a
 | Campo | Tipo | Descrição |
 |-------|------|-----------|
 | id | Long | Identificador único do favorito |
-| usuario | Usuario | Usuário que favoritou |
+| usuario | Usuario | Utilizador que favoritou |
 | tipoServico | TipoServico | Tipo de serviço favoritado |
 | criadoEm | LocalDateTime | Data e hora de criação |
 

@@ -40,7 +40,7 @@ function NewRequestContent() {
   const [cidadaoTab, setCidadaoTab] = useState("existente")
   
   // Dados do cidadão existente
-  const [tipoDocumento, setTipoDocumento] = useState("CPF")
+  const [tipoDocumento, setTipoDocumento] = useState("CNI")
   const [numeroDocumento, setNumeroDocumento] = useState("")
   const [cidadaoId, setCidadaoId] = useState<string | null>(null)
   const [cidadaoNome, setCidadaoNome] = useState("")
@@ -49,7 +49,7 @@ function NewRequestContent() {
   
   // Dados do novo cidadão
   const [novoCidadaoNome, setNovoCidadaoNome] = useState("")
-  const [novoCidadaoTipoDocumento, setNovoCidadaoTipoDocumento] = useState("CPF")
+  const [novoCidadaoTipoDocumento, setNovoCidadaoTipoDocumento] = useState("CNI")
   const [novoCidadaoNumeroDocumento, setNovoCidadaoNumeroDocumento] = useState("")
   const [novoCidadaoEmail, setNovoCidadaoEmail] = useState("")
   const [novoCidadaoTelefone, setNovoCidadaoTelefone] = useState("")
@@ -113,7 +113,7 @@ function NewRequestContent() {
       setCidadaoEncontrado(true)
       
       toast({
-        title: "Cidadão encontrado",
+        title: "Utente encontrado",
         description: `${cidadao.nome} foi encontrado com sucesso.`,
       })
     } catch (error: any) {
@@ -122,8 +122,8 @@ function NewRequestContent() {
       setCidadaoNome("")
       
       toast({
-        title: "Cidadão não encontrado",
-        description: "Cidadão não encontrado. Tente novamente ou cadastre um novo cidadão.",
+        title: "Utente não encontrado",
+        description: "Utente não encontrado. Tente novamente ou cadastre um novo cidadão.",
         variant: "destructive",
       })
     } finally {
@@ -177,7 +177,7 @@ function NewRequestContent() {
         const novoCidadao = await createCidadao(novoCidadaoRequest)
         cidadaoIdToUse = novoCidadao.id
       } else if (!cidadaoId) {
-        throw new Error("Cidadão não encontrado. Busque um cidadão existente ou cadastre um novo.")
+        throw new Error("Utente não encontrado. Busque um cidadão existente ou cadastre um novo.")
       }
       
       // Criar o pedido
@@ -250,7 +250,7 @@ function NewRequestContent() {
                       <p>Prazo estimado: {selectedService.prazoEstimado} dias</p>
                     )}
                     {selectedService.valorBase && (
-                      <p>Valor base: R$ {selectedService.valorBase.toFixed(2)}</p>
+                      <p>Valor base: CVE {selectedService.valorBase.toFixed(2)}</p>
                     )}
                   </AlertDescription>
                 </Alert>
@@ -261,13 +261,13 @@ function NewRequestContent() {
         
         <Card className="shadow-sm">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Cidadão</CardTitle>
+            <CardTitle className="text-2xl">Utente</CardTitle>
           </CardHeader>
           <CardContent>
             <Tabs value={cidadaoTab} onValueChange={setCidadaoTab} className="space-y-6">
               <TabsList className="w-full sm:w-auto border-b">
-                <TabsTrigger value="existente" className="text-base">Cidadão Existente</TabsTrigger>
-                <TabsTrigger value="novo" className="text-base">Novo Cidadão</TabsTrigger>
+                <TabsTrigger value="existente" className="text-base">Utente Existente</TabsTrigger>
+                <TabsTrigger value="novo" className="text-base">Novo Utente</TabsTrigger>
               </TabsList>
               
               <TabsContent value="existente" className="space-y-6">
@@ -284,10 +284,10 @@ function NewRequestContent() {
                           <SelectValue placeholder="Tipo de Documento" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="CPF">CPF</SelectItem>
-                          <SelectItem value="RG">RG</SelectItem>
+                          <SelectItem value="CNI">CNI</SelectItem>
+                          <SelectItem value="BI">BI</SelectItem>
                           <SelectItem value="PASSAPORTE">Passaporte</SelectItem>
-                          <SelectItem value="CNH">CNH</SelectItem>
+                          <SelectItem value="CC">Carta de Condução</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -311,7 +311,7 @@ function NewRequestContent() {
                         disabled={buscandoCidadao || !tipoDocumento || !numeroDocumento}
                         className="w-full h-10 shadow-sm"
                       >
-                        {buscandoCidadao ? "Buscando..." : "Buscar Cidadão"}
+                        {buscandoCidadao ? "Buscando..." : "Buscar Utente"}
                       </Button>
                     </div>
                   </div>
@@ -319,7 +319,7 @@ function NewRequestContent() {
                   {cidadaoEncontrado && (
                     <Alert className="bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-900">
                       <InfoIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
-                      <AlertTitle className="font-semibold text-green-800 dark:text-green-200">Cidadão Encontrado</AlertTitle>
+                      <AlertTitle className="font-semibold text-green-800 dark:text-green-200">Utente Encontrado</AlertTitle>
                       <AlertDescription className="text-green-700 dark:text-green-300">
                         Nome: {cidadaoNome}
                       </AlertDescription>
@@ -365,10 +365,10 @@ function NewRequestContent() {
                           <SelectValue placeholder="Tipo de Documento" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="CPF">CPF</SelectItem>
-                          <SelectItem value="RG">RG</SelectItem>
+                          <SelectItem value="CNI">CNI</SelectItem>
+                          <SelectItem value="BI">BI</SelectItem>
                           <SelectItem value="PASSAPORTE">Passaporte</SelectItem>
-                          <SelectItem value="CNH">CNH</SelectItem>
+                          <SelectItem value="CC">Carta de Condução</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

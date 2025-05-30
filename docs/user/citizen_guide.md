@@ -1,11 +1,11 @@
-# Guia do Cidadão
+# Guia do Utente
 
 Bem-vindo ao guia do cidadão para o sistema Simple! Este documento foi elaborado para ajudá-lo a utilizar o sistema de gestão de pedidos de serviços municipais de forma eficiente e sem complicações.
 
 ## Sumário
 
 1. [Introdução ao Sistema](#introdução-ao-sistema)
-2. [Acesso ao Portal do Cidadão](#acesso-ao-portal-do-cidadão)
+2. [Acesso ao Portal do Utente](#acesso-ao-portal-do-cidadão)
 3. [Acompanhamento de Pedidos](#acompanhamento-de-pedidos)
 4. [Tipos de Serviços Disponíveis](#tipos-de-serviços-disponíveis)
 5. [Solicitação de Novos Serviços](#solicitação-de-novos-serviços)
@@ -28,7 +28,7 @@ O Simple é um sistema moderno desenvolvido para facilitar sua interação com o
 
 O sistema foi projetado para ser intuitivo e fácil de usar, reduzindo a necessidade de deslocamentos à prefeitura e agilizando a resolução de suas solicitações.
 
-## Acesso ao Portal do Cidadão
+## Acesso ao Portal do Utente
 
 ### Primeiro Acesso
 
@@ -36,7 +36,7 @@ O sistema foi projetado para ser intuitivo e fácil de usar, reduzindo a necessi
 2. Clique no botão **Cadastrar-se**
 3. Preencha o formulário com seus dados pessoais:
    - Nome completo
-   - Tipo e número de documento (RG, CPF, etc.)
+   - Tipo e número de documento (BI, CNI, etc.)
    - E-mail válido
    - Telefone para contato
    - Endereço completo

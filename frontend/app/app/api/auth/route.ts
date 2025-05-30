@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     })
 
     if (!user) {
-      return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 })
+      return NextResponse.json({ error: 'Utilizador não encontrado' }, { status: 404 })
     }
 
     // In production, use proper password hashing comparison
