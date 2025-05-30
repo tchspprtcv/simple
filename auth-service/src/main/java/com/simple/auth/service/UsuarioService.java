@@ -5,17 +5,23 @@ import com.simple.auth.dto.UsuarioResponse;
 import com.simple.auth.domain.entity.Utilizador;
 import com.simple.auth.repository.UtilizadorRepository;
 // PerfilRepository might be needed if we allow profile updates through this service
-// import com.simple.auth.repository.PerfilRepository; 
+// import com.simple.auth.repository.PerfilRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UsuarioService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UsuarioService.class);
     private final UtilizadorRepository usuarioRepository;
     // private final PerfilRepository perfilRepository; // Uncomment if managing Perfil
 
@@ -81,8 +87,19 @@ public class UsuarioService {
                 .build();
     }
 
+    @Transactional(readOnly = true)
+    public UsuarioResponse findUserById(UUID id) {
+        logger.info("Attempting to find user with ID: {}", id);
+        Utilizador user = usuarioRepository.findById(id)
+                .orElseThrow(() -> {
+                    logger.warn("User not found with ID: {}", id);
+                    return new EntityNotFoundException("Utilizador não encontrado com ID: " + id);
+                });
+        logger.info("User found with ID: {}", id);
+        return mapToUsuarioResponse(user);
+    }
+
     // Potential future methods:
-    // - findUserById(UUID id)
     // - getAllUsers() (with pagination, for admin purposes)
     // - updateUserProfile(UUID userId, PerfilUpdateRequest perfilUpdateRequest) (admin)
     // - activateDeactivateUser(UUID userId, boolean status) (admin)

@@ -10,11 +10,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize; // For more granular access control if needed
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users") // Base path for user-related actions
@@ -22,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "User Management", description = "User profile and account management endpoints")
 public class UserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UsuarioService usuarioService;
 
     @Operation(summary = "Get current user profile", description = "Get the profile of the currently authenticated user")
@@ -85,11 +92,32 @@ public class UserController {
 
 
     // Potential future admin-only endpoints (would require @PreAuthorize("hasRole('ADMIN')") or similar)
-    // @GetMapping("/{id}")
-    // public ResponseEntity<UsuarioResponse> getUserById(@PathVariable UUID id) {
-    //     // return ResponseEntity.ok(usuarioService.findUserById(id));
-    //     return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
-    // }
+    @Operation(summary = "Get user by ID", description = "Retrieve a specific user by their ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UsuarioResponse.class))),
+            @ApiResponse(responseCode = "404", description = "User not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "401", description = "User not authenticated (if endpoint is secured and no/invalid token)",
+                    content = @Content)
+    })
+    // @SecurityRequirement(name = "bearerAuth") // Add if this endpoint requires authentication
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioResponse> getUserById(@PathVariable UUID id) {
+        logger.info("Received request to get user by ID: {}", id);
+        try {
+            UsuarioResponse usuarioResponse = usuarioService.findUserById(id);
+            logger.info("Successfully retrieved user with ID: {}", id);
+            return ResponseEntity.ok(usuarioResponse);
+        } catch (EntityNotFoundException e) {
+            logger.warn("User not found for ID {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            logger.error("Error retrieving user with ID {}: {}", id, e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     // @GetMapping
     // public ResponseEntity<List<UsuarioResponse>> getAllUsers() {
