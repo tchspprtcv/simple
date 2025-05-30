@@ -32,7 +32,7 @@ CREATE TABLE usuarios (
     CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
 );
 
--- Tabela de cidadãos (solicitantes)
+-- Tabela de utentes (solicitantes)
 CREATE TABLE cidadaos (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nome VARCHAR(100) NOT NULL,
@@ -490,11 +490,11 @@ EXECUTE FUNCTION log_pedido_changes();
 
 -- Comentários nas tabelas para documentação
 COMMENT ON TABLE usuarios IS 'Utilizadores do sistema (funcionários)';
-COMMENT ON TABLE cidadaos IS 'Cidadãos que solicitam serviços';
+COMMENT ON TABLE cidadaos IS 'Utentes que solicitam serviços';
 COMMENT ON TABLE perfis IS 'Perfis de acesso dos utilizadores';
 COMMENT ON TABLE tipos_servicos IS 'Tipos de serviços oferecidos';
 COMMENT ON TABLE etapas_processo IS 'Etapas do fluxo de trabalho para cada tipo de serviço';
-COMMENT ON TABLE pedidos IS 'Pedidos de serviços realizados pelos cidadãos';
+COMMENT ON TABLE pedidos IS 'Pedidos de serviços realizados pelos utentes';
 COMMENT ON TABLE historico_pedidos IS 'Histórico de alterações nos pedidos';
 COMMENT ON TABLE documentos_pedido IS 'Documentos anexados aos pedidos';
 COMMENT ON TABLE pagamentos IS 'Pagamentos relacionados aos pedidos';
