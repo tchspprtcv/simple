@@ -88,7 +88,7 @@ export interface TipoServico {
 }
 
 export interface PedidoRequest {
-  tipoServicoId: number;
+  tipoServicoId: string; // Changed from number to string to match UUID format
   cidadaoId: string;
   origem: string;
   prioridade?: number;

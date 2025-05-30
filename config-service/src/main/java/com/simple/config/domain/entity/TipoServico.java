@@ -30,7 +30,6 @@ public class TipoServico {
     @Column(nullable = false)
     private String nome;
 
-    @Lob // For potentially longer text
     private String descricao;
 
     @Column(name = "prazo_estimado_dias") // Renamed for clarity (e.g., in days)

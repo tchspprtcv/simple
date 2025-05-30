@@ -24,7 +24,7 @@ public class Utente {
     private String nome;
 
     @Column(name = "tipo_documento", nullable = false)
-    private String tipoDocumento; // e.g., "CPF", "RG"
+    private String tipoDocumento; // e.g., "CNI", "BI"
 
     @Column(name = "numero_documento", nullable = false, unique = true) // Assuming numero_documento should be unique
     private String numeroDocumento;

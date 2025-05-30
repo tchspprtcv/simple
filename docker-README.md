@@ -1,6 +1,11 @@
-# Guia de Deploy da Aplicação Simple com Docker no Windows
+# Docker Setup Guide - Simple Application
 
-Este guia fornece instruções detalhadas para configurar e executar a aplicação Simple usando Docker no Windows. A aplicação é composta por três componentes principais: banco de dados PostgreSQL, backend Spring Boot e frontend Next.js.
+Este guia fornece instruções detalhadas para configurar e executar a aplicação Simple usando Docker no Windows. A aplicação utiliza uma **arquitetura de microserviços** com os seguintes componentes:
+
+- **API Gateway** - Ponto de entrada único para todas as requisições
+- **Microserviços** - Auth, Citizen, Order, Config e Favorites services
+- **Frontend Next.js** - Interface de usuário moderna
+- **PostgreSQL** - Banco de dados relacional
 
 image.png
 
@@ -59,10 +64,15 @@ image.png
 
 Após a inicialização bem-sucedida de todos os containers, você pode acessar:
 
-- **Frontend**: http://localhost:3000
-- **Backend API (Monolith)**: http://localhost:9081 (This is the direct access to the monolith backend)
-- **API Gateway**: http://localhost:9080 (This is the entry point for microservices, used by the frontend)
-- **Banco de dados**: Acessível na porta 5433 do host (o contêiner continua usando a porta 5432 internamente). Use um cliente PostgreSQL como pgAdmin ou DBeaver para conectar-se a `localhost:5433`.
+- **Frontend**: http://localhost:9000
+- **API Gateway**: http://localhost:9080 (Ponto de entrada principal para o frontend)
+- **Microserviços**:
+  - Auth Service: http://localhost:9081
+  - Citizen Service: http://localhost:9082
+  - Order Service: http://localhost:9083
+  - Config Service: http://localhost:9084
+  - Favorites Service: http://localhost:9085
+- **Banco de dados**: Acessível na porta 9433 do host (o contêiner continua usando a porta 5432 internamente). Use um cliente PostgreSQL como pgAdmin ou DBeaver para conectar-se a `localhost:9433`.
 
 ### 4. Gerenciamento dos Containers
 
@@ -106,13 +116,14 @@ Você pode modificar as variáveis de ambiente no arquivo `docker-compose.yml`:
   - `POSTGRES_USER`: Nome de utilizador
   - `POSTGRES_PASSWORD`: Senha do utilizador
 
-- **Backend**:
+- **Microserviços**:
   - `SPRING_DATASOURCE_URL`: URL de conexão com o banco de dados
   - `SPRING_DATASOURCE_USERNAME`: Nome de utilizador do banco
   - `SPRING_DATASOURCE_PASSWORD`: Senha do banco
+  - `JWT_SECRET_KEY`: Chave secreta para tokens JWT
 
 - **Frontend**:
-  - `NEXT_PUBLIC_API_URL`: URL da API do backend
+  - `NEXT_PUBLIC_API_URL`: URL do API Gateway (http://localhost:9080)
 
 #### Alterando Portas
 
@@ -150,7 +161,7 @@ docker-compose logs -f [serviço]
    - Aguarde alguns segundos após iniciar os containers para que o PostgreSQL esteja pronto
 
 2. **Erro de porta já em uso**:
-   - Verifique se as portas 3000 (frontend), 8080 (backend) e 5433 (PostgreSQL no host) não estão sendo usadas por outros aplicativos.
+   - Verifique se as portas 9000 (frontend), 9080-9085 (microserviços) e 9433 (PostgreSQL no host) não estão sendo usadas por outros aplicativos.
    - Altere o mapeamento de portas no arquivo `docker-compose.yml` se necessário
 
 3. **Problemas de permissão no Windows**:
@@ -163,14 +174,42 @@ docker-compose logs -f [serviço]
 
 ## Estrutura do Projeto Docker
 
-- `backend/Dockerfile`: Configuração para construir a imagem do backend Spring Boot
+- `api-gateway/Dockerfile`: Configuração para o API Gateway
+- `auth-service/Dockerfile`: Configuração para o serviço de autenticação
+- `citizen-service/Dockerfile`: Configuração para o serviço de cidadãos
+- `order-service/Dockerfile`: Configuração para o serviço de pedidos
+- `config-service/Dockerfile`: Configuração para o serviço de configurações
+- `favorites-service/Dockerfile`: Configuração para o serviço de favoritos
 - `frontend/Dockerfile`: Configuração para construir a imagem do frontend Next.js
-- `docker-compose.yml`: Configuração dos serviços, redes e volumes
+- `docker-compose.yml`: Configuração de todos os serviços, redes e volumes
 
 ## Notas Adicionais
 
 - Os dados do PostgreSQL são persistidos em um volume Docker, o que significa que eles não serão perdidos quando os containers forem reiniciados.
 - Para aplicar alterações no código-fonte, você precisará reconstruir as imagens Docker usando `docker-compose up -d --build`.
+- A arquitetura de microserviços permite escalar serviços individualmente conforme necessário.
+- O API Gateway gerencia o roteamento para todos os microserviços, simplificando a comunicação do frontend.
 - Em ambiente de produção, considere configurar variáveis de ambiente mais seguras e utilizar secrets do Docker para senhas.
+- Para desenvolvimento, você pode executar serviços individualmente conforme necessário.
+
+## Arquitetura de Microserviços
+
+A aplicação segue uma arquitetura de microserviços onde:
+
+1. **API Gateway** atua como ponto de entrada único
+2. **Microserviços** são responsáveis por domínios específicos:
+   - **Auth Service**: Autenticação e autorização
+   - **Citizen Service**: Gestão de dados dos cidadãos
+   - **Order Service**: Gestão de pedidos e processos
+   - **Config Service**: Configurações do sistema
+   - **Favorites Service**: Gestão de favoritos
+3. **Frontend** comunica apenas com o API Gateway
+4. **Banco de dados** é compartilhado entre os microserviços
+
+Esta arquitetura oferece:
+- **Escalabilidade**: Cada serviço pode ser escalado independentemente
+- **Manutenibilidade**: Código organizado por domínio
+- **Flexibilidade**: Facilita atualizações e deploy independente
+- **Resiliência**: Falha em um serviço não afeta os outros
 
 

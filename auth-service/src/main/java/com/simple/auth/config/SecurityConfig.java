@@ -38,7 +38,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS
+                // .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Disabled - CORS handled by API Gateway
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/auth/login", "/auth/register", "/auth/refresh-token", // Authentication endpoints with /api prefix
@@ -77,33 +77,33 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        // Allow both localhost and Docker network origins
-        configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:9000",
-            "http://127.0.0.1:9000",
-            "http://simple-frontend:9000"
-        ));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        configuration.setAllowedHeaders(Arrays.asList(
-            "Authorization", 
-            "Content-Type", 
-            "Accept", 
-            "Origin", 
-            "X-Requested-With", 
-            "Access-Control-Request-Method", 
-            "Access-Control-Request-Headers"
-        ));
-        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Disposition"));
-        configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L); // Cache preflight response for 1 hour
-        
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // Apply CORS configuration to all paths including those with /api prefix
-        source.registerCorsConfiguration("/**", configuration);
-        source.registerCorsConfiguration("/auth/**", configuration);
-        return source;
-    }
+    // @Bean - Disabled since CORS is now handled by API Gateway
+    // public CorsConfigurationSource corsConfigurationSource() {
+    //     CorsConfiguration configuration = new CorsConfiguration();
+    //     // Allow both localhost and Docker network origins
+    //     configuration.setAllowedOrigins(Arrays.asList(
+    //         "http://localhost:9000",
+    //         "http://127.0.0.1:9000",
+    //         "http://simple-frontend:9000"
+    //     ));
+    //     configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+    //     configuration.setAllowedHeaders(Arrays.asList(
+    //         "Authorization", 
+    //         "Content-Type", 
+    //         "Accept", 
+    //         "Origin", 
+    //         "X-Requested-With", 
+    //         "Access-Control-Request-Method", 
+    //         "Access-Control-Request-Headers"
+    //     ));
+    //     configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Disposition"));
+    //     configuration.setAllowCredentials(true);
+    //     configuration.setMaxAge(3600L); // Cache preflight response for 1 hour
+    //     
+    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    //     // Apply CORS configuration to all paths including those with /api prefix
+    //     source.registerCorsConfiguration("/**", configuration);
+    //     source.registerCorsConfiguration("/auth/**", configuration);
+    //     return source;
+    // }
 }

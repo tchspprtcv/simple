@@ -8,43 +8,46 @@ spring:
         - id: auth-service
           uri: ${AUTH_SERVICE_URL:http://localhost:8081} 
           predicates:
-            - Path=/api/auth/**
+            - Path=/auth/**
+        - id: auth-service-direct # For direct /auth/** paths (without /api prefix)
+          uri: ${AUTH_SERVICE_URL:http://localhost:8081} 
+          predicates:
+            - Path=/auth/**
         - id: users-service # For /api/users/**
           uri: ${AUTH_SERVICE_URL:http://localhost:8081} 
           predicates:
-            - Path=/api/users/**
+            - Path=/users/**
 
         # Citizen Service (placeholder: http://localhost:8082)
         - id: citizen-service
           uri: ${CITIZEN_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/api/cidadaos/**
+            - Path=/utentes/**
 
         # Order Service (placeholder: http://localhost:8083)
         - id: order-service
           uri: ${ORDER_SERVICE_URL:http://localhost:8083}
           predicates:
-            - Path=/api/pedidos/**
+            - Path=/pedidos/**
 
         # Configuration Service (placeholder: http://localhost:8084)
         - id: config-service-tipos # Tipos de Servicos
           uri: ${CONFIG_SERVICE_URL:http://localhost:8084}
           predicates:
-            - Path=/api/tipos-servicos/**
+            - Path=/tipos-servicos/**
         - id: config-service-categorias # Categorias de Servicos
           uri: ${CONFIG_SERVICE_URL:http://localhost:8084}
           predicates:
-            - Path=/api/categorias-servicos/**
+            - Path=/categorias-servicos/**
         - id: config-service-configs # /configuracoes (general app configs)
           uri: ${CONFIG_SERVICE_URL:http://localhost:8084}
           predicates:
-            - Path=/api/configuracoes
-
+            - Path=/configuracoes
         # Favorites Service (placeholder: http://localhost:8085)
         - id: favorites-service
           uri: ${FAVORITES_SERVICE_URL:http://localhost:8085}
           predicates:
-            - Path=/api/favoritos/**
+            - Path=/favoritos/**
 server:
   port: ${SERVER_PORT:8080}
 

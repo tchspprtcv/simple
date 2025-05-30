@@ -72,17 +72,17 @@ INSERT INTO etapas_processo (tipo_servico_id, codigo, nome, descricao, ordem, te
 -- Inserção de dados em documentos_servico
 INSERT INTO documentos_servico (tipo_servico_id, tipo_documento_id, etapa_processo_id, obrigatorio) VALUES
 (1, 1, 1, true),  -- Documento de Identidade para Legalização de Imóvel
-(1, 2, 1, true),  -- CPF para Legalização de Imóvel
+(1, 2, 1, true),  -- CNI para Legalização de Imóvel
 (1, 3, 1, true),  -- Comprovante de Residência para Legalização de Imóvel
 (1, 4, 1, true),  -- Escritura do Imóvel para Legalização de Imóvel
 (1, 5, 1, false), -- Projeto Arquitetônico para Legalização de Imóvel
 (1, 6, 3, true),  -- Comprovante de Pagamento para Legalização de Imóvel
 (2, 1, 5, true),  -- Documento de Identidade para Compra de Lote
-(2, 2, 5, true),  -- CPF para Compra de Lote
+(2, 2, 5, true),  -- CNI para Compra de Lote
 (2, 3, 5, true),  -- Comprovante de Residência para Compra de Lote
 (2, 6, 8, true),  -- Comprovante de Pagamento para Compra de Lote
 (3, 1, 9, true),  -- Documento de Identidade para Autorização para Evento
-(3, 2, 9, true),  -- CPF para Autorização para Evento
+(3, 2, 9, true),  -- CNI para Autorização para Evento
 (3, 6, 11, true); -- Comprovante de Pagamento para Autorização para Evento
 
 -- Inserção de dados em usuarios (usando UUIDs válidos)

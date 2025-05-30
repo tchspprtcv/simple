@@ -3,6 +3,13 @@ package com.simple.auth.controller;
 import com.simple.auth.dto.UsuarioRequest; // DTO for update operations
 import com.simple.auth.dto.UsuarioResponse;
 import com.simple.auth.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +19,37 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users") // Base path for user-related actions
 @RequiredArgsConstructor
+@Tag(name = "User Management", description = "User profile and account management endpoints")
 public class UserController {
 
     private final UsuarioService usuarioService;
 
+    @Operation(summary = "Get current user profile", description = "Get the profile of the currently authenticated user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User profile retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UsuarioResponse.class))),
+            @ApiResponse(responseCode = "401", description = "User not authenticated",
+                    content = @Content)
+    })
+    @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/me")
     public ResponseEntity<UsuarioResponse> getCurrentUser() {
         // This endpoint will be protected by SecurityConfig to require authentication
         return ResponseEntity.ok(usuarioService.getCurrentAuthenticatedUser());
     }
 
+    @Operation(summary = "Update current user profile", description = "Update the profile of the currently authenticated user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User profile updated successfully",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UsuarioResponse.class))),
+            @ApiResponse(responseCode = "401", description = "User not authenticated",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid request format",
+                    content = @Content)
+    })
+    @SecurityRequirement(name = "bearerAuth")
     @PutMapping("/me")
     // @PreAuthorize("isAuthenticated()") // This is implicitly handled by SecurityConfig global rules
     public ResponseEntity<UsuarioResponse> updateCurrentUserProfile(
@@ -30,12 +58,25 @@ public class UserController {
         return ResponseEntity.ok(usuarioService.updateCurrentAuthenticatedUser(usuarioUpdateRequest));
     }
 
+    @Operation(summary = "Test secured endpoint", description = "Test endpoint that requires authentication")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Access granted",
+                    content = @Content(mediaType = "text/plain")),
+            @ApiResponse(responseCode = "401", description = "User not authenticated",
+                    content = @Content)
+    })
+    @SecurityRequirement(name = "bearerAuth")
     // Example of a test endpoint that requires authentication (already configured in SecurityConfig)
     @GetMapping("/test-secured")
     public ResponseEntity<String> testSecuredEndpoint() {
         return ResponseEntity.ok("This is a SECURED test endpoint from auth-service.");
     }
 
+    @Operation(summary = "Test public endpoint", description = "Test endpoint that does not require authentication")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Public access granted",
+                    content = @Content(mediaType = "text/plain"))
+    })
     // Example of a public test endpoint (already configured in SecurityConfig)
     @GetMapping("/test-public")
     public ResponseEntity<String> testPublicEndpoint() {

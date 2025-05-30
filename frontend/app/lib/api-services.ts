@@ -303,7 +303,7 @@ export const listPedidosByUtente = async (
 ): Promise<PaginatedResponse<PedidoResponse>> => {
   try {
     const response = await apiClient.get<PaginatedResponse<PedidoResponse>>(
-      `/pedidos/cidadao/${utenteId}?page=${page}&size=${size}`
+      `/pedidos/utente/${utenteId}?page=${page}&size=${size}`
     );
     return response.data;
   } catch (error) {
@@ -316,7 +316,14 @@ export const listPedidosByUtente = async (
  */
 export const createPedido = async (pedido: PedidoRequest): Promise<PedidoResponse> => {
   try {
-    const response = await apiClient.post<PedidoResponse>('/pedidos', pedido);
+    // Get current user to extract user ID for the header
+    const currentUser = await getCurrentUser();
+    
+    const response = await apiClient.post<PedidoResponse>('/pedidos', pedido, {
+      headers: {
+        'X-User-ID': currentUser.id
+      }
+    });
     return response.data;
   } catch (error) {
     throw handleApiError(error as AxiosError);
@@ -477,7 +484,7 @@ export const toggleFavorito = async (tipoServicoId: number): Promise<void> => {
     // Pode ser um POST para adicionar e um DELETE para remover, ou um único endpoint que faz o toggle.
     // Aqui, vamos assumir um endpoint POST que faz o toggle.
     // Se o backend retornar os favoritos atualizados, você pode ajustar o tipo de retorno.
-    await apiClient.post(`/usuarios/me/favoritos/${tipoServicoId}`);
+    await apiClient.post(`/users/me/favoritos/${tipoServicoId}`);
   } catch (error) {
     throw handleApiError(error as AxiosError);
   }

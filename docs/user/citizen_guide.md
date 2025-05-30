@@ -36,7 +36,7 @@ O sistema foi projetado para ser intuitivo e fácil de usar, reduzindo a necessi
 2. Clique no botão **Cadastrar-se**
 3. Preencha o formulário com seus dados pessoais:
    - Nome completo
-   - Tipo e número de documento (RG, CPF, etc.)
+   - Tipo e número de documento (BI, CNI, etc.)
    - E-mail válido
    - Telefone para contato
    - Endereço completo

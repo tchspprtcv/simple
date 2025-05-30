@@ -40,7 +40,7 @@ function NewRequestContent() {
   const [cidadaoTab, setCidadaoTab] = useState("existente")
   
   // Dados do utente existente
-  const [tipoDocumento, setTipoDocumento] = useState("CPF")
+  const [tipoDocumento, setTipoDocumento] = useState("CNI")
   const [numeroDocumento, setNumeroDocumento] = useState("")
   const [cidadaoId, setCidadaoId] = useState<string | null>(null)
   const [cidadaoNome, setCidadaoNome] = useState("")
@@ -49,7 +49,7 @@ function NewRequestContent() {
   
   // Dados do novo utente
   const [novoCidadaoNome, setNovoCidadaoNome] = useState("")
-  const [novoCidadaoTipoDocumento, setNovoCidadaoTipoDocumento] = useState("CPF")
+  const [novoCidadaoTipoDocumento, setNovoCidadaoTipoDocumento] = useState("CNI")
   const [novoCidadaoNumeroDocumento, setNovoCidadaoNumeroDocumento] = useState("")
   const [novoCidadaoEmail, setNovoCidadaoEmail] = useState("")
   const [novoCidadaoTelefone, setNovoCidadaoTelefone] = useState("")
@@ -165,7 +165,7 @@ function NewRequestContent() {
           throw new Error("Preencha os campos obrigatórios do utente.")
         }
         
-        const novoCidadaoRequest: UtenteRequest = {
+        const novoUtenteRequest: UtenteRequest = {
           nome: novoCidadaoNome,
           tipoDocumento: novoCidadaoTipoDocumento,
           numeroDocumento: novoCidadaoNumeroDocumento,
@@ -174,7 +174,7 @@ function NewRequestContent() {
           endereco: novoCidadaoEndereco || undefined,
         }
         
-        const novoCidadao = await createUtente(novoCidadaoRequest)
+        const novoCidadao = await createUtente(novoUtenteRequest)
         cidadaoIdToUse = novoCidadao.id
       } else if (!cidadaoId) {
         throw new Error("Utente não encontrado. Busque um utente existente ou cadastre um novo.")
@@ -182,7 +182,7 @@ function NewRequestContent() {
       
       // Criar o pedido
       const pedidoRequest: PedidoRequest = {
-        tipoServicoId: selectedServiceId,
+        tipoServicoId: selectedServiceId!.toString(),
         cidadaoId: cidadaoIdToUse!,
         origem: "PORTAL",
         prioridade: parseInt(prioridade),
@@ -250,7 +250,7 @@ function NewRequestContent() {
                       <p>Prazo estimado: {selectedService.prazoEstimado} dias</p>
                     )}
                     {selectedService.valorBase && (
-                      <p>Valor base: R$ {selectedService.valorBase.toFixed(2)}</p>
+                      <p>Valor base: {selectedService.valorBase.toFixed(2)} CVE</p>
                     )}
                   </AlertDescription>
                 </Alert>
@@ -284,10 +284,10 @@ function NewRequestContent() {
                           <SelectValue placeholder="Tipo de Documento" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="CPF">CPF</SelectItem>
-                          <SelectItem value="RG">RG</SelectItem>
+                          <SelectItem value="CNI">CNI</SelectItem>
+                          <SelectItem value="BI">BI</SelectItem>
                           <SelectItem value="PASSAPORTE">Passaporte</SelectItem>
-                          <SelectItem value="CNH">CNH</SelectItem>
+                          <SelectItem value="CC">Carta de Condução</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -365,10 +365,10 @@ function NewRequestContent() {
                           <SelectValue placeholder="Tipo de Documento" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="CPF">CPF</SelectItem>
-                          <SelectItem value="RG">RG</SelectItem>
+                          <SelectItem value="CNI">CNI</SelectItem>
+                          <SelectItem value="BI">BI</SelectItem>
                           <SelectItem value="PASSAPORTE">Passaporte</SelectItem>
-                          <SelectItem value="CNH">CNH</SelectItem>
+                          <SelectItem value="CC">Carta de Condução</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

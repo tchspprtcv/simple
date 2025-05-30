@@ -71,7 +71,7 @@ Após o login, você terá acesso ao painel do atendente, que contém:
 2. Clique no botão **Novo Utente**
 3. Preencha o formulário com os dados do utente:
    - **Nome Completo**: Nome completo do utente
-   - **Tipo de Documento**: Selecione o tipo (RG, CPF, etc.)
+   - **Tipo de Documento**: Selecione o tipo (BI, CNI, etc.)
    - **Número do Documento**: Número do documento selecionado
    - **E-mail**: E-mail para contato (opcional)
    - **Telefone**: Telefone para contato

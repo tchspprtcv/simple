@@ -18,7 +18,7 @@ public class CidadaoRequest {
     private String nome;
     
     @NotBlank(message = "Tipo de documento é obrigatório")
-    private String tipoDocumento; // e.g., "CPF", "RG"
+    private String tipoDocumento; // e.g., "CNI", "BI"
     
     @NotBlank(message = "Número de documento é obrigatório")
     @Size(min = 5, max = 20, message = "Número de documento deve ter entre 5 e 20 caracteres")
