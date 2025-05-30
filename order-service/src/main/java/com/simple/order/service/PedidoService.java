@@ -8,13 +8,19 @@ import com.simple.order.domain.entity.StatusPedido;
 import com.simple.order.repository.PedidoRepository;
 import com.simple.order.repository.StatusPedidoRepository;
 import com.simple.order.util.CodigoAcompanhamentoUtil;
-// TODO: Import Feign clients for auth, citizen, config services when created
-// import com.simple.order.client.AuthServiceClient;
-// import com.simple.order.client.CitizenServiceClient;
-// import com.simple.order.client.ConfigServiceClient;
+import com.simple.order.client.AuthServiceClient;
+import com.simple.order.client.CitizenServiceClient;
+import com.simple.order.client.ConfigServiceClient;
+import com.simple.order.client.dto.CidadaoResponse;
+import com.simple.order.client.dto.EtapaProcessoResponse;
+import com.simple.order.client.dto.TipoServicoResponse;
+import com.simple.order.client.dto.UsuarioResponse;
 
+import feign.FeignException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,12 +33,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PedidoService {
 
+    private static final Logger logger = LoggerFactory.getLogger(PedidoService.class);
+
     private final PedidoRepository pedidoRepository;
     private final StatusPedidoRepository statusPedidoRepository;
-    // TODO: Inject Feign clients
-    // private final AuthServiceClient authServiceClient;
-    // private final CitizenServiceClient citizenServiceClient;
-    // private final ConfigServiceClient configServiceClient;
+    private final AuthServiceClient authServiceClient;
+    private final CitizenServiceClient citizenServiceClient;
+    private final ConfigServiceClient configServiceClient;
 
     @Transactional(readOnly = true)
     public Page<PedidoResponse> findAll(Pageable pageable) {
@@ -55,7 +62,7 @@ public class PedidoService {
 
     @Transactional(readOnly = true)
     public Page<PedidoResponse> findByCidadaoId(UUID cidadaoId, Pageable pageable) {
-        // TODO: Optionally, call citizen-service to validate/get citizen details first
+        // Optionally, call citizen-service to validate/get citizen details first
         return pedidoRepository.findByCidadaoId(cidadaoId, pageable).map(this::mapToResponse);
     }
     
@@ -67,8 +74,8 @@ public class PedidoService {
 
     @Transactional
     public PedidoResponse create(PedidoRequest request, UUID usuarioCriacaoId) {
-        // TODO: Call citizen-service to validate request.getCidadaoId()
-        // TODO: Call config-service to validate request.getTipoServicoId() and get prazoEstimado
+        // Call citizen-service to validate request.getCidadaoId()
+        // Call config-service to validate request.getTipoServicoId() and get prazoEstimado
 
         StatusPedido statusInicial = statusPedidoRepository.findByCodigo("NOVO") // Assuming "NOVO" is a valid initial status code
                 .orElseThrow(() -> new EntityNotFoundException("Status inicial 'NOVO' não configurado."));
@@ -85,7 +92,7 @@ public class PedidoService {
         pedido.setPrioridade(request.getPrioridade());
         pedido.setObservacoes(request.getObservacoes());
         
-        // TODO: Set dataPrevisao based on prazoEstimado from TipoServico (fetched from config-service)
+        // Set dataPrevisao based on prazoEstimado from TipoServico (fetched from config-service)
         // Ex: if (prazoEstimadoDias != null) {
         //         pedido.setDataPrevisao(LocalDateTime.now().plusDays(prazoEstimadoDias));
         //      }
@@ -116,7 +123,7 @@ public class PedidoService {
     public PedidoResponse assignResponsavel(UUID pedidoId, UUID usuarioResponsavelId) {
         Pedido pedido = pedidoRepository.findById(pedidoId)
                 .orElseThrow(() -> new EntityNotFoundException("Pedido não encontrado com ID: " + pedidoId));
-        // TODO: Call auth-service to validate usuarioResponsavelId
+        // Call auth-service to validate usuarioResponsavelId
         pedido.setUsuarioResponsavelId(usuarioResponsavelId);
         Pedido updatedPedido = pedidoRepository.save(pedido);
         return mapToResponse(updatedPedido);
@@ -144,16 +151,38 @@ public class PedidoService {
                 .atualizadoEm(pedido.getAtualizadoEm())
                 .build();
 
-        // TODO: Enrich with details from other services
-        // response.setCidadaoNome(citizenServiceClient.getCidadaoById(pedido.getCidadaoId()).getNome());
-        // response.setTipoServicoNome(configServiceClient.getTipoServicoById(pedido.getTipoServicoId()).getNome());
-        // response.setUsuarioCriacaoNome(authServiceClient.getUsuarioById(pedido.getUsuarioCriacaoId()).getNome());
-        // if (pedido.getUsuarioResponsavelId() != null) {
-        //     response.setUsuarioResponsavelNome(authServiceClient.getUsuarioById(pedido.getUsuarioResponsavelId()).getNome());
-        // }
-        // if (pedido.getEtapaAtualId() != null) {
-        //     response.setEtapaAtualNome(configServiceClient.getEtapaProcessoById(pedido.getEtapaAtualId()).getNome());
-        // }
+        try {
+            response.setCidadaoNome(citizenServiceClient.getCidadaoById(pedido.getCidadaoId()).getNome());
+        } catch (FeignException e) {
+            logger.error("Error fetching nome for Cidadao ID: {} from citizen-service. Error: {}", pedido.getCidadaoId(), e.getMessage());
+        }
+
+        try {
+            response.setTipoServicoNome(configServiceClient.getTipoServicoById(pedido.getTipoServicoId()).getNome());
+        } catch (FeignException e) {
+            logger.error("Error fetching nome for TipoServico ID: {} from config-service. Error: {}", pedido.getTipoServicoId(), e.getMessage());
+        }
+
+        try {
+            response.setUsuarioCriacaoNome(authServiceClient.getUsuarioById(pedido.getUsuarioCriacaoId()).getNome());
+        } catch (FeignException e) {
+            logger.error("Error fetching nome for UsuarioCriacao ID: {} from auth-service. Error: {}", pedido.getUsuarioCriacaoId(), e.getMessage());
+        }
+
+        if (pedido.getUsuarioResponsavelId() != null) {
+            try {
+                response.setUsuarioResponsavelNome(authServiceClient.getUsuarioById(pedido.getUsuarioResponsavelId()).getNome());
+            } catch (FeignException e) {
+                logger.error("Error fetching nome for UsuarioResponsavel ID: {} from auth-service. Error: {}", pedido.getUsuarioResponsavelId(), e.getMessage());
+            }
+        }
+        if (pedido.getEtapaAtualId() != null) {
+            try {
+                response.setEtapaAtualNome(configServiceClient.getEtapaProcessoById(pedido.getEtapaAtualId()).getNome());
+            } catch (FeignException e) {
+                logger.error("Error fetching nome for EtapaProcesso ID: {} from config-service. Error: {}", pedido.getEtapaAtualId(), e.getMessage());
+            }
+        }
 
         return response;
     }
