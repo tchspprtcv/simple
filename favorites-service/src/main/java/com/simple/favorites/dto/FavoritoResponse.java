@@ -15,6 +15,7 @@ import java.util.UUID;
 public class FavoritoResponse {
     private UUID id; // ID of the Favorito entity
     private UUID usuarioId;
+    private String usuarioNome; // Enriched user name
     private Integer tipoServicoId; // ID of the favorited TipoServico
     private LocalDateTime criadoEm;
     private TipoServicoDTO tipoServicoDetails; // Enriched details of the service type
