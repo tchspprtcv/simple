@@ -83,7 +83,7 @@
   "devDependencies": {
     "@types/next": "^8.0.7",
     "@types/node": "^22.15.18",
-    "@types/react": "^19.1.4",
+    "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.15",
     "autoprefixer": "^10.0.1",
     "eslint": "^8.0.0",

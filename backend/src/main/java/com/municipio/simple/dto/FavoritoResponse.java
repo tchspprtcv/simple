@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class FavoritoResponse {
-    private Long id;
+    private Integer id;
     private Integer tipoServicoId;
     private String tipoServicoNome;
     private String tipoServicoCodigo;

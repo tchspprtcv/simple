@@ -84,7 +84,7 @@
                 <dependency>
                         <groupId>io.hypersistence</groupId>
                         <artifactId>hypersistence-utils-hibernate-63</artifactId>
-                        <version>3.7.0</version> <!-- Use the appropriate version for Hibernate 6.3 -->
+                        <version>3.9.10</version> <!-- Updated to support Hibernate 6.4 -->
                 </dependency>
         </dependencies>
 

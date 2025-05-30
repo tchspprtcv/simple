@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface FavoritoRepository extends JpaRepository<Favorito, Long> {
+public interface FavoritoRepository extends JpaRepository<Favorito, Integer> {
     List<Favorito> findByUsuarioOrderByOrdem(Usuario usuario);
     Optional<Favorito> findByUsuarioAndTipoServicoId(Usuario usuario, Integer tipoServicoId);
 }
