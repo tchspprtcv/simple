@@ -102,13 +102,13 @@ class LoteServiceTest {
         assertEquals(lote2.getCodigo(), responses.get(1).getCodigo());
         verify(loteRepository).findAll();
     }
-    
+
     @Test
     void findAll_withPageable_shouldReturnPageOfLoteResponse() {
         Pageable pageable = PageRequest.of(0, 10);
         List<Lote> lotes = Arrays.asList(lote1, lote2);
         Page<Lote> lotePage = new PageImpl<>(lotes, pageable, lotes.size());
-        
+
         when(loteRepository.findAll(pageable)).thenReturn(lotePage);
 
         Page<LoteResponse> responses = loteService.findAll(pageable);
@@ -119,7 +119,7 @@ class LoteServiceTest {
         assertEquals(lote1.getCodigo(), responses.getContent().get(0).getCodigo());
         verify(loteRepository).findAll(pageable);
     }
-    
+
     @Test
     void findByCodigo_whenLoteExists_shouldReturnLoteResponse() {
         when(loteRepository.findByCodigo("L001")).thenReturn(Optional.of(lote1));

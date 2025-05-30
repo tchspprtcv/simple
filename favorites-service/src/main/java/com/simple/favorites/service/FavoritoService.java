@@ -49,7 +49,7 @@ public class FavoritoService {
         if (tipoServicoDetails == null) {
             throw new EntityNotFoundException("Tipo de Serviço não encontrado com ID: " + request.getTipoServicoId());
         }
-        
+
         // Fetch user details to ensure user exists and to potentially use user's name, though not strictly required for add.
         // For now, let's keep it simple and not fetch user details during add, only during read.
         // If validation of user ID is needed here, it would be a call to authServiceClient.
@@ -92,7 +92,7 @@ public class FavoritoService {
 
         return mapToResponse(favorito, tipoServicoDetails, usuarioDetails);
     }
-    
+
     private UsuarioDTO fetchUsuarioDetails(UUID usuarioId) {
         try {
             return authServiceClient.getUsuarioById(usuarioId);

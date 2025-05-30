@@ -98,7 +98,7 @@ class LoteControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
-    
+
     @Test
     void findById_whenServiceThrowsUnexpectedException_shouldReturnInternalServerError() throws Exception {
         UUID id = UUID.randomUUID();
@@ -126,7 +126,7 @@ class LoteControllerTest {
                 .andExpect(jsonPath("$.totalPages", is(1)))
                 .andExpect(jsonPath("$.totalElements", is(2)));
     }
-    
+
     @Test
     void findAll_whenServiceFails_shouldReturnInternalServerError() throws Exception {
         when(loteService.findAll(any(Pageable.class))).thenThrow(new RuntimeException("Service failure"));

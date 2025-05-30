@@ -17,6 +17,11 @@ spring:
           uri: ${AUTH_SERVICE_URL:http://localhost:8081} 
           predicates:
             - Path=/users/**
+          # Route for /perfis/**
+        - id: auth-service-perfis
+          uri: ${AUTH_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/perfis/**
 
         # Citizen Service (placeholder: http://localhost:8082)
         - id: citizen-service
@@ -43,6 +48,22 @@ spring:
           uri: ${CONFIG_SERVICE_URL:http://localhost:8084}
           predicates:
             - Path=/configuracoes
+        - id: config-service-etapas
+          uri: ${CONFIG_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/etapas-processo/**
+        - id: config-service-status-pedidos
+          uri: ${CONFIG_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/status-pedidos/**
+        - id: config-service-tipos-documento
+          uri: ${CONFIG_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/tipos-documento/**
+        - id: config-service-lotes
+          uri: ${CONFIG_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/lotes/**
         # Favorites Service (placeholder: http://localhost:8085)
         - id: favorites-service
           uri: ${FAVORITES_SERVICE_URL:http://localhost:8085}

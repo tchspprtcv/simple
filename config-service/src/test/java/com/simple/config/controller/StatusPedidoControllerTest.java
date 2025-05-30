@@ -83,7 +83,7 @@ class StatusPedidoControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
-    
+
     @Test
     void findById_whenServiceThrowsUnexpectedException_shouldReturnInternalServerError() throws Exception {
         when(statusPedidoService.findById(1)).thenThrow(new RuntimeException("Unexpected internal error"));
@@ -105,7 +105,7 @@ class StatusPedidoControllerTest {
                 .andExpect(jsonPath("$[0].nome", is("Novo Pedido")))
                 .andExpect(jsonPath("$[1].nome", is("Pedido Concluído")));
     }
-    
+
     @Test
     void findByCodigo_whenStatusExists_shouldReturnStatusResponse() throws Exception {
         when(statusPedidoService.findByCodigo("NOVO")).thenReturn(statusResponse1);

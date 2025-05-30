@@ -84,7 +84,7 @@ class EtapaProcessoControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
-    
+
     @Test
     void findById_whenServiceThrowsUnexpectedException_shouldReturnInternalServerError() throws Exception {
         when(etapaProcessoService.findById(1)).thenThrow(new RuntimeException("Unexpected internal error"));
@@ -106,12 +106,12 @@ class EtapaProcessoControllerTest {
                 .andExpect(jsonPath("$[0].nome", is("Etapa Inicial")))
                 .andExpect(jsonPath("$[1].nome", is("Etapa Intermediária")));
     }
-    
+
     @Test
     void findByTipoServicoId_shouldReturnListOfEtapaResponse() throws Exception {
         Integer tipoServicoId = 10;
         List<EtapaProcessoResponse> listResponse = Arrays.asList(etapaResponse1); // Assume etapaResponse1 is for tipoServicoId 10
-        etapaResponse1.setTipoServicoId(tipoServicoId); 
+        etapaResponse1.setTipoServicoId(tipoServicoId);
 
         when(etapaProcessoService.findByTipoServicoId(tipoServicoId)).thenReturn(listResponse);
 

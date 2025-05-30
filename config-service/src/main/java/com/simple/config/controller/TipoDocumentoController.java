@@ -72,7 +72,7 @@ public class TipoDocumentoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     @Operation(summary = "Get Tipo de Documento by Codigo", description = "Retrieve a specific Tipo de Documento by its Codigo.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Tipo de Documento found",

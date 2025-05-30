@@ -68,10 +68,10 @@ class FavoritoServiceTest {
 
         tipoServicoDTO = new TipoServicoDTO(tipoServicoId, "SERV001", "Serviço Teste", "Descrição Teste");
         usuarioDTO = new UsuarioDTO(usuarioId, "Nome Usuário Teste", "usuario@teste.com");
-        
+
         favoritoRequest = new FavoritoRequest();
         favoritoRequest.setTipoServicoId(tipoServicoId);
-        
+
         dummyRequest = Request.create(Request.HttpMethod.GET, "/dummy", Collections.emptyMap(), null, new RequestTemplate());
     }
 
@@ -129,7 +129,7 @@ class FavoritoServiceTest {
         assertEquals(usuarioDTO.getNome(), response.getUsuarioNome());
         assertNull(response.getTipoServicoDetails());
     }
-    
+
     @Test
     void addFavorito_success() {
         when(favoritoRepository.existsByUsuarioIdAndTipoServicoId(usuarioId, tipoServicoId)).thenReturn(false);

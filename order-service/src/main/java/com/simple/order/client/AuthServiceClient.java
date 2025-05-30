@@ -10,6 +10,6 @@ import java.util.UUID;
 @FeignClient(name = "auth-service", url = "${services.auth.url}")
 public interface AuthServiceClient {
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/api/usuarios/{id}")
     UsuarioResponse getUsuarioById(@PathVariable("id") UUID id);
 }

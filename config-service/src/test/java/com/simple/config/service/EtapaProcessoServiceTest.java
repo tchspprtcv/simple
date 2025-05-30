@@ -105,7 +105,7 @@ class EtapaProcessoServiceTest {
         verify(etapaProcessoRepository).findById(1);
         verify(authServiceClient).getPerfilById(5);
     }
-    
+
     @Test
     void findById_whenEtapaExistsAndAuthServiceReturnsNotFound_shouldReturnResponseWithDefaultPerfilNome() {
         Request dummyRequest = Request.create(Request.HttpMethod.GET, "/dummy", Collections.emptyMap(), null, new RequestTemplate());

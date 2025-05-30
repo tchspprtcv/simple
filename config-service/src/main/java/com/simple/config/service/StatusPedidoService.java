@@ -40,7 +40,7 @@ public class StatusPedidoService {
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
-    
+
     @Transactional(readOnly = true)
     public StatusPedidoResponse findByCodigo(String codigo) {
         logger.info("Attempting to find StatusPedido with codigo: {}", codigo);

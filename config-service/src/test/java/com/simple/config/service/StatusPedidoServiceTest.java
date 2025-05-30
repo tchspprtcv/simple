@@ -92,7 +92,7 @@ class StatusPedidoServiceTest {
         assertEquals(status2.getNome(), responses.get(1).getNome());
         verify(statusPedidoRepository).findAllByOrderByOrdemAsc();
     }
-    
+
     @Test
     void findByCodigo_whenStatusExists_shouldReturnStatusResponse() {
         when(statusPedidoRepository.findByCodigo("NOVO")).thenReturn(Optional.of(status1));

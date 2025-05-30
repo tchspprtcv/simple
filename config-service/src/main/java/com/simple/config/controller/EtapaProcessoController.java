@@ -69,14 +69,14 @@ public class EtapaProcessoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-    
+
     @Operation(summary = "Get all Etapas de Processo by TipoServico ID", description = "Retrieve all Etapas de Processo for a given TipoServico ID, ordered by 'ordem'.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Etapas de Processo found for TipoServico ID",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = List.class, subTypes = {EtapaProcessoResponse.class}))),
             @ApiResponse(responseCode = "404", description = "No Etapas de Processo found for TipoServico ID or TipoServico does not exist",
-                    content = @Content) 
+                    content = @Content)
     })
     @GetMapping("/tipo-servico/{tipoServicoId}")
     public ResponseEntity<List<EtapaProcessoResponse>> findByTipoServicoId(@PathVariable Integer tipoServicoId) {
@@ -95,7 +95,7 @@ public class EtapaProcessoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-    
+
     // Basic CRUD operation endpoints (POST, PUT, DELETE) can be added here.
     // They would typically take an EtapaProcessoRequest DTO.
 }

@@ -88,7 +88,7 @@ class TipoDocumentoControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
-    
+
     @Test
     void findById_whenServiceThrowsUnexpectedException_shouldReturnInternalServerError() throws Exception {
         when(tipoDocumentoService.findById(1)).thenThrow(new RuntimeException("Unexpected internal error"));
@@ -125,7 +125,7 @@ class TipoDocumentoControllerTest {
                 .andExpect(jsonPath("$[0].nome", is("Registro Geral")))
                 .andExpect(jsonPath("$[0].ativo", is(true)));
     }
-    
+
     @Test
     void findAll_whenFilterAtivoIsFalse_shouldReturnInativos() throws Exception {
         TipoDocumentoResponse docResponseInactive = TipoDocumentoResponse.builder().id(3).nome("Certidão Obito").ativo(false).build();
@@ -140,7 +140,7 @@ class TipoDocumentoControllerTest {
                 .andExpect(jsonPath("$[0].nome", is("Certidão Obito")))
                 .andExpect(jsonPath("$[0].ativo", is(false)));
     }
-    
+
     @Test
     void findAll_whenServiceFails_shouldReturnInternalServerError() throws Exception {
         when(tipoDocumentoService.findAll(anyBoolean())).thenThrow(new RuntimeException("Service failure"));

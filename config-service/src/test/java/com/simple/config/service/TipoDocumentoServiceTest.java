@@ -54,7 +54,7 @@ class TipoDocumentoServiceTest {
                 .obrigatorio(false)
                 .ativo(true)
                 .build();
-        
+
         doc3InativoObrigatorio = TipoDocumento.builder()
                 .id(3)
                 .codigo("CERTNASC")
@@ -120,7 +120,7 @@ class TipoDocumentoServiceTest {
         assertFalse(responses.get(0).isAtivo());
         verify(tipoDocumentoRepository).findByAtivo(false);
     }
-    
+
     @Test
     void findByCodigo_whenDocumentoExists_shouldReturnDocumentoResponse() {
         when(tipoDocumentoRepository.findByCodigo("RG")).thenReturn(Optional.of(doc1AtivoObrigatorio));

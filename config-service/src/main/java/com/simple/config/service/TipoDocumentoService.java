@@ -45,7 +45,7 @@ public class TipoDocumentoService {
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
-    
+
     @Transactional(readOnly = true)
     public TipoDocumentoResponse findByCodigo(String codigo) {
         logger.info("Attempting to find TipoDocumento by codigo: {}", codigo);

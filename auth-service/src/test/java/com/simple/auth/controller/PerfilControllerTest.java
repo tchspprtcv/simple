@@ -73,7 +73,7 @@ class PerfilControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
-    
+
     @Test
     void getPerfilById_whenServiceThrowsUnexpectedException_shouldReturnInternalServerError() throws Exception {
         Integer perfilId = 3;

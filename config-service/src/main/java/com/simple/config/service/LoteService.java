@@ -50,7 +50,7 @@ public class LoteService {
         Page<Lote> lotesPage = loteRepository.findAll(pageable);
         return lotesPage.map(this::mapToResponse);
     }
-    
+
     @Transactional(readOnly = true)
     public LoteResponse findByCodigo(String codigo) {
         logger.info("Attempting to find Lote by codigo: {}", codigo);

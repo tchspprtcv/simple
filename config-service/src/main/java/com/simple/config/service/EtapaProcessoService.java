@@ -43,7 +43,7 @@ public class EtapaProcessoService {
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
-    
+
     @Transactional(readOnly = true)
     public List<EtapaProcessoResponse> findByTipoServicoId(Integer tipoServicoId) {
         logger.info("Attempting to find all EtapasProcesso for TipoServico ID: {}", tipoServicoId);

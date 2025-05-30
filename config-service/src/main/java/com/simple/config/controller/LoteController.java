@@ -74,7 +74,7 @@ public class LoteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     @Operation(summary = "Get Lote by Codigo", description = "Retrieve a specific Lote by its Codigo.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lote found",
