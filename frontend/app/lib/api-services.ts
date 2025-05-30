@@ -318,6 +318,8 @@ export const createPedido = async (pedido: PedidoRequest): Promise<PedidoRespons
   try {
     // Get current user to extract user ID for the header
     const currentUser = await getCurrentUser();
+
+    console.log(currentUser);
     
     const response = await apiClient.post<PedidoResponse>('/pedidos', pedido, {
       headers: {
@@ -491,20 +493,11 @@ export const toggleFavorito = async (tipoServicoId: number): Promise<void> => {
 };
 
 /**
- * Lista os itens do dashboard (paginado)
+ * Lista os pedidos do utilizador logado (paginado)
  */
-export const listPedidosDoUsuarioLogado = async (
-  page: number = 0,
-  size: number = 10
-): Promise<PaginatedResponse<PedidoResponse>> => {
-  try {
-    const response = await apiClient.get<PaginatedResponse<PedidoResponse>>(
-      `/pedidos/meus-pedidos?page=${page}&size=${size}`
-    );
-    return response.data;
-  } catch (error) {
-    throw handleApiError(error as AxiosError);
-  }
+export const getPedidosDoUsuario = async (page: number, size: number): Promise<PaginatedResponse<PedidoResponse>> => {
+  const response = await apiClient.get(`/pedidos/meus-pedidos?page=${page}&size=${size}`);
+  return response.data;
 };
   
 export const listDashboardItems = async (

@@ -18,11 +18,11 @@ public class PedidoResponse {
     private String codigoAcompanhamento;
 
     // IDs for entities from other services
-    private UUID tipoServicoId;
+    private Integer tipoServicoId;
     private UUID cidadaoId;
     private UUID usuarioCriacaoId;
     private UUID usuarioResponsavelId;
-    private UUID etapaAtualId; // Assuming EtapaProcesso is external for now
+    private Integer etapaAtualId; // Assuming EtapaProcesso is external for now
 
     // Enriched data (will be populated by service layer, potentially via inter-service calls)
     private String tipoServicoNome; // TODO: Populate from Config Service

@@ -16,14 +16,19 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PedidoRequest {
     @NotNull(message = "Tipo de serviço é obrigatório")
-    private UUID tipoServicoId; // Changed from Integer to UUID
+    private Integer tipoServicoId; // Changed from Integer to UUID
     
     @NotNull(message = "Utente é obrigatório")
     private UUID cidadaoId;
     
     // usuarioCriacaoId will be set based on the authenticated user from JWT/SecurityContext
+    private UUID usuarioCriacaoId;
+    
     // usuarioResponsavelId can be set by specific logic, perhaps admin/internal users
+    private UUID usuarioResponsavelId;
+    
     // statusId will be set internally, usually to an initial status
+    private Integer statusId;
 
     @NotBlank(message = "Origem é obrigatória")
     @Size(max = 50, message = "Origem não pode exceder 50 caracteres")

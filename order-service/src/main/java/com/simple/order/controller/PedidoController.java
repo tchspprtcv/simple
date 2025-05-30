@@ -85,19 +85,19 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.findByCidadaoId(utenteId, pageable));
     }
 
-    // GET /usuario/{usuarioId} (e.g. /meus-pedidos, where usuarioId is extracted from JWT)
-    // (mapped from /api/pedidos/usuario/{usuarioId} or /api/pedidos/meus-pedidos by gateway)
-    @Operation(summary = "Get pedidos by user ID", description = "Retrieve all pedidos assigned to a specific user")
+    // GET /meus-pedidos (mapped from /api/pedidos/meus-pedidos by gateway)
+    @Operation(summary = "Get current user's pedidos", description = "Retrieve all pedidos for the authenticated user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pedidos retrieved successfully",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Page.class)))
     })
-    @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<Page<PedidoResponse>> findByUsuarioId(
-            @Parameter(description = "User ID") @PathVariable UUID usuarioId, // Assuming userId is passed from gateway/auth context
+    @GetMapping("/meus-pedidos")
+    public ResponseEntity<Page<PedidoResponse>> findMyPedidos(
+            @RequestHeader("X-User-ID") UUID usuarioId, // Get user ID from custom header set by gateway
             Pageable pageable
     ) {
+        // This endpoint assumes the gateway extracts the user ID from the token and passes it as a header
         return ResponseEntity.ok(pedidoService.findByUsuarioCriacaoId(usuarioId, pageable));
     }
 

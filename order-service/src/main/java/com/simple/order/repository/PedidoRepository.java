@@ -18,7 +18,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, UUID> {
     
     Page<Pedido> findByStatusId(Integer statusId, Pageable pageable); // Changed from StatusPedido object to statusId
     
-    Page<Pedido> findByTipoServicoId(UUID tipoServicoId, Pageable pageable); // Changed from TipoServico object to tipoServicoId
+    Page<Pedido> findByTipoServicoId(Integer tipoServicoId, Pageable pageable); // Changed from TipoServico object to tipoServicoId
     
     List<Pedido> findTop10ByCidadaoIdOrderByCriadoEmDesc(UUID cidadaoId);
     

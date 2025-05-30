@@ -25,7 +25,7 @@ public class Pedido {
     private String codigoAcompanhamento;
 
     @Column(name = "tipo_servico_id", nullable = false)
-    private UUID tipoServicoId; // Changed from TipoServico entity
+    private Integer tipoServicoId; // Changed from TipoServico entity
 
     @Column(name = "cidadao_id", nullable = false)
     private UUID cidadaoId; // Changed from Cidadao entity
@@ -37,7 +37,7 @@ public class Pedido {
     private UUID usuarioResponsavelId; // Changed from Usuario entity
 
     @Column(name = "etapa_atual_id") // Assuming EtapaProcesso is part of Config service or simplified
-    private UUID etapaAtualId; // Changed from EtapaProcesso entity
+    private Integer etapaAtualId; // Changed from EtapaProcesso entity
 
     @ManyToOne(fetch = FetchType.EAGER) // StatusPedido is local to this service
     @JoinColumn(name = "status_id", nullable = false)

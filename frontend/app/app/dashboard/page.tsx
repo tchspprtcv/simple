@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { listPedidosDoUsuarioLogado, listServicosFavoritos } from "@/lib/api-services"
+import { getPedidosDoUsuario, listServicosFavoritos } from "@/lib/api-services"
 import { PedidoResponse, TipoServico } from "@/lib/types"
 import { useToast } from "@/components/ui/use-toast"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -34,7 +34,7 @@ export default function DashboardPage() {
     const fetchData = async () => {
       try {
         const [pedidosData, favoritesData] = await Promise.all([
-          listPedidosDoUsuarioLogado(),
+          getPedidosDoUsuario(0, 10),
           listServicosFavoritos()
         ])
         
